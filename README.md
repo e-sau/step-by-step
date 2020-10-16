@@ -11,4 +11,4 @@ To start the project locally:
 - Set /laradock .env MySQL to same values as .env;
 - Run ```cd laradock```;
 - ```docker-compose up -d nginx mysql workspace```;
-- Open localhost:3306;
+- Open localhost:80;
