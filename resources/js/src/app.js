@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import store from './store';
 import routes from './routes';
 
+/** @type JSX.Element корень приложения */
 const App = (
     <Provider store={ store }>
         <BrowserRouter>
