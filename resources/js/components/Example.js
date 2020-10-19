@@ -1,21 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from "prop-types";
 
-
-function Imtest( props ) {
-    return <div>{ props.pr }</div>
-}
-
-function Example() {
+export function Example( props ) {
+    const { onClick } = props;
     return (
-        <div className="container">
-            <Imtest pr={"test test"}/>
+        <div className="container" onClick={ onClick }>
+            <h1>Hello world!</h1>
         </div>
     );
 }
 
-export default Example;
-const $node = document.getElementById('main');
-if ( $node ) {
-    ReactDOM.render( <Example />, $node );
-}
+Example.propTypes = {
+    onClick: PropTypes.func
+};
