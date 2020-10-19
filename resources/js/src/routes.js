@@ -5,4 +5,4 @@ export default [
     { path: '/', exact: true, component: ExampleContainer },
     /** добавить новые маршруты здесь */
     { component: PageNotFound } /// этот роут всегда должен быть в конце
-]
+];
