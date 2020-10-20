@@ -14,8 +14,13 @@ class Grade extends Model
         'school_id'
     ];
 
-    public function grade()
+    public function school()
     {
         return $this->belongsTo(School::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'user_grades');
     }
 }

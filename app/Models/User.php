@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function grade()
     {
-        return $this->belongsTo(Grade::class);
+        return $this->belongsToMany(Grade::class, 'user_grades');
     }
 
     public function achievement()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableUsersAddColumnGradeId extends Migration
+class CreateTableUserGrades extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class AlterTableUsersAddColumnGradeId extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('user_grades', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('grade_id');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
             $table->foreign('grade_id')
                 ->references('id')
                 ->on('grades');
@@ -28,9 +33,11 @@ class AlterTableUsersAddColumnGradeId extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('user_grades', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropForeign(['grade_id']);
-            $table->dropColumn('grade_id');
         });
+
+        Schema::dropIfExists('user_grades');
     }
 }
