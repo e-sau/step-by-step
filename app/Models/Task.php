@@ -16,7 +16,7 @@ class Task extends Model
         'solution'
     ];
 
-    public function rules()
+    static public function rules()
     {
         return [
             'title' => 'required|string|max:255',
@@ -26,12 +26,12 @@ class Task extends Model
         ];
     }
 
-    public function messages()
+    static public function messages()
     {
         return [
-            'date.required' => 'Это поле обязательно для заполнения',
-            'date.string'  => 'Это поле должно быть строкой',
-            'date.max'  => 'Это поле должно не может быть больше ',
+            'required' => 'Это поле обязательно для заполнения',
+            'string'  => 'Это поле должно быть строкой',
+            'max'  => 'Это поле должно не может быть больше ',
         ];
     }
 }

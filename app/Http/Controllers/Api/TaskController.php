@@ -29,7 +29,7 @@ class TaskController extends BaseController
     public function store(Request $request)
     {
         $input = $request->all();
-        $validator = Validator::make($input, Task::rules());
+        $validator = Validator::make($input, Task::rules(), Task::messages());
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
@@ -62,7 +62,7 @@ class TaskController extends BaseController
     public function update(Request $request, Task $task)
     {
         $input = $request->all();
-        $validator = Validator::make($input, Task::rules());
+        $validator = Validator::make($input, Task::rules(), Task::messages());
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
