@@ -16,6 +16,22 @@ class Grade extends Model
         'school_id'
     ];
 
+    public static function rules()
+    {
+        return [
+            'title' => 'required|min:2|max:10',
+            'school_id' => 'required|exists:'.School::class.',id'
+        ];
+    }
+
+    public static function attributeNames()
+    {
+        return [
+            'title' => __('entities.grade_title'),
+            'school_id' => __('entities.grade_school_id'),
+        ];
+    }
+
     public function school()
     {
         return $this->belongsTo(School::class);

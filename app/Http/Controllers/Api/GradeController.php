@@ -26,7 +26,9 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        $grade = Grade::create($request->all());
+        $data = $this->validate($request, Grade::rules(), [], Grade::attributeNames());
+
+        $grade = Grade::create($data);
 
         return response()->json($grade, 201);
     }
@@ -51,7 +53,9 @@ class GradeController extends Controller
      */
     public function update(Request $request, Grade $grade)
     {
-        $grade->update($request->all());
+        $data = $this->validate($request, Grade::rules(), [], Grade::attributeNames());
+
+        $grade->update($data);
 
         return response()->json($grade, 200);
     }

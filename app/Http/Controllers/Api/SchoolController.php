@@ -26,7 +26,9 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $school = School::create($request->all());
+        $data = $this->validate($request, School::rules(), [], School::attributeNames());
+
+        $school = School::create($data);
 
         return response()->json($school, 201);
     }
@@ -51,7 +53,9 @@ class SchoolController extends Controller
      */
     public function update(Request $request, School $school)
     {
-        $school->update($request->all());
+        $data = $this->validate($request, School::rules(), [], School::attributeNames());
+
+        $school->update($data);
 
         return response()->json($school, 200);
     }

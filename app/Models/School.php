@@ -15,6 +15,20 @@ class School extends Model
         'title',
     ];
 
+    public static function rules()
+    {
+        return [
+            'title' => 'required|min:5|max:255'
+        ];
+    }
+
+    public static function attributeNames()
+    {
+        return [
+            'title' => __('entities.school_title')
+        ];
+    }
+
     public function grade()
     {
         return $this->hasMany(Grade::class);
