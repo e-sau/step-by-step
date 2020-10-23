@@ -1,3 +1,3 @@
 export function PageNotFound() {
-    return '404';
+    return "404";
 }
