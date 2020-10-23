@@ -1,0 +1,10 @@
+.footer__wrapper {
+  width: 100%;
+  height: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  background-color: #{$main_accent};  
+  border-radius: #{$border-radius_footer};
+  box-shadow: #{$shadow_light};
+  }
