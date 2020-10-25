@@ -24,13 +24,13 @@ class Addition extends Model
         ];
     }
 
-    public function user()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'user_achievements');
     }
 
-    public function task()
+    public function tasks()
     {
-        return $this->belongsToMany(Task::class, 'task_additionals');
+        return $this->belongsToMany(Task::class, 'task_additions');
     }
 }

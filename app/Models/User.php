@@ -41,13 +41,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function grade()
+    public function grades()
     {
         return $this->belongsToMany(Grade::class, 'user_grades');
     }
 
-    public function achievement()
+    public function achievements()
     {
         return $this->belongsToMany(Achievement::class, 'user_achievements');
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'user_tasks');
     }
 }

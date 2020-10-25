@@ -24,20 +24,12 @@ class Grade extends Model
         ];
     }
 
-    public static function attributeNames()
-    {
-        return [
-            'title' => __('entities.grade_title'),
-            'school_id' => __('entities.grade_school_id'),
-        ];
-    }
-
     public function school()
     {
         return $this->belongsTo(School::class);
     }
 
-    public function user()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'user_grades');
     }

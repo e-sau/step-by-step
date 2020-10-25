@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
-use App\Models\School;
+use App\Models\Task;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class SchoolController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +18,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        return response()->json(School::all(), 200);
+        return response()->json(Task::all(), 200);
     }
 
     /**
@@ -31,59 +30,57 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Task::rules());
 
-        $school = School::create($data);
+        $task = Task::create($data);
 
-        return response()->json($school, 201);
+        return response()->json($task, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  School  $school
+     * @param  Task  $task
      * @return JsonResponse
      */
-    public function show(School $school)
+    public function show(Task $task)
     {
-        return response()->json($school, 200);
+        return response()->json($task, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param School $school
+     * @param Task $task
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function update(Request $request, School $school)
+    public function update(Request $request, Task $task)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Task::rules());
 
-        $school->update($data);
+        $task->update($data);
 
-        return response()->json($school, 200);
+        return response()->json($task, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param School $school
+     * @param Task $task
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(School $school)
+    public function destroy(Task $task)
     {
-        foreach ($school->grades as $grade)
-        {
-            $users = $grade->users();
-            $users->detach($users->allRelatedIds()->all());
+        $user_ids = $task->user()->allRelatedIds()->all();
+        $task->user()->detach($user_ids);
 
-            $grade->delete();
-        }
+        $additions_ids = $task->addition()->allRelatedIds()->all();
+        $task->user()->detach($additions_ids);
 
-        $school->delete();
+        $task->delete();
 
         return response()->json(null, 204);
     }

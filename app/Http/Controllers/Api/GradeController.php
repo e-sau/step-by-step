@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {
@@ -21,12 +24,13 @@ class GradeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Grade::rules(), [], Grade::attributeNames());
+        $data = $this->validate($request, Grade::rules());
 
         $grade = Grade::create($data);
 
@@ -37,7 +41,7 @@ class GradeController extends Controller
      * Display the specified resource.
      *
      * @param  Grade  $grade
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function show(Grade $grade)
     {
@@ -47,13 +51,14 @@ class GradeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Grade  $grade
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param Grade $grade
+     * @return JsonResponse
+     * @throws ValidationException
      */
     public function update(Request $request, Grade $grade)
     {
-        $data = $this->validate($request, Grade::rules(), [], Grade::attributeNames());
+        $data = $this->validate($request, Grade::rules());
 
         $grade->update($data);
 
@@ -63,11 +68,15 @@ class GradeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param Grade $grade
+     * @return JsonResponse
+     * @throws Exception
      */
     public function destroy(Grade $grade)
     {
+        $users = $grade->users();
+        $users->detach($users->allRelatedIds()->all());
+
         $grade->delete();
 
         return response()->json(null, 204);

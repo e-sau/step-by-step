@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
-use App\Models\School;
-use Exception;
+use App\Models\Subject;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class SchoolController extends Controller
+class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +17,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        return response()->json(School::all(), 200);
+        return response()->json(Subject::all(), 200);
     }
 
     /**
@@ -31,59 +29,51 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Subject::rules());
 
-        $school = School::create($data);
+        $subject = Subject::create($data);
 
-        return response()->json($school, 201);
+        return response()->json($subject, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  School  $school
+     * @param  Subject $subject
      * @return JsonResponse
      */
-    public function show(School $school)
+    public function show(Subject $subject)
     {
-        return response()->json($school, 200);
+        return response()->json($subject, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param School $school
+     * @param Subject $subject
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function update(Request $request, School $school)
+    public function update(Request $request, Subject $subject)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Subject::rules());
 
-        $school->update($data);
+        $subject->update($data);
 
-        return response()->json($school, 200);
+        return response()->json($subject, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param School $school
+     * @param Subject $subject
      * @return JsonResponse
-     * @throws Exception
+     * @throws \Exception
      */
-    public function destroy(School $school)
+    public function destroy(Subject $subject)
     {
-        foreach ($school->grades as $grade)
-        {
-            $users = $grade->users();
-            $users->detach($users->allRelatedIds()->all());
-
-            $grade->delete();
-        }
-
-        $school->delete();
+        $subject->delete();
 
         return response()->json(null, 204);
     }

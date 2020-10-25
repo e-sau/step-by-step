@@ -22,14 +22,7 @@ class School extends Model
         ];
     }
 
-    public static function attributeNames()
-    {
-        return [
-            'title' => __('entities.school_title')
-        ];
-    }
-
-    public function grade()
+    public function grades()
     {
         return $this->hasMany(Grade::class);
     }

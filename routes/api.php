@@ -18,5 +18,11 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+// without authorize
+Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
+
+
 Route::apiResource('schools', \App\Http\Controllers\Api\SchoolController::class);
 Route::apiResource('grades', \App\Http\Controllers\Api\GradeController::class);
+Route::apiResource('subjects', \App\Http\Controllers\Api\SubjectController::class);
+Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
