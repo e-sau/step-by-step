@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password'
     ];
 
     /**
@@ -40,4 +40,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function grades()
+    {
+        return $this->belongsToMany(Grade::class, 'user_grades');
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements');
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'user_tasks');
+    }
 }
