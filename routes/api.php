@@ -26,3 +26,5 @@ Route::apiResource('schools', \App\Http\Controllers\Api\SchoolController::class)
 Route::apiResource('grades', \App\Http\Controllers\Api\GradeController::class);
 Route::apiResource('subjects', \App\Http\Controllers\Api\SubjectController::class);
 Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
+Route::apiResource('achievements', \App\Http\Controllers\Api\AchievementController::class);
+Route::apiResource('additions', \App\Http\Controllers\Api\AdditionController::class);
