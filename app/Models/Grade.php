@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,5 +33,19 @@ class Grade extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_grades');
+    }
+
+    /**
+     * Delete model with relations
+     *
+     * @param Grade $grade
+     * @throws Exception
+     */
+    public static function deleteWithRelations(Grade $grade)
+    {
+        $users = $grade->users();
+        $users->detach($users->allRelatedIds()->all());
+
+        $grade->delete();
     }
 }

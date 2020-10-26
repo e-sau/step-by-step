@@ -74,10 +74,7 @@ class GradeController extends Controller
      */
     public function destroy(Grade $grade)
     {
-        $users = $grade->users();
-        $users->detach($users->allRelatedIds()->all());
-
-        $grade->delete();
+        Grade::deleteWithRelations($grade);
 
         return response()->json(null, 204);
     }

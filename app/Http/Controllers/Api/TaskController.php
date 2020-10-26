@@ -74,11 +74,13 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        $user_ids = $task->user()->allRelatedIds()->all();
-        $task->user()->detach($user_ids);
+        $users = $task->users();
+        $user_ids = $users->allRelatedIds()->all();
+        $users->detach($user_ids);
 
-        $additions_ids = $task->addition()->allRelatedIds()->all();
-        $task->user()->detach($additions_ids);
+        $additions = $task->additions();
+        $additions_ids = $additions->allRelatedIds()->all();
+        $additions->detach($additions_ids);
 
         $task->delete();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -69,10 +70,16 @@ class SubjectController extends Controller
      *
      * @param Subject $subject
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(Subject $subject)
     {
+        // if the subject has tasks, update tasks first
+        if ($subject->tasks->all())
+        {
+            return response()->json(null, 409);
+        }
+
         $subject->delete();
 
         return response()->json(null, 204);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -62,7 +63,7 @@ class UserController extends Controller
      *
      * @param User $user
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(User  $user)
     {

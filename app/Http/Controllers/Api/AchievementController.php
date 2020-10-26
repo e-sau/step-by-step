@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
-use App\Models\School;
+use App\Models\Achievement;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class SchoolController extends Controller
+class AchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +18,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        return response()->json(School::all(), 200);
+        return response()->json(Achievement::all(), 200);
     }
 
     /**
@@ -31,56 +30,55 @@ class SchoolController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Achievement::rules());
 
-        $school = School::create($data);
+        $achievement = Achievement::create($data);
 
-        return response()->json($school, 201);
+        return response()->json($achievement, 201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  School  $school
+     * @param  Achievement $achievement
      * @return JsonResponse
      */
-    public function show(School $school)
+    public function show(Achievement $achievement)
     {
-        return response()->json($school, 200);
+        return response()->json($achievement, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param School $school
+     * @param Achievement $achievement
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function update(Request $request, School $school)
+    public function update(Request $request, Achievement $achievement)
     {
-        $data = $this->validate($request, School::rules());
+        $data = $this->validate($request, Achievement::rules());
 
-        $school->update($data);
+        $achievement->update($data);
 
-        return response()->json($school, 200);
+        return response()->json($achievement, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param School $school
+     * @param Achievement $achievement
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(School $school)
+    public function destroy(Achievement $achievement)
     {
-        foreach ($school->grades as $grade)
-        {
-            Grade::deleteWithRelations($grade);
-        }
+        $users = $achievement->users();
+        $user_ids = $users->allRelatedIds()->all();
+        $users->detach($user_ids);
 
-        $school->delete();
+        $achievement->delete();
 
         return response()->json(null, 204);
     }
