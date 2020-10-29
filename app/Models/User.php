@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password'
+    ];
+
+    public static $registerRules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|max:50|confirmed',
+    ];
+
+    public static $loginRules = [
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string|min:6|max:50|confirmed',
     ];
 
     /**

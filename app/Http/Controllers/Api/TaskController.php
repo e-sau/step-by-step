@@ -7,6 +7,7 @@ use App\Models\Task;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class TaskController extends Controller
@@ -18,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all(), 200);
+        return response()->json(Task::all(), Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class TaskController extends Controller
 
         $task = Task::create($data);
 
-        return response()->json($task, 201);
+        return response()->json($task, Response::HTTP_CREATED);
     }
 
     /**
@@ -45,7 +46,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return response()->json($task, 200);
+        return response()->json($task, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +63,7 @@ class TaskController extends Controller
 
         $task->update($data);
 
-        return response()->json($task, 200);
+        return response()->json($task, Response::HTTP_OK);
     }
 
     /**
@@ -84,6 +85,6 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

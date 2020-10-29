@@ -7,6 +7,7 @@ use App\Models\Addition;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class AdditionController extends Controller
@@ -18,7 +19,7 @@ class AdditionController extends Controller
      */
     public function index()
     {
-        return response()->json(Addition::all(), 200);
+        return response()->json(Addition::all(), Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class AdditionController extends Controller
 
         $addition = Addition::create($data);
 
-        return response()->json($addition, 201);
+        return response()->json($addition, Response::HTTP_CREATED);
     }
 
     /**
@@ -45,7 +46,7 @@ class AdditionController extends Controller
      */
     public function show(Addition $addition)
     {
-        return response()->json($addition, 200);
+        return response()->json($addition, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +63,7 @@ class AdditionController extends Controller
 
         $addition->update($data);
 
-        return response()->json($addition, 200);
+        return response()->json($addition, Response::HTTP_OK);
     }
 
     /**
@@ -80,6 +81,6 @@ class AdditionController extends Controller
 
         $addition->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

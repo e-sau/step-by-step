@@ -8,6 +8,7 @@ use App\Models\School;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class SchoolController extends Controller
@@ -19,7 +20,7 @@ class SchoolController extends Controller
      */
     public function index()
     {
-        return response()->json(School::all(), 200);
+        return response()->json(School::all(), Response::HTTP_OK);
     }
 
     /**
@@ -35,7 +36,7 @@ class SchoolController extends Controller
 
         $school = School::create($data);
 
-        return response()->json($school, 201);
+        return response()->json($school, Response::HTTP_CREATED);
     }
 
     /**
@@ -46,7 +47,7 @@ class SchoolController extends Controller
      */
     public function show(School $school)
     {
-        return response()->json($school, 200);
+        return response()->json($school, Response::HTTP_OK);
     }
 
     /**
@@ -63,7 +64,7 @@ class SchoolController extends Controller
 
         $school->update($data);
 
-        return response()->json($school, 200);
+        return response()->json($school, Response::HTTP_OK);
     }
 
     /**
@@ -82,6 +83,6 @@ class SchoolController extends Controller
 
         $school->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

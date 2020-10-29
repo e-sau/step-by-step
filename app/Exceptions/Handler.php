@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
@@ -41,7 +42,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
-        // API requests will need the header 'Accept: application/json'
         if ($request->expectsJson())
         {
             if ($e instanceof ValidationException)
@@ -51,7 +51,7 @@ class Handler extends ExceptionHandler
 
             if ($e instanceof ModelNotFoundException)
             {
-                return response()->json(null, 404);
+                return response()->json(null, Response::HTTP_NOT_FOUND);
             }
 
             if ($e instanceof MethodNotAllowedHttpException)

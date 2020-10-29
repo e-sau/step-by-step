@@ -7,6 +7,7 @@ use App\Models\Subject;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class SubjectController extends Controller
@@ -18,7 +19,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        return response()->json(Subject::all(), 200);
+        return response()->json(Subject::all(), Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class SubjectController extends Controller
 
         $subject = Subject::create($data);
 
-        return response()->json($subject, 201);
+        return response()->json($subject, Response::HTTP_CREATED);
     }
 
     /**
@@ -45,7 +46,7 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
-        return response()->json($subject, 200);
+        return response()->json($subject, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +63,7 @@ class SubjectController extends Controller
 
         $subject->update($data);
 
-        return response()->json($subject, 200);
+        return response()->json($subject, Response::HTTP_OK);
     }
 
     /**
@@ -77,11 +78,11 @@ class SubjectController extends Controller
         // if the subject has tasks, update tasks first
         if ($subject->tasks->all())
         {
-            return response()->json(null, 409);
+            return response()->json(null, Response::HTTP_CONFLICT);
         }
 
         $subject->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

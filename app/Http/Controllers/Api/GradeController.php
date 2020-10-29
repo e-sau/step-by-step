@@ -7,6 +7,7 @@ use App\Models\Grade;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class GradeController extends Controller
@@ -18,7 +19,7 @@ class GradeController extends Controller
      */
     public function index()
     {
-        return response()->json(Grade::all(), 200);
+        return response()->json(Grade::all(), Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class GradeController extends Controller
 
         $grade = Grade::create($data);
 
-        return response()->json($grade, 201);
+        return response()->json($grade, Response::HTTP_CREATED);
     }
 
     /**
@@ -45,7 +46,7 @@ class GradeController extends Controller
      */
     public function show(Grade $grade)
     {
-        return response()->json($grade, 200);
+        return response()->json($grade, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +63,7 @@ class GradeController extends Controller
 
         $grade->update($data);
 
-        return response()->json($grade, 200);
+        return response()->json($grade, Response::HTTP_OK);
     }
 
     /**
@@ -76,6 +77,6 @@ class GradeController extends Controller
     {
         Grade::deleteWithRelations($grade);
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

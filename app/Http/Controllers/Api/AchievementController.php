@@ -7,6 +7,7 @@ use App\Models\Achievement;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class AchievementController extends Controller
@@ -18,7 +19,7 @@ class AchievementController extends Controller
      */
     public function index()
     {
-        return response()->json(Achievement::all(), 200);
+        return response()->json(Achievement::all(), Response::HTTP_OK);
     }
 
     /**
@@ -34,7 +35,7 @@ class AchievementController extends Controller
 
         $achievement = Achievement::create($data);
 
-        return response()->json($achievement, 201);
+        return response()->json($achievement, Response::HTTP_CREATED);
     }
 
     /**
@@ -45,7 +46,7 @@ class AchievementController extends Controller
      */
     public function show(Achievement $achievement)
     {
-        return response()->json($achievement, 200);
+        return response()->json($achievement, Response::HTTP_OK);
     }
 
     /**
@@ -62,7 +63,7 @@ class AchievementController extends Controller
 
         $achievement->update($data);
 
-        return response()->json($achievement, 200);
+        return response()->json($achievement, Response::HTTP_OK);
     }
 
     /**
@@ -80,6 +81,6 @@ class AchievementController extends Controller
 
         $achievement->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
