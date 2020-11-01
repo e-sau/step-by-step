@@ -13,13 +13,12 @@ const BASE_HEADERS = {
  *
  * @example makeRequest( getTest ).then( r => console.log( r ) )
  **/
-export function makeRequest( requestObj ) {
+export default function makeRequest( requestObj ) {
     let requestData = requestObj;
 
     if ( typeof requestObj === "function" ) {
         requestData = requestObj();
     }
-
     const { uri, headers = {}, body = {} , method = 'GET' } = requestData;
 
     return axios({
