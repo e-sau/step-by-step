@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -17,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         // stub
-        return response()->json(User::all(), 200);
+        return response()->json(User::all(), Response::HTTP_OK);
     }
 
     /**
@@ -29,7 +31,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // stub
-        return response()->json(null, 201);
+        return response()->json(null, Response::HTTP_CREATED);
     }
 
     /**
@@ -41,7 +43,7 @@ class UserController extends Controller
     public function show(User  $user)
     {
         // stub
-        return response()->json($user, 200);
+        return response()->json($user, Response::HTTP_OK);
     }
 
     /**
@@ -54,7 +56,7 @@ class UserController extends Controller
     public function update(Request $request, User  $user)
     {
         // stub
-        return response()->json(null, 200);
+        return response()->json(null, Response::HTTP_OK);
     }
 
     /**
@@ -62,13 +64,13 @@ class UserController extends Controller
      *
      * @param User $user
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function destroy(User  $user)
     {
         // stub
         $user->delete();
 
-        return response()->json(null, 204);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

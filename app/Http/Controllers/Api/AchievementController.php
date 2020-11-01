@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Models\Achievement;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
-class TaskController extends Controller
+class AchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all(), Response::HTTP_OK);
+        return response()->json(Achievement::all(), Response::HTTP_OK);
     }
 
     /**
@@ -31,59 +31,55 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Task::rules());
+        $data = $this->validate($request, Achievement::rules());
 
-        $task = Task::create($data);
+        $achievement = Achievement::create($data);
 
-        return response()->json($task, Response::HTTP_CREATED);
+        return response()->json($achievement, Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Task  $task
+     * @param  Achievement $achievement
      * @return JsonResponse
      */
-    public function show(Task $task)
+    public function show(Achievement $achievement)
     {
-        return response()->json($task, Response::HTTP_OK);
+        return response()->json($achievement, Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Task $task
+     * @param Achievement $achievement
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Achievement $achievement)
     {
-        $data = $this->validate($request, Task::rules());
+        $data = $this->validate($request, Achievement::rules());
 
-        $task->update($data);
+        $achievement->update($data);
 
-        return response()->json($task, Response::HTTP_OK);
+        return response()->json($achievement, Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Task $task
+     * @param Achievement $achievement
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Task $task)
+    public function destroy(Achievement $achievement)
     {
-        $users = $task->users();
+        $users = $achievement->users();
         $user_ids = $users->allRelatedIds()->all();
         $users->detach($user_ids);
 
-        $additions = $task->additions();
-        $additions_ids = $additions->allRelatedIds()->all();
-        $additions->detach($additions_ids);
-
-        $task->delete();
+        $achievement->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }

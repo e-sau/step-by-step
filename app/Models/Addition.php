@@ -24,11 +24,6 @@ class Addition extends Model
         ];
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'user_achievements');
-    }
-
     public function tasks()
     {
         return $this->belongsToMany(Task::class, 'task_additions');

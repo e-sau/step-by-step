@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Models\Addition;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
-class TaskController extends Controller
+class AdditionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return response()->json(Task::all(), Response::HTTP_OK);
+        return response()->json(Addition::all(), Response::HTTP_OK);
     }
 
     /**
@@ -31,59 +31,55 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Task::rules());
+        $data = $this->validate($request, Addition::rules());
 
-        $task = Task::create($data);
+        $addition = Addition::create($data);
 
-        return response()->json($task, Response::HTTP_CREATED);
+        return response()->json($addition, Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  Task  $task
+     * @param  Addition $addition
      * @return JsonResponse
      */
-    public function show(Task $task)
+    public function show(Addition $addition)
     {
-        return response()->json($task, Response::HTTP_OK);
+        return response()->json($addition, Response::HTTP_OK);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Task $task
+     * @param Addition $addition
      * @return JsonResponse
      * @throws ValidationException
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Addition $addition)
     {
-        $data = $this->validate($request, Task::rules());
+        $data = $this->validate($request, Addition::rules());
 
-        $task->update($data);
+        $addition->update($data);
 
-        return response()->json($task, Response::HTTP_OK);
+        return response()->json($addition, Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Task $task
+     * @param Addition $addition
      * @return JsonResponse
      * @throws Exception
      */
-    public function destroy(Task $task)
+    public function destroy(Addition $addition)
     {
-        $users = $task->users();
-        $user_ids = $users->allRelatedIds()->all();
-        $users->detach($user_ids);
+        $tasks = $addition->tasks();
+        $tasks_ids = $tasks->allRelatedIds()->all();
+        $tasks->detach($tasks_ids);
 
-        $additions = $task->additions();
-        $additions_ids = $additions->allRelatedIds()->all();
-        $additions->detach($additions_ids);
-
-        $task->delete();
+        $addition->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
