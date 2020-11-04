@@ -9,18 +9,24 @@ class Addition extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'title',
         'link'
     ];
 
-    public static function rules()
+    public static function createRules()
     {
         return [
             'title' => 'required|min:5|max:255',
             'link' => 'required|min:5|max:255'
+        ];
+    }
+
+    public static function updateRules()
+    {
+        return [
+            'title' => 'min:5|max:255',
+            'link' => 'min:5|max:255'
         ];
     }
 

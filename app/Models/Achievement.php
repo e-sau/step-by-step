@@ -9,8 +9,6 @@ class Achievement extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'title',
         'description',
@@ -18,12 +16,22 @@ class Achievement extends Model
         'image'
     ];
 
-    public static function rules()
+    public static function createRules()
     {
         return [
             'title' => 'required|min:5|max:255',
             'description' => 'required|min:5|max:255',
             'code' => 'required|min:1|max:255',
+            'image' => 'min:1|max:255'
+        ];
+    }
+
+    public static function updateRules()
+    {
+        return [
+            'title' => 'min:5|max:255',
+            'description' => 'min:5|max:255',
+            'code' => 'min:1|max:255',
             'image' => 'min:1|max:255'
         ];
     }

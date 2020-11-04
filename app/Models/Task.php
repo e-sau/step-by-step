@@ -9,20 +9,29 @@ class Task extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'title', 'description', 'difficult', 'solution', 'subject_id'
     ];
 
-    public static function rules()
+    public static function createRules()
     {
         return [
             'title' => 'required|min:5|max:255',
             'description' => 'required|min:5|max:255',
-            'difficult' => 'required|digits_between:0,3',
+            'difficult' => 'required|integer',
             'solution' => 'required|min:10',
             'subject_id' => 'required|exists:'.Subject::class.',id'
+        ];
+    }
+
+    public static function updateRules()
+    {
+        return [
+            'title' => 'min:5|max:255',
+            'description' => 'min:5|max:255',
+            'difficult' => 'integer',
+            'solution' => 'min:10',
+            'subject_id' => 'exists:'.Subject::class.',id'
         ];
     }
 

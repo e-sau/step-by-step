@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,7 +18,10 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), User::$registerRules);
 
         if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response([
+                'message' => 'The given data was invalid.',
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $request['password'] = Hash::make($request['password']);
@@ -25,6 +29,12 @@ class AuthController extends Controller
 
         $user = User::create($request->all());
         $token = $user->createToken(config('app.name'))->accessToken;
+
+        $roleId = Role::where('name', 'student')->get(['id']);
+        if ($roleId)
+        {
+            $user->roles()->attach($roleId);
+        }
 
         return response(['token' => $token], Response::HTTP_OK);
     }
@@ -34,7 +44,10 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), User::$loginRules);
 
         if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all()], Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response([
+                'message' => 'The given data was invalid.',
+                'errors' => $validator->errors()
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -43,7 +56,10 @@ class AuthController extends Controller
                 $token = $user->createToken(config('app.name'))->accessToken;
                 return response(['token' => $token], Response::HTTP_OK);
             } else {
-                return response(['errors' => ['Wrong password']], Response::HTTP_UNPROCESSABLE_ENTITY);
+                return response([
+                    'message' => 'The given data was invalid.',
+                    'errors' => ['password' => ['Wrong password']]
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         } else {
             return response(null, Response::HTTP_UNPROCESSABLE_ENTITY);

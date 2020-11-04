@@ -20,18 +20,20 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
+        'remember_token'
     ];
 
     public static $registerRules = [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|max:50|confirmed',
+        'remember_token' => 'string|size:10|nullable'
     ];
 
     public static $loginRules = [
         'email' => 'required|string|email|max:255',
-        'password' => 'required|string|min:6|max:50|confirmed',
+        'password' => 'required|string|min:6|max:50',
     ];
 
     /**
@@ -66,5 +68,15 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->belongsToMany(Task::class, 'user_tasks');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->where('name', 'admin')->first();
     }
 }

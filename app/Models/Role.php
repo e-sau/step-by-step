@@ -5,23 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class School extends Model
+class Role extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
     ];
 
     public static function rules()
     {
         return [
-            'title' => 'required|min:5|max:255'
+            'name' => 'required|min:3|max:255'
         ];
     }
 
-    public function grades()
+    public function users()
     {
-        return $this->hasMany(Grade::class);
+        return $this->belongsToMany(User::class, 'user_roles');
     }
 }

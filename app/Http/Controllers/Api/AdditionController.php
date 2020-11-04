@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Addition;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,9 +17,12 @@ class AdditionController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize('viewAny', Addition::class);
+
         return response()->json(Addition::all(), Response::HTTP_OK);
     }
 
@@ -28,10 +32,13 @@ class AdditionController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Addition::rules());
+        $this->authorize('create', Addition::class);
+
+        $data = $this->validate($request, Addition::createRules());
 
         $addition = Addition::create($data);
 
@@ -43,9 +50,12 @@ class AdditionController extends Controller
      *
      * @param  Addition $addition
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show(Addition $addition)
     {
+        $this->authorize('view', $addition);
+
         return response()->json($addition, Response::HTTP_OK);
     }
 
@@ -56,10 +66,13 @@ class AdditionController extends Controller
      * @param Addition $addition
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function update(Request $request, Addition $addition)
     {
-        $data = $this->validate($request, Addition::rules());
+        $this->authorize('update', $addition);
+
+        $data = $this->validate($request, Addition::updateRules());
 
         $addition->update($data);
 
@@ -72,9 +85,12 @@ class AdditionController extends Controller
      * @param Addition $addition
      * @return JsonResponse
      * @throws Exception
+     * @throws AuthorizationException
      */
     public function destroy(Addition $addition)
     {
+        $this->authorize('delete', $addition);
+
         $tasks = $addition->tasks();
         $tasks_ids = $tasks->allRelatedIds()->all();
         $tasks->detach($tasks_ids);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,9 +17,12 @@ class GradeController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize('viewAny', Grade::class);
+
         return response()->json(Grade::all(), Response::HTTP_OK);
     }
 
@@ -28,10 +32,13 @@ class GradeController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Grade::rules());
+        $this->authorize('create', Grade::class);
+
+        $data = $this->validate($request, Grade::createRules());
 
         $grade = Grade::create($data);
 
@@ -43,9 +50,12 @@ class GradeController extends Controller
      *
      * @param  Grade  $grade
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show(Grade $grade)
     {
+        $this->authorize('view', $grade);
+
         return response()->json($grade, Response::HTTP_OK);
     }
 
@@ -56,10 +66,13 @@ class GradeController extends Controller
      * @param Grade $grade
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function update(Request $request, Grade $grade)
     {
-        $data = $this->validate($request, Grade::rules());
+        $this->authorize('update', $grade);
+
+        $data = $this->validate($request, Grade::updateRules());
 
         $grade->update($data);
 
@@ -72,9 +85,12 @@ class GradeController extends Controller
      * @param Grade $grade
      * @return JsonResponse
      * @throws Exception
+     * @throws AuthorizationException
      */
     public function destroy(Grade $grade)
     {
+        $this->authorize('delete', $grade);
+
         Grade::deleteWithRelations($grade);
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
