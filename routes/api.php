@@ -19,20 +19,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function() {
-    Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout.api');
+    Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout');
 
-    Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
+    Route::group(['middleware' => ['cors', 'json.response']], function () {
+        Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
+        Route::apiResource('roles', \App\Http\Controllers\Api\RoleController::class);
+        Route::apiResource('schools', \App\Http\Controllers\Api\SchoolController::class);
+        Route::apiResource('grades', \App\Http\Controllers\Api\GradeController::class);
+        Route::apiResource('subjects', \App\Http\Controllers\Api\SubjectController::class);
+        Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
+        Route::apiResource('achievements', \App\Http\Controllers\Api\AchievementController::class);
+        Route::apiResource('additions', \App\Http\Controllers\Api\AdditionController::class);
+    });
 });
 
 Route::group(['middleware' => ['cors', 'json.response']], function () {
-    Route::post('/login', \App\Http\Controllers\Api\Auth\AuthController::class.'@login')->name('login.api');
-    Route::post('/register', \App\Http\Controllers\Api\Auth\AuthController::class.'@register')->name('register.api');
-
-    // temp
-    Route::apiResource('schools', \App\Http\Controllers\Api\SchoolController::class);
-    Route::apiResource('grades', \App\Http\Controllers\Api\GradeController::class);
-    Route::apiResource('subjects', \App\Http\Controllers\Api\SubjectController::class);
-    Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
-    Route::apiResource('achievements', \App\Http\Controllers\Api\AchievementController::class);
-    Route::apiResource('additions', \App\Http\Controllers\Api\AdditionController::class);
+    Route::post('/login', \App\Http\Controllers\Api\Auth\AuthController::class.'@login')->name('login');
+    Route::post('/register', \App\Http\Controllers\Api\Auth\AuthController::class.'@register')->name('register');
 });
+
+Route::get('{path}', function () {
+    return response()->json(null, \Illuminate\Http\Response::HTTP_NOT_FOUND);
+})->where('path', '(.*)');
