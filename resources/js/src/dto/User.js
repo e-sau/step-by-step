@@ -1,29 +1,30 @@
 import { DTO } from "./DTO";
 import { EMAIL_REGEXP } from "../common/regexp";
-import { required, match, length, compare } from "../common/validators";
+import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
 
 /**
  * Класс отражающий сущьность пользователя
  * @extends DTO
  **/
 export class User extends DTO {
-    username;
+    name;
     password;
     rePassword;
     email;
-    name;
-    surname;
-    patronymic;
-    bio;
 
     getRePassword = () => this.rePassword
 
     _rules = [
-        [ "username", [ required, length( 3 ) ] ],
-        [ "password", [ required, length( 3 ) ] ],
-        [ "rePassword", [ required, compare( 'rePassword' ) ] ],
-        [ "email", [ required, match( EMAIL_REGEXP ) ] ],
+        [ "name", [ required, getLengthValidator( 4 ) ] ],
+        [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
+        [ "rePassword", [ getCompareValidator( 'password') ] ],
+        [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
     ];
+
+    _errorTranslates = {
+        "The email has already been taken.": "Адресс электронной почты уже используется",
+        "Wrong password": "Неверный email или пароль",
+    }
 
     /**
      * @return { Object }
@@ -36,9 +37,6 @@ export class User extends DTO {
             rePassword: "Повтор пароля",
             email: "E-mail",
             name: "Имя",
-            surname: "Фамилия",
-            patronymic: "Отчество",
-            bio: "О себе",
         };
     }
 
@@ -48,14 +46,11 @@ export class User extends DTO {
      **/
     getData() {
         return {
-            username: this.username,
-            password: this.password,
-            rePassword: this.rePassword,
-            email: this.email,
             name: this.name,
-            surname: this.surname,
-            patronymic: this.patronymic,
-            bio: this.bio,
+            password: this.password,
+            password_confirmation: this.rePassword,
+            email: this.email,
         }
     }
+
 }

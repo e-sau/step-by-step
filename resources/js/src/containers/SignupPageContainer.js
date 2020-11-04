@@ -23,8 +23,9 @@ function PageWrapper( props ) {
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { signupFormData, isAuthorized } } = state;
+    const { auth: { signupFormData, isAuthorized, errors } } = state;
     return {
+        errors,
         user: signupFormData,
         isAuthorized,
     };

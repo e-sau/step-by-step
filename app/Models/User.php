@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public static $loginRules = [
         'email' => 'required|string|email|max:255',
-        'password' => 'required|string|min:6|max:50|confirmed',
+        'password' => 'required|string|min:6|max:50',
     ];
 
     /**

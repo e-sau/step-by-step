@@ -40,19 +40,6 @@ export const FormRightSide = styled("div")`
      padding: 30px 10px;
 `;
 
-export const Form = styled("form")`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-
-    & .MuiTextField-root {
-        width: 80%;
-        margin: 8px;
-    }
-`;
-
 export const ControlsContainer = styled("div")`
     margin: 0px auto;
     display: grid;

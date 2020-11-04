@@ -3,7 +3,7 @@ import { put, select, call } from "redux-saga/effects";
 import { getSignupFormData } from "./selectors";
 import { login, signup } from "../../common/api/UserAPI";
 import makeRequest from "../../common/api/makeRequest";
-import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR } from "./types";
+import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, BACKEND_VALIDATION_ERROR } from "./types";
 
 /**
  * Обработчик потока сохранения пользователя, в случае успеха - инициирует действие успешной регистрации
@@ -19,11 +19,15 @@ export function* submitWorker() {
         if ( !user || !user.validate() ) {
             throw new Error("Validation error");
         }
-        const token = yield call( makeRequest, signup( user ) );
-        yield put({ type: SIGNUP_SUCCESS, payload: token });
+        const { status, data } = yield call( makeRequest, signup( user ) );
+
+        if ( status === 422 ) {
+            yield put({ type: BACKEND_VALIDATION_ERROR, payload: data.errors });
+        } else if( status === 200 ) {
+            yield put({ type: SIGNUP_SUCCESS, payload: data.token });
+        }
     } catch ( ex ) {
-        console.error( ex );
-        yield put({ type: SIGNUP_ERROR, payload: ex });
+        yield put({ type: SIGNUP_ERROR });
     }
 }
 
@@ -33,20 +37,20 @@ export function* submitWorker() {
  **/
 export function* loginWorker() {
     const user = yield select( getSignupFormData );
+    ["email", "password"].forEach( item =>
+        user.validateAttribute( item, user.findValidators( item ))
+    );
 
-    try {
+    if ( !user.getErrors().length ) {
+        const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
-        ["username", "password"].forEach( item => {
-            return user.validateAttribute( item, user.findValidators( item ));
-        });
-
-        if ( user.getErrors().length ) {
-            throw new Error("Validation error");
+        if ( status !== 200 ) {
+            const errors = data.errors || [ "Wrong password" ];
+            yield put({ type: BACKEND_VALIDATION_ERROR, payload: errors });
+        } else {
+            yield put({ type: LOGIN_SUCCESS, payload: data.token });
         }
-        const token = yield call( makeRequest, login( user.username, user.password ) );
-        yield put({ type: LOGIN_SUCCESS, payload: token });
-    } catch ( ex ) {
-        console.error( ex );
-        yield put({ type: LOGIN_ERROR, payload: ex });
+    } else {
+        yield put({ type: LOGIN_ERROR });
     }
 }
