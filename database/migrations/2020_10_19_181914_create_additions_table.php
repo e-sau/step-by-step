@@ -17,6 +17,7 @@ class CreateAdditionsTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('title');
             $table->string('link');
+            $table->timestamps();
         });
     }
 

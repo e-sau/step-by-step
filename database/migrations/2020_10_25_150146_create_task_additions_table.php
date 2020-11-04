@@ -19,10 +19,12 @@ class CreateTaskAdditionsTable extends Migration
 
             $table->foreign('task_id')
                 ->references('id')
-                ->on('tasks');
+                ->on('tasks')
+                ->onDelete('cascade');
             $table->foreign('addition_id')
                 ->references('id')
-                ->on('additions');
+                ->on('additions')
+                ->onDelete('cascade');
         });
     }
 

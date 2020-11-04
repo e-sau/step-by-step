@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserTasksTable extends Migration
+class CreateUserRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,17 @@ class CreateUserTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_tasks', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('task_id');
-            $table->boolean('isCompleted')->nullable();
-            $table->timestamps();
+            $table->unsignedBigInteger('role_id');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->foreign('task_id')
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('tasks')
+                ->on('roles')
                 ->onDelete('cascade');
         });
     }
@@ -37,11 +35,11 @@ class CreateUserTasksTable extends Migration
      */
     public function down()
     {
-        Schema::table('user_tasks', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropForeign(['task_id']);
-        });
+//        Schema::table('user_roles', function (Blueprint $table) {
+//            $table->dropForeign(['user_id']);
+//            $table->dropForeign(['role_id']);
+//        });
 
-        Schema::dropIfExists('user_tasks');
+        Schema::dropIfExists('user_roles');
     }
 }

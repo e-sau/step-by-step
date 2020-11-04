@@ -16,6 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('title');
+            $table->timestamps();
         });
     }
 

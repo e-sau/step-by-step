@@ -17,7 +17,8 @@ class AlterTableGradesAddColumnSchoolId extends Migration
            $table->unsignedBigInteger('school_id');
            $table->foreign('school_id')
                ->references('id')
-               ->on('schools');
+               ->on('schools')
+               ->onDelete('cascade');
         });
     }
 
