@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,18 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password'
+    ];
+
+    public static $registerRules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|min:6|max:50|confirmed',
+    ];
+
+    public static $loginRules = [
+        'email' => 'required|string|email|max:255',
+        'password' => 'required|string|min:6|max:50|confirmed',
     ];
 
     /**
@@ -40,4 +52,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function grades()
+    {
+        return $this->belongsToMany(Grade::class, 'user_grades');
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements');
+    }
+
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'user_tasks');
+    }
 }
