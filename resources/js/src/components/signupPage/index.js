@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styled.sc";
 import { SignupForm } from "./form";
-import { User } from "../../dto/User";
+import { User } from "../../models/User";
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
@@ -12,7 +12,8 @@ import { User } from "../../dto/User";
  * @return { JSX.Element }
  **/
 export function SignupPage( props ) {
-    const { user, onChange, onSubmit } = props;
+    const { user, onChange, onSubmit, errors } = props;
+
     return (
         <PageContainer>
             <FormContainer>
@@ -28,7 +29,12 @@ export function SignupPage( props ) {
                     </HelperLinks>
                 </FormLeftSide>
                 <FormRightSide>
-                    <SignupForm dto={ user } onChange={ onChange } onSubmit={ onSubmit } />
+                    <SignupForm
+                        user={ user }
+                        errors={ errors }
+                        onChange={ onChange }
+                        onSubmit={ onSubmit }
+                    />
                 </FormRightSide>
             </FormContainer>
         </PageContainer>

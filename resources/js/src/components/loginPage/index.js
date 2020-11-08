@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { User } from "../../dto/User";
+import { Model } from "../../models/Model";
 import { Link } from "react-router-dom";
 import { PageContainer, ControlsContainer } from "./styled.sc";
-import { Button, TextField, Typography } from "@material-ui/core";
-import { Form } from "../signupPage/styled.sc";
+import { Button, Typography } from "@material-ui/core";
+import { Form } from "../form";
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
@@ -12,38 +12,23 @@ import { Form } from "../signupPage/styled.sc";
  * @return { JSX.Element }
  **/
 export function LoginPage( props ) {
-    const { user, onChange, onLogin } = props;
-    const errors = user.getErrors();
+    const { user, onChange, onLogin, errors } = props;
 
-    function handleChange( event ) {
-        const { target: { name, value } } = event;
-        onChange( name, value );
-    }
-
-    console.log({ errors });
+    const fieldsList = [
+        { attribute: "email", required: true, type: "email", placeholder: "example@mai.com" },
+        { attribute: "password", required: true, type: "password"  },
+    ];
 
     return (
         <PageContainer>
             <Typography variant="h5" align="center">Авторизация</Typography>
 
-                <Form autoComplete="off">
-                    <TextField
-                        value={ user.username || "" }
-                        name={ "username" }
-                        autoComplete="false"
-                        onChange={ handleChange }
-                        label={ user.getLabel( "username" ) }
-                        error={ errors.includes( "username" ) }
-                    />
-                    <TextField
-                        value={ user.password || "" }
-                        name={ "password" }
-                        autoComplete="false"
-                        onChange={ handleChange }
-                        label={ user.getLabel( "password" ) }
-                        error={ errors.includes( "password" ) }
-                    />
-                </Form>
+            <Form
+                dto={ user }
+                onChange={ onChange }
+                fieldsList={ fieldsList }
+                errors={ errors }
+            />
 
             <ControlsContainer>
                 <Button variant="contained" color="primary" onClick={ onLogin }>Войти</Button>
@@ -57,7 +42,7 @@ export function LoginPage( props ) {
 }
 
 LoginPage.propTypes = {
-    user: PropTypes.instanceOf( User ),
+    user: PropTypes.instanceOf( Model ),
     onChange: PropTypes.func.isRequired,
     onLogin: PropTypes.func.isRequired,
 }

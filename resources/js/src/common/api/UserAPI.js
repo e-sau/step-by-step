@@ -1,15 +1,15 @@
-import { DTO } from "../../dto/DTO";
+import { Model } from "../../models/Model";
 /**
  * Чистая функция, гет запроса, передавать ее вызов в makeRequest
- * @param { DTO } user
+ * @param { Model } user
  * @return { Object<{ uri: String }> }
  **/
 export function signup( user ) {
-    if ( !( user instanceof DTO ) ) {
+    if ( !( user instanceof Model ) ) {
         throw new Error("Invalid argument error");
     }
     return {
-        uri: "auth/register",
+        uri: "register",
         method: "POST",
         body: user.getData()
     };
@@ -17,18 +17,18 @@ export function signup( user ) {
 
 /**
  * Чистая функция, POST запроса, передавать ее вызов в makeRequest
- * @param { String } username
+ * @param { String } email
  * @param { String } password
  * @return { Object<{ uri: String }> }
  **/
-export function login( username, password ) {
-    if ( !username || !password ) {
+export function login( email, password ) {
+    if ( !email || !password ) {
         throw new Error("Missing argument error");
     }
 
     return {
-        uri: "auth/login",
+        uri: "login",
         method: 'POST',
-        body: { username, password }
+        body: { email, password }
     };
 }
