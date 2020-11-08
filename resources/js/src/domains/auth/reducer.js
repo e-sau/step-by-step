@@ -5,7 +5,8 @@ import { update as updateObject } from "../../common/helpers/objectHelpers";
 const authInitialState = {
     isAuthorized: false,
     authToken: null,
-    signupFormData: new User()
+    signupFormData: new User(),
+    errors: [],
 }
 
 /**
@@ -20,13 +21,19 @@ export default function( state = authInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
+        case ACTION.SUBMIT: {
+            return {
+                ...state,
+                errors: authInitialState.errors,
+            };
+        }
         case ACTION.CHANGE_SIGNUP_DATA: {
             const { key, value } = payload;
             const { signupFormData } = state;
 
             const newPropertyValue = [
                 [ key, value ],
-                [ "_errors", signupFormData._errors.filter( attr => attr !== key ) ],
+                [ "_errors", signupFormData._errors.filter( ([ attr ]) => attr !== key ) ],
             ];
 
             return { ...state, signupFormData: updateObject( signupFormData, newPropertyValue ) };
@@ -43,6 +50,7 @@ export default function( state = authInitialState, action ) {
             return {
                 ...state,
                 signupFormData: updateObject( state.signupFormData ),
+                errors: payload
             };
         }
         case ACTION.LOGIN_SUCCESS: {
@@ -57,6 +65,13 @@ export default function( state = authInitialState, action ) {
             return {
                 ...state,
                 signupFormData: updateObject( state.signupFormData )
+            };
+        }
+        case ACTION.BACKEND_VALIDATION_ERROR: {
+            return {
+                ...state,
+                errors: payload,
+                signupFormData: updateObject( state.signupFormData ),
             };
         }
         default: {

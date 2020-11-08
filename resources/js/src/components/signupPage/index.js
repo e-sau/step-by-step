@@ -12,7 +12,8 @@ import { User } from "../../dto/User";
  * @return { JSX.Element }
  **/
 export function SignupPage( props ) {
-    const { user, onChange, onSubmit } = props;
+    const { user, onChange, onSubmit, errors } = props;
+
     return (
         <PageContainer>
             <FormContainer>
@@ -28,7 +29,12 @@ export function SignupPage( props ) {
                     </HelperLinks>
                 </FormLeftSide>
                 <FormRightSide>
-                    <SignupForm dto={ user } onChange={ onChange } onSubmit={ onSubmit } />
+                    <SignupForm
+                        dto={ user }
+                        errors={ errors }
+                        onChange={ onChange }
+                        onSubmit={ onSubmit }
+                    />
                 </FormRightSide>
             </FormContainer>
         </PageContainer>
