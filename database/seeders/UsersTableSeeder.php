@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -22,20 +23,31 @@ class UsersTableSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        $password = Hash::make('faker');
+        $password = Hash::make('123456');
 
-        User::create([
+        /* Admin */
+        $admin = User::create([
            'name' => $faker->name,
            'email' => $faker->email,
            'password' => $password
         ]);
 
-        for ($i = 0; $i < 10; $i++) {
-            User::create([
+        $admin->createToken(config('app.name'))->accessToken;
+        $adminRoleId = Role::where('name', 'admin')->get(['id']);
+        $admin->roles()->attach($adminRoleId);
+
+        /* Other */
+        $studentRoleId = Role::where('name', 'student')->get(['id']);
+        $teacherRoleId = Role::where('name', 'teacher')->get(['id']);
+
+        for ($i = 0; $i < 9; $i++) {
+            $user = User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'password' => $password,
+                'password' => $password
             ]);
+            $user->createToken(config('app.name'))->accessToken;
+            $user->roles()->attach($faker->randomElement([$teacherRoleId, $studentRoleId]));
         }
     }
 }

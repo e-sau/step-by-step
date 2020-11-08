@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,9 +17,12 @@ class AchievementController extends Controller
      * Display a listing of the resource.
      *
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize('viewAny', Achievement::class);
+
         return response()->json(Achievement::all(), Response::HTTP_OK);
     }
 
@@ -28,10 +32,13 @@ class AchievementController extends Controller
      * @param Request $request
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function store(Request $request)
     {
-        $data = $this->validate($request, Achievement::rules());
+        $this->authorize('create', Achievement::class);
+
+        $data = $this->validate($request, Achievement::createRules());
 
         $achievement = Achievement::create($data);
 
@@ -43,9 +50,12 @@ class AchievementController extends Controller
      *
      * @param  Achievement $achievement
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show(Achievement $achievement)
     {
+        $this->authorize('view', $achievement);
+
         return response()->json($achievement, Response::HTTP_OK);
     }
 
@@ -56,10 +66,13 @@ class AchievementController extends Controller
      * @param Achievement $achievement
      * @return JsonResponse
      * @throws ValidationException
+     * @throws AuthorizationException
      */
     public function update(Request $request, Achievement $achievement)
     {
-        $data = $this->validate($request, Achievement::rules());
+        $this->authorize('update', $achievement);
+
+        $data = $this->validate($request, Achievement::updateRules());
 
         $achievement->update($data);
 
@@ -72,9 +85,12 @@ class AchievementController extends Controller
      * @param Achievement $achievement
      * @return JsonResponse
      * @throws Exception
+     * @throws AuthorizationException
      */
     public function destroy(Achievement $achievement)
     {
+        $this->authorize('delete', $achievement);
+
         $users = $achievement->users();
         $user_ids = $users->allRelatedIds()->all();
         $users->detach($user_ids);

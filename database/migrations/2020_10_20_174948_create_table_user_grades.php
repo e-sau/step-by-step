@@ -19,10 +19,12 @@ class CreateTableUserGrades extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('grade_id')
                 ->references('id')
-                ->on('grades');
+                ->on('grades')
+                ->onDelete('cascade');
         });
     }
 

@@ -20,10 +20,12 @@ class CreateTasksTable extends Migration
             $table->integer('difficult');
             $table->text('solution');
             $table->unsignedBigInteger('subject_id');
+            $table->timestamps();
 
             $table->foreign('subject_id')
                 ->references('id')
-                ->on('subjects');
+                ->on('subjects')
+                ->onDelete('cascade');
         });
     }
 

@@ -10,18 +10,24 @@ class Grade extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         'title',
         'school_id'
     ];
 
-    public static function rules()
+    public static function createRules()
     {
         return [
             'title' => 'required|min:2|max:10',
             'school_id' => 'required|exists:'.School::class.',id'
+        ];
+    }
+
+    public static function updateRules()
+    {
+        return [
+            'title' => 'min:2|max:10',
+            'school_id' => 'exists:'.School::class.',id'
         ];
     }
 

@@ -20,10 +20,12 @@ class CreateTableUserAchievements extends Migration
 
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('achievement_id')
                 ->references('id')
-                ->on('achievements');
+                ->on('achievements')
+                ->onDelete('cascade');
         });
     }
 

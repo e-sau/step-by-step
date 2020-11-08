@@ -19,6 +19,8 @@ class SubjectController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Subject::class);
+
         return response()->json(Subject::all(), Response::HTTP_OK);
     }
 
@@ -31,6 +33,8 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Subject::class);
+
         $data = $this->validate($request, Subject::rules());
 
         $subject = Subject::create($data);
@@ -46,6 +50,8 @@ class SubjectController extends Controller
      */
     public function show(Subject $subject)
     {
+        $this->authorize('view', $subject);
+
         return response()->json($subject, Response::HTTP_OK);
     }
 
@@ -59,6 +65,8 @@ class SubjectController extends Controller
      */
     public function update(Request $request, Subject $subject)
     {
+        $this->authorize('update', $subject);
+
         $data = $this->validate($request, Subject::rules());
 
         $subject->update($data);
@@ -75,6 +83,8 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
+        $this->authorize('delete', $subject);
+
         // if the subject has tasks, update tasks first
         if ($subject->tasks->all())
         {

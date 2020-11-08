@@ -18,3 +18,15 @@ To start the project locally:
 - Run ```cd laradock```;
 - ```docker-compose up -d nginx mysql workspace```;
 - Open localhost.
+
+***
+***
+To start use Passport run:   
+```php artisan passport:install```
+
+***
+Refresh DB (execute all migrations and seed the data):  
+```php artisan migrate:refresh --seed```
+
+If you catch error then run:  
+```php artisan migrate:fresh --seed```
