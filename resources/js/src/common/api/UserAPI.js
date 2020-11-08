@@ -1,11 +1,11 @@
-import { DTO } from "../../dto/DTO";
+import { Model } from "../../models/Model";
 /**
  * Чистая функция, гет запроса, передавать ее вызов в makeRequest
- * @param { DTO } user
+ * @param { Model } user
  * @return { Object<{ uri: String }> }
  **/
 export function signup( user ) {
-    if ( !( user instanceof DTO ) ) {
+    if ( !( user instanceof Model ) ) {
         throw new Error("Invalid argument error");
     }
     return {

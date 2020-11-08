@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styled.sc";
 import { SignupForm } from "./form";
-import { User } from "../../dto/User";
+import { User } from "../../models/User";
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
@@ -30,7 +30,7 @@ export function SignupPage( props ) {
                 </FormLeftSide>
                 <FormRightSide>
                     <SignupForm
-                        dto={ user }
+                        user={ user }
                         errors={ errors }
                         onChange={ onChange }
                         onSubmit={ onSubmit }

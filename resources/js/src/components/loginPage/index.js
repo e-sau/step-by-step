@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { User } from "../../dto/User";
+import { Model } from "../../models/Model";
 import { Link } from "react-router-dom";
 import { PageContainer, ControlsContainer } from "./styled.sc";
 import { Button, Typography } from "@material-ui/core";
@@ -42,7 +42,7 @@ export function LoginPage( props ) {
 }
 
 LoginPage.propTypes = {
-    user: PropTypes.instanceOf( User ),
+    user: PropTypes.instanceOf( Model ),
     onChange: PropTypes.func.isRequired,
     onLogin: PropTypes.func.isRequired,
 }

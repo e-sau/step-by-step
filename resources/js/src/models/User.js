@@ -1,12 +1,15 @@
-import { DTO } from "./DTO";
+import { Model } from "./Model";
 import { EMAIL_REGEXP } from "../common/regexp";
 import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
 
 /**
  * Класс отражающий сущьность пользователя
- * @extends DTO
+ * @extends Model
  **/
-export class User extends DTO {
+export class User extends Model {
+    static LOGIN_SCENARIO = "login";
+    static SIGNUP_SCENARIO = "signup";
+
     name;
     password;
     rePassword;
@@ -14,16 +17,22 @@ export class User extends DTO {
 
     getRePassword = () => this.rePassword
 
-    _rules = [
-        [ "name", [ required, getLengthValidator( 4 ) ] ],
-        [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
-        [ "rePassword", [ getCompareValidator( 'password') ] ],
-        [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
-    ];
+    _rules = {
+        signup: [
+            [ "name", [ required, getLengthValidator( 4 ) ] ],
+            [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
+            [ "rePassword", [ getCompareValidator( 'password') ] ],
+            [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
+        ],
+        login: [
+            [ "email", [ required, getMatchValidator( EMAIL_REGEXP ) ] ],
+            [ "password", [ required, getLengthValidator( 6, 60 )] ],
+        ],
+    };
 
     _errorTranslates = {
         "The email has already been taken.": "Адресс электронной почты уже используется",
-        "Wrong password": "Неверный email или пароль",
+        "Wrong username or password": "Неверный email или пароль",
     }
 
     /**
@@ -52,5 +61,4 @@ export class User extends DTO {
             email: this.email,
         }
     }
-
 }

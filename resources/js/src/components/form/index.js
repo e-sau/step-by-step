@@ -4,7 +4,7 @@ import { TextField, Typography } from "@material-ui/core";
 import { Form as StyledForm } from "./styled.sc";
 
 import { ValidateResult } from "../../common/validators";
-import { DTO } from "../../dto/DTO";
+import { Model } from "../../models/Model";
 
 export function Form( props ) {
     const { dto, onChange, errors, fieldsList } = props;
@@ -40,7 +40,7 @@ export function Form( props ) {
 
     /**
      * Рендер нужных полей
-     * @param { DTO } user
+     * @param { Model } user
      * @param { Array } fields
      *
      * @return { JSX[] }
@@ -78,7 +78,7 @@ export function Form( props ) {
 }
 
 Form.propTypes = {
-    dto: PropTypes.instanceOf(DTO).isRequired,
+    dto: PropTypes.instanceOf( Model ).isRequired,
     onChange: PropTypes.func.isRequired,
     errors: PropTypes.array,
     fieldsList: PropTypes.array.isRequired
