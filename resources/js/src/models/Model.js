@@ -1,8 +1,8 @@
 /**
  * Родительский класс для всех обьектов работы с данными
- * @class DTO
+ * @class Model
  **/
-export class DTO {
+export class Model {
     _rules = [];
     _errors = [];
 
@@ -22,11 +22,13 @@ export class DTO {
 
     /**
      * Валидация всех атрибутов модели
+     * @param { String } scenario
      * @return { Boolean }
      **/
-    validate() {
+    validate( scenario ) {
         this._errors = [];
-        this._rules.forEach( ( record ) => {
+        const rulesList = this._rules[ scenario ] || [];
+        rulesList.forEach( ( record ) => {
             const [ field, validators ] = record;
             this.validateAttribute( field, validators );
         });
@@ -55,17 +57,6 @@ export class DTO {
         } else {
             this._errors = this._errors.filter( ([ attribute ]) => attribute !== field );
         }
-    }
-
-    /**
-     * Получить валидаторы для атрибута
-     * @param { String } field
-     *
-     * @return { Array }
-     **/
-    findValidators( field ) {
-        const validators = this._rules.find( record => record[ 0 ] === field );
-        return validators ? validators[ 1 ] : [];
     }
 
     /**

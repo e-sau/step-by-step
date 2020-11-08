@@ -1,5 +1,5 @@
 import * as ACTION from './types';
-import { User } from "../../dto/User";
+import { User } from "../../models/User";
 import { update as updateObject } from "../../common/helpers/objectHelpers";
 
 const authInitialState = {

@@ -4,6 +4,7 @@ import { getSignupFormData } from "./selectors";
 import { login, signup } from "../../common/api/UserAPI";
 import makeRequest from "../../common/api/makeRequest";
 import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, BACKEND_VALIDATION_ERROR } from "./types";
+import { User } from "../../models/User";
 
 /**
  * Обработчик потока сохранения пользователя, в случае успеха - инициирует действие успешной регистрации
@@ -16,7 +17,7 @@ export function* submitWorker() {
     const user = yield select( getSignupFormData );
 
     try {
-        if ( !user || !user.validate() ) {
+        if ( !user || !user.validate( User.SIGNUP_SCENARIO ) ) {
             throw new Error("Validation error");
         }
         const { status, data } = yield call( makeRequest, signup( user ) );
@@ -37,16 +38,13 @@ export function* submitWorker() {
  **/
 export function* loginWorker() {
     const user = yield select( getSignupFormData );
-    ["email", "password"].forEach( item =>
-        user.validateAttribute( item, user.findValidators( item ))
-    );
 
-    if ( !user.getErrors().length ) {
+    if ( user.validate( User.LOGIN_SCENARIO ) ) {
         const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
         if ( status !== 200 ) {
-            const errors = data.errors || [ "Wrong password" ];
-            yield put({ type: BACKEND_VALIDATION_ERROR, payload: errors });
+            const errors = data.errors ? "Wrong username or password": null;
+            yield put({ type: BACKEND_VALIDATION_ERROR, payload: [ errors ] });
         } else {
             yield put({ type: LOGIN_SUCCESS, payload: data.token });
         }

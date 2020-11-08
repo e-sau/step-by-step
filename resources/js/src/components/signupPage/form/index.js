@@ -2,12 +2,12 @@ import React, { Fragment } from "react"
 import PropTypes from "prop-types";
 import { Button, Typography } from "@material-ui/core";
 import { ControlsContainer } from "../styled.sc";
-import { User } from "../../../dto/User";
+import { User } from "../../../models/User";
 import { Form } from "../../form";
 
 export function SignupForm( props ) {
     /** @type User **/
-    const { dto, onChange, onSubmit, errors } = props;
+    const { user, onChange, onSubmit, errors } = props;
 
     const fieldsList = [
         { attribute: "name", required: true, },
@@ -20,7 +20,7 @@ export function SignupForm( props ) {
         <Fragment>
             <Typography variant="h5" align="center">Регистрация</Typography>
             <Form
-                dto={ dto }
+                dto={ user }
                 onChange={ onChange }
                 fieldsList={ fieldsList }
                 errors={ errors }
@@ -33,7 +33,7 @@ export function SignupForm( props ) {
 }
 
 SignupForm.propTypes = {
-    dto: PropTypes.instanceOf( User ).isRequired,
+    user: PropTypes.instanceOf( User ).isRequired,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     errors: PropTypes.array
