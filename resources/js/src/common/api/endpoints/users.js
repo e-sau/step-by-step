@@ -1,4 +1,4 @@
-import { Model } from "../../models/Model";
+import { Model } from "../../../models/Model";
 /**
  * Чистая функция, гет запроса, передавать ее вызов в makeRequest
  * @param { Model } user

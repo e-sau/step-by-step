@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { TextField, Typography } from "@material-ui/core";
 import { Form as StyledForm } from "./styled.sc";
 
-import { ValidateResult } from "../../common/validators";
+import { ValidateResult } from "../../common/validators/ValidateResult";
 import { Model } from "../../models/Model";
 
 export function Form( props ) {

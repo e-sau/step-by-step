@@ -1,6 +1,6 @@
 import * as ACTION from './types';
 import { User } from "../../models/User";
-import { update as updateObject } from "../../common/helpers/objectHelpers";
+import { update as updateObject } from "../../common/helpers/object";
 
 const authInitialState = {
     isAuthorized: false,

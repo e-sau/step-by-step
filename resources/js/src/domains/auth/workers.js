@@ -1,7 +1,7 @@
 import { put, select, call } from "redux-saga/effects";
 
 import { getSignupFormData } from "./selectors";
-import { login, signup } from "../../common/api/UserAPI";
+import { login, signup } from "../../common/api/endpoints/users";
 import makeRequest from "../../common/api/makeRequest";
 import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, BACKEND_VALIDATION_ERROR } from "./types";
 import { User } from "../../models/User";
@@ -43,8 +43,7 @@ export function* loginWorker() {
         const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
         if ( status !== 200 ) {
-            const errors = data.errors ? "Wrong username or password": null;
-            yield put({ type: BACKEND_VALIDATION_ERROR, payload: [ errors ] });
+            yield put({ type: BACKEND_VALIDATION_ERROR, payload: [ "Wrong username or password" ] });
         } else {
             yield put({ type: LOGIN_SUCCESS, payload: data.token });
         }
