@@ -1,6 +1,6 @@
 import { put } from "redux-saga/effects";
-import { TEST_TYPE_WITH_PAYLOAD } from "./types";
+import { testActionWithPayload } from "./actions";
 
 export function* testWorker() {
-    yield put({ type: TEST_TYPE_WITH_PAYLOAD, payload: "SAGA IS LISTENING!!"});
+    yield put( testActionWithPayload( "SAGA IS LISTENING!!" ) );
 }

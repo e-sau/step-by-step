@@ -1,10 +1,11 @@
 import { put, select, call } from "redux-saga/effects";
 
-import { getSignupFormData } from "./selectors";
-import { login, signup } from "../../common/api/endpoints/users";
-import makeRequest from "../../common/api/makeRequest";
-import { SIGNUP_SUCCESS, SIGNUP_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, BACKEND_VALIDATION_ERROR } from "./types";
 import { User } from "../../models/User";
+import makeRequest from "../../common/api/makeRequest";
+import { login, signup } from "../../common/api/endpoints/users";
+
+import { getSignupFormData } from "./selectors";
+import { backendValidationError, loginError, loginSuccess, signupError, signupSuccess } from "./actions";
 
 /**
  * Обработчик потока сохранения пользователя, в случае успеха - инициирует действие успешной регистрации
@@ -23,12 +24,12 @@ export function* submitWorker() {
         const { status, data } = yield call( makeRequest, signup( user ) );
 
         if ( status === 422 ) {
-            yield put({ type: BACKEND_VALIDATION_ERROR, payload: data.errors });
+            yield put( backendValidationError( data.errors ));
         } else if( status === 200 ) {
-            yield put({ type: SIGNUP_SUCCESS, payload: data.token });
+            yield put( signupSuccess( data.token) );
         }
     } catch ( ex ) {
-        yield put({ type: SIGNUP_ERROR });
+        yield put( signupError() );
     }
 }
 
@@ -43,11 +44,11 @@ export function* loginWorker() {
         const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
         if ( status !== 200 ) {
-            yield put({ type: BACKEND_VALIDATION_ERROR, payload: [ "Wrong username or password" ] });
+            yield put( backendValidationError([ "Wrong username or password" ]) );
         } else {
-            yield put({ type: LOGIN_SUCCESS, payload: data.token });
+            yield put( loginSuccess( data.token ) );
         }
     } else {
-        yield put({ type: LOGIN_ERROR });
+        yield put( loginError() );
     }
 }
