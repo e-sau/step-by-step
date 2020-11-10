@@ -1,14 +1,6 @@
 import { all, takeEvery } from "redux-saga/effects";
-import { SELECT, FETCH_REQUEST } from "./types";
-import { selectWorker, fetchWorker } from "./workers";
-
-/**
- * Отслеживание действия выбора класса
- * @yield
- **/
-function* watchForSelectGrade() {
-    yield takeEvery( SELECT, selectWorker );
-}
+import { FETCH_REQUEST } from "./types";
+import { fetchWorker } from "./workers";
 
 /**
  * Отслеживание действия на получение данных о классах
@@ -24,7 +16,6 @@ function* watchForFetchGrades() {
  **/
 export default function* gradeWatchers() {
     yield all([
-        watchForSelectGrade(),
         watchForFetchGrades(),
     ]);
 }

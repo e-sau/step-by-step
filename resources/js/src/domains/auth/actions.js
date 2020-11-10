@@ -1,11 +1,11 @@
-import * as ACTION from "./types";
+import * as TYPE from "./types";
 
 /**
  * Действие изменения данных на форме регистрации
  * @return { Object } }
  **/
 export function changeSignupData( key, value ) {
-    return { type: ACTION.CHANGE_SIGNUP_DATA, payload: { key, value } };
+    return { type: TYPE.CHANGE_SIGNUP_DATA, payload: { key, value } };
 }
 
 /**
@@ -13,7 +13,7 @@ export function changeSignupData( key, value ) {
  * @return { Object }
  **/
 export function submit() {
-    return { type: ACTION.SUBMIT };
+    return { type: TYPE.SUBMIT };
 }
 
 /**
@@ -21,7 +21,7 @@ export function submit() {
  * @return { Object } }
  **/
 export function signupSuccess() {
-    return { type: ACTION.SIGNUP_SUCCESS };
+    return { type: TYPE.SIGNUP_SUCCESS };
 }
 
 /**
@@ -29,7 +29,7 @@ export function signupSuccess() {
  * @return { Object }
  **/
 export function signupError() {
-    return { type: ACTION.SIGNUP_ERROR };
+    return { type: TYPE.SIGNUP_ERROR };
 }
 
 /**
@@ -37,7 +37,7 @@ export function signupError() {
  * @return { Object }
  **/
 export function login() {
-    return { type: ACTION.LOGIN };
+    return { type: TYPE.LOGIN };
 }
 /**
  * Действие успешной авторизации
@@ -45,14 +45,14 @@ export function login() {
  * @return { Object }
  **/
 export function loginSuccess( token ) {
-    return { type: ACTION.LOGIN_SUCCESS, payload: token };
+    return { type: TYPE.LOGIN_SUCCESS, payload: token };
 }
 /**
  * Действие ошибки при авторизации
  * @return { Object }
  **/
 export function loginError() {
-    return { type: ACTION.LOGIN_ERROR };
+    return { type: TYPE.LOGIN_ERROR };
 }
 
 /**
@@ -61,5 +61,5 @@ export function loginError() {
  * @return { Object }
  **/
 export function backendValidationError( errors ) {
-    return { type: ACTION.BACKEND_VALIDATION_ERROR, payload: errors };
+    return { type: TYPE.BACKEND_VALIDATION_ERROR, payload: errors };
 }

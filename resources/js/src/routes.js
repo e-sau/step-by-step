@@ -12,7 +12,11 @@ export default [
         exact: true,
         component:  React.lazy(() => import("./containers/LoginPageContainer") ),
     },
-    { path: "/tasks", exact: true, component: () => React.lazy("./containers/TasksPageContainer")  },
+    {
+        path: "/tasks",
+        exact: true,
+        component: React.lazy(() => import("./containers/TasksPageContainer") ),
+    },
 
     /** @todo добавить новые маршруты */
     { component: React.lazy(() => import("./components/pageNotFound")) } /// этот роут всегда должен быть в конце

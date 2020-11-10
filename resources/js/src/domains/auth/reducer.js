@@ -1,7 +1,11 @@
-import * as ACTION from './types';
+import * as TYPE from './types';
 import { User } from "../../models/User";
 import { update as updateObject } from "../../common/helpers/object";
 
+/**
+ * Начальное состояние редьюсера
+ * @type { Object<{ isAuthorized: Boolean, signupFormData: User, authToken: String, errors: Array  }> }
+ **/
 const authInitialState = {
     isAuthorized: false,
     authToken: null,
@@ -12,22 +16,24 @@ const authInitialState = {
 /**
  * Редьюсер который работает с данными авторизации, и регистрации
  * во внешних файлах наызывается как "authReducer", ключ в сторе "auth"
- * @param { Object<{ isAuthorized: Boolean, signupFormData: User }> } state
- * @param { Object<{ type: String, payload: any }> } action
+ * @param { Object } state
+ * @param { Object } action
  *
- * @return { Object<{ isAuthorized: Boolean, signupFormData: User }> }
+ * @return { Object }
  **/
-export default function( state = authInitialState, action ) {
+export default function authReducer( state = authInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-        case ACTION.SUBMIT: {
+        /** Обработка действия валидации и отправки данных на бекенд */
+        case TYPE.SUBMIT: {
             return {
                 ...state,
                 errors: authInitialState.errors,
             };
         }
-        case ACTION.CHANGE_SIGNUP_DATA: {
+        /** Обновление данных о пользователе */
+        case TYPE.CHANGE_SIGNUP_DATA: {
             const { key, value } = payload;
             const { signupFormData } = state;
 
@@ -38,7 +44,8 @@ export default function( state = authInitialState, action ) {
 
             return { ...state, signupFormData: updateObject( signupFormData, newPropertyValue ) };
         }
-        case ACTION.SIGNUP_SUCCESS: {
+        /** Обработка успешной регистрации */
+        case TYPE.SIGNUP_SUCCESS: {
             return {
                 ...state,
                 authToken: payload,
@@ -46,14 +53,16 @@ export default function( state = authInitialState, action ) {
                 signupFormData: updateObject( state.signupFormData ),
             };
         }
-        case ACTION.SIGNUP_ERROR: {
+        /** Обработка ошибки на клиенте при регистрации */
+        case TYPE.SIGNUP_ERROR: {
             return {
                 ...state,
                 signupFormData: updateObject( state.signupFormData ),
                 errors: payload
             };
         }
-        case ACTION.LOGIN_SUCCESS: {
+        /** Обработка успешной авторизации */
+        case TYPE.LOGIN_SUCCESS: {
             return {
                 ...state,
                 authToken: payload,
@@ -61,21 +70,24 @@ export default function( state = authInitialState, action ) {
                 signupFormData: updateObject( state.signupFormData ),
             };
         }
-        case ACTION.LOGIN_ERROR: {
+        /** Обработка ошибки валидации на клиенте */
+        case TYPE.LOGIN_ERROR: {
             return {
                 ...state,
                 signupFormData: updateObject( state.signupFormData )
             };
         }
-        case ACTION.BACKEND_VALIDATION_ERROR: {
+        /** Обработка ошибки при валидации на бекенде */
+        case TYPE.BACKEND_VALIDATION_ERROR: {
             return {
                 ...state,
                 errors: payload,
                 signupFormData: updateObject( state.signupFormData ),
             };
         }
+        /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
         default: {
-            return state
+            return state;
         }
     }
 }

@@ -4,6 +4,5 @@
  * @return { User }
  **/
 export function getSignupFormData( state ) {
-    const { auth: { signupFormData } } = state;
-    return signupFormData;
+    return state.auth.signupFormData;
 }

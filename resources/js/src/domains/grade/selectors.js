@@ -3,6 +3,6 @@
  * @param { Object<{ test: Number, auth: Object, grade: Object }> } state
  * @return { Number }
  **/
-export function getSelectedGradeId( state ){
+export function getSelectedId( state ){
     return state.grade.selectedId;
 }

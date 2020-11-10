@@ -1,11 +1,11 @@
-import * as ACTION from "./types";
+import * as TYPE from "./types";
 
 /**
  * Вызов действия на получение классов
  * @return { Object }
  **/
-export function fetch() {
-    return { type: ACTION.FETCH_REQUEST };
+export function fetchRequest() {
+    return { type: TYPE.FETCH_REQUEST };
 }
 /**
  * Вызов действия на успешный запрос к апи
@@ -13,7 +13,7 @@ export function fetch() {
  * @return { Object }
  **/
 export function fetchSuccess( data ) {
-    return { type: ACTION.FETCH_REQUEST, payload: data };
+    return { type: TYPE.FETCH_SUCCESS, payload: data };
 }
 
 /**
@@ -21,7 +21,7 @@ export function fetchSuccess( data ) {
  * @return { Object }
  **/
 export function fetchError( error ) {
-    return { type: ACTION.FETCH_ERROR, payload: error };
+    return { type: TYPE.FETCH_ERROR, payload: error };
 }
 
 /**
@@ -29,6 +29,6 @@ export function fetchError( error ) {
  * @param { Number } gradeId
  * @return { Object<{ type: String, payload: any }> }
  **/
-export function select( gradeId ) {
-    return { type: ACTION.SELECT, payload: gradeId };
+export function click( gradeId ) {
+    return { type: TYPE.SELECT, payload: gradeId };
 }
