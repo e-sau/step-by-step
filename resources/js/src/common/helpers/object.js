@@ -8,7 +8,7 @@ export function update( object, properties= [] ) {
     const configuredProperties = properties.reduce((acc, item) => {
         const [ key, value ] = item;
         return { ...acc, [key]: setPropertyDescriptors( value ) };
-    },{})
+    }, {})
     return Object.create( object, configuredProperties );
 }
 

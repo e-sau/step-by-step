@@ -1,9 +1,18 @@
 import axios from 'axios';
 
-const BASE_HEADERS = {
+export const BASE_HEADERS = {
     'X-Requested-With': 'XMLHttpRequest',
     'Content-type': 'application/json'
 };
+
+/**
+ * Тут низкоуровневая логика аксиоса, пусть такой простой и остается
+ * @param { Object } requestConfig
+ * @return { Promise }
+ **/
+function axiosCall( requestConfig ) {
+    return axios( requestConfig ).catch( error => error.response );
+}
 
 /**
  * Предварительная подготовка обьекта, ( просто избавился от let )
@@ -19,17 +28,23 @@ export function processRequestData( requestData ) {
 
 /**
  * @param { Object } requestObj  -  обязательный параметр
- * @return { Promise }
+ * @param { Function } apiCaller
+ *
+ * @return { Object }  -  вернет результат вызова второго аргумента
  * @throws Error
  *
  * @example makeRequest( getTest ).then( r => console.log( r ) )
  *
  * @throws Error
  **/
-export default function makeRequest( requestObj ) {
+export default function makeRequest( requestObj, apiCaller = axiosCall ) {
     const requestParams = processRequestData( requestObj );
 
-    if ( !requestParams || !( requestParams instanceof Object) ) {
+    if ( !( requestParams && typeof requestParams === "object") ) {
+        throw new Error("Invalid argument Error");
+    }
+
+    if ( typeof apiCaller !== "function" ) {
         throw new Error("Invalid argument Error");
     }
 
@@ -39,12 +54,12 @@ export default function makeRequest( requestObj ) {
         headers = {},                      /** Object заголовки запроса */
         body = {} ,                        /** Object тело запроса */
         method = 'GET',                    /** String метод запроса */
-    } = processRequestData( requestObj );
+    } = requestParams;
 
-    return axios({
+    return apiCaller({
         url: `${ url }${ uri }`,
         method,
         data: body,
         headers: { ...BASE_HEADERS, ...headers }
-    }).catch( error => error.response );
+    });
 }
