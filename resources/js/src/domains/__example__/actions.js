@@ -1,15 +1,16 @@
 import { TEST_TYPE, TEST_TYPE_WITH_PAYLOAD } from "./types";
 
 /**
- * @return { Object<{ type: String }> }
+ * @return { Object }
  **/
 export function test() {
     return { type: TEST_TYPE };
 }
 
 /**
- * @return { Object<{ type: String, payload: any }> }
+ * @return { Object }
  **/
-export function testWithPayload(payload) {
+export function testActionWithPayload(payload) {
     return { type: TEST_TYPE_WITH_PAYLOAD, payload };
 }
+

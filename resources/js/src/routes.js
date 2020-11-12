@@ -1,14 +1,23 @@
-import { PageNotFound } from "./components/pageNotFound/PageNotFound";
-import ExampleContainer from "./containers/Example";
-import SignupPageContainer from "./containers/SignupPageContainer";
-import LoginPageContainer from "./containers/LoginPageContainer";
+import React from "react";
 
 export default [
     { path: "/", exact: true, component: null },
-    { path: "/example", exact: true, component: ExampleContainer },
-    { path: "/signup", exact: true, component: SignupPageContainer },
-    { path: "/login", exact: true, component: LoginPageContainer },
+    {
+        path: "/signup",
+        exact: true,
+        component: React.lazy(() => import("./containers/SignupPageContainer" ) ),
+    },
+    {
+        path: "/login",
+        exact: true,
+        component:  React.lazy(() => import("./containers/LoginPageContainer") ),
+    },
+    {
+        path: "/tasks",
+        exact: true,
+        component: React.lazy(() => import("./containers/TasksPageContainer") ),
+    },
 
     /** @todo добавить новые маршруты */
-    { component: PageNotFound } /// этот роут всегда должен быть в конце
+    { component: React.lazy(() => import("./components/pageNotFound")) } /// этот роут всегда должен быть в конце
 ];

@@ -1,0 +1,63 @@
+import React, { useEffect } from "react";
+import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
+/**
+ * Страница задач, теоритически хранить будет выбор класса\предмета и переход к заданию
+ * Возможно в виде плитки, с индекаторами прогресса,
+ *
+ * @todo сейчас Компановка ради логики, код плохой, и разнесется все на компоненты, ее можно переделывать как угодно
+ **/
+export function TasksPage( props ) {
+    const { fetchGrades, gradeOnClick, subjectOnClick, gradesList, subjectsList, tasksList  } = props;
+
+    useEffect(() => {
+        fetchGrades()
+    }, []);
+
+    return (
+        <div>
+            <h3>grades</h3>
+            <List component="nav" aria-label="main mailbox folders" style={{ display: "flex"}}>
+                { gradesList.map( ({ title, id }) => (
+                    <ListItem key={ id } onClick={ gradeOnClick( id ) }>
+                        <ListItem button>
+                            <ListItemText primary={ title } />
+                        </ListItem>
+                    </ListItem>
+                ))  }
+            </List>
+
+            <Divider/>
+            <div>
+                <h3>Subjects</h3>
+                <List component="nav" aria-label="main mailbox folders" style={{ display: "flex"}}>
+                    { subjectsList.map( ({ title, id }) => (
+                        <ListItem key={ id } onClick={ subjectOnClick( id ) }>
+                            <ListItem button>
+                                <ListItemText primary={ title } />
+                            </ListItem>
+                        </ListItem>
+                    ))  }
+                </List>
+            </div>
+
+            <Divider/>
+            <div>
+                <h3>Tasks</h3>
+                <List component="nav" aria-label="main mailbox folders" style={{ display: "flex"}}>
+                    { tasksList.map( ({ title, id }) => (
+                        /** подставлять стараницу конкретной задачи, это заглушка */
+                        <Link key={ id } to={ `/tasks/${ id }` }>
+                            <ListItem >
+                                <ListItem button>
+                                    <ListItemText primary={ title } />
+                                </ListItem>
+                            </ListItem>
+                        </Link>
+                    ))  }
+                </List>
+            </div>
+        </div>
+    );
+}

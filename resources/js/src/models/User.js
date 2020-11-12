@@ -15,8 +15,6 @@ export class User extends Model {
     rePassword;
     email;
 
-    getRePassword = () => this.rePassword
-
     _rules = {
         signup: [
             [ "name", [ required, getLengthValidator( 4 ) ] ],

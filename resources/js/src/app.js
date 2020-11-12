@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -8,15 +8,17 @@ import routes from './routes';
 
 /** @type JSX.Element корень приложения */
 const App = (
-    <Provider store={ store }>
-        <BrowserRouter>
-            <Switch>
-                { routes.map( ( route, idx ) =>
-                    <Route key={ idx } { ...route } />
-                )}
-            </Switch>
-        </BrowserRouter>
-    </Provider>
+    <Suspense fallback={ "loading" }>
+        <Provider store={ store }>
+            <BrowserRouter>
+                <Switch>
+                    { routes.map( ( route, idx ) =>
+                        <Route key={ idx } { ...route } />
+                    )}
+                </Switch>
+            </BrowserRouter>
+        </Provider>
+    </Suspense>
 );
 
 const $node = document.getElementById('main');

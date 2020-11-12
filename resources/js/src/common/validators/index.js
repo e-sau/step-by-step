@@ -1,31 +1,11 @@
-/**
- * Простой класс, который будет результатом валидации
- **/
-export function ValidateResult(valid, validator, message = null ) {
-    this.valid = valid;
-    this.validator = validator;
-    this.message = message;
-}
-
-ValidateResult.prototype.getValidator = function () {
-    return this.validator;
-};
-ValidateResult.prototype.isValid = function () {
-   return this.valid;
-};
-ValidateResult.prototype.setMessage = function ( message ) {
-    this.message = message;
-};
-ValidateResult.prototype.getMessage = function () {
-    return this.message;
-};
+import { ValidateResult } from "./ValidateResult";
 
 /**
  * Проверка обязательности поля
  * @param { any } value
  * @return { ValidateResult }
  **/
-export function required( value ) {
+export function required(value ) {
     const message = "Поле не может быть пустым!";
     if ( typeof value === "string" ) {
         return new ValidateResult( Boolean( value.trim() ), "required", message);
