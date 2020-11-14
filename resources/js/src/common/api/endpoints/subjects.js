@@ -2,7 +2,7 @@
  * Получить список субьектов
  * @return { Object }
  **/
-export function getAll( token ) {
+export function getAll() {
     return {
         uri: "subjects",
     };

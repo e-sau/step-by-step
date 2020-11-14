@@ -2,7 +2,7 @@
  * Получить список задач
  * @return { Object }
  **/
-export function getAll( token ) {
+export function getAll() {
     return {
         uri: "tasks",
     };
