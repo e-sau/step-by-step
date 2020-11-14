@@ -1,9 +1,11 @@
 /**
  * Получить список субьектов
- * @return { Object<{ uri: String }>}
+ * @return { Object }
  **/
-export function getAll() {
-    return { uri: "subjects" };
+export function getAll( token ) {
+    return {
+        uri: "subjects",
+    };
 }
 
 /**

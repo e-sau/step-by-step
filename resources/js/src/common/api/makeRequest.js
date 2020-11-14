@@ -11,6 +11,12 @@ export const BASE_HEADERS = {
  * @return { Promise }
  **/
 function axiosCall( requestConfig ) {
+    const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
+
+    if ( token ) {
+        requestConfig.headers["Authorization"] = `Bearer ${ token }`;
+    }
+
     return axios( requestConfig ).catch( error => error.response );
 }
 
@@ -60,6 +66,9 @@ export default function makeRequest( requestObj, apiCaller = axiosCall ) {
         url: `${ url }${ uri }`,
         method,
         data: body,
-        headers: { ...BASE_HEADERS, ...headers }
+        headers: {
+            ...BASE_HEADERS,
+            ...headers,
+        }
     });
 }

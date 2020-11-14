@@ -1,9 +1,11 @@
 /**
  * Получить список задач
- * @return { Object<{ uri: String }>}
+ * @return { Object }
  **/
-export function getAll() {
-    return { uri: "tasks" };
+export function getAll( token ) {
+    return {
+        uri: "tasks",
+    };
 }
 
 /**

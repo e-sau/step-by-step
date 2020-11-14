@@ -1,7 +1,9 @@
 /**
  * Получить список классов
- * @return { Object<{ uri: String }>}
+ * @return { Object }
  **/
 export function getAll() {
-    return { uri: "grades" };
+    return {
+        uri: "grades"
+    };
 }
