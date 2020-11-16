@@ -25,3 +25,35 @@ function setPropertyDescriptors( value ) {
         value
     };
 }
+
+/**
+ * Слишком узконаправленная функция.
+ * Суть в том, чтоб все обьекты которые приходят с бека в snake_case нам удобнее трансформировать в camelCase
+ *
+ * Функция трансформации ключей обьекта, по правилам функции которая переданна вторым аргументом
+ * @param { Object } input
+ * @param { Function } transformFunc
+ *
+ * @return { Object }
+ * @throws Error
+ **/
+export function keysTransform( input, transformFunc ) {
+    if ( arguments.length < 2 ) {
+        throw new Error("Missing argument error");
+    }
+
+    if ( !input || typeof input !== "object" ) {
+        throw new Error("Second argument must be Object");
+    }
+
+    if ( !transformFunc || typeof transformFunc !== "function" ) {
+        throw new Error("Second argument must be function");
+    }
+
+    return Object.entries( input ).reduce(( acc, [ key, value] ) => {
+        return {
+            ...acc,
+            [ transformFunc(key) ]: value
+        };
+    }, {});
+}

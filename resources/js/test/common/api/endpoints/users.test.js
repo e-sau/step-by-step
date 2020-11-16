@@ -1,5 +1,5 @@
 import { User } from "../../../../src/models/User";
-const { signup, login } = require("../../../../src/common/api/endpoints/users");
+import { signup, login, getUser } from "../../../../src/common/api/endpoints/users";
 
 describe("Testing 'signup()' from 'users' endpoints", () => {
     const mockUser = new User();
@@ -33,5 +33,23 @@ describe("Testing 'login()' from 'users' endpoints", () => {
     it('should throw Error', function () {
         expect( () => signup( "123@test.tt" ) ).toThrow( Error );
         expect( () => signup( null, "1234" ) ).toThrow( Error );
+    });
+});
+
+describe("Testing 'getUser( token )' from 'users' endpoints", () => {
+    const mockToken =  btoa("asdsdasdad");
+    it('should return Object', function () {
+        const requestBody = getUser( mockToken );
+
+        expect( requestBody ).toBeInstanceOf( Object );
+        expect( requestBody.uri ).not.toBeUndefined();
+        expect( requestBody.headers ).toBeInstanceOf( Object );
+        expect( requestBody.headers ).toStrictEqual({
+            'Authorization': `Bearer ${ mockToken }`
+        });
+    });
+
+    it('should throw Error', function () {
+        expect( signup ).toThrow( Error );
     });
 });

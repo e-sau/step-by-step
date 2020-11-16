@@ -1,6 +1,22 @@
 import * as TYPE from "./types";
 
 /**
+ * Действие попытки авторизации по токену
+ * @return { Object }
+ **/
+export function authByToken() {
+    return { type: TYPE.AUTH_BY_TOKEN };
+}
+
+/**
+ * Действие получения данных о пользователе после авторизации по токену, и заполнение ими модели
+ * @return { Object }
+ **/
+export function setUserData( data ) {
+    return { type: TYPE.SET_USER_DATA, payload: data };
+}
+
+/**
  * Действие изменения данных на форме регистрации
  * @return { Object } }
  **/
@@ -18,10 +34,12 @@ export function submit() {
 
 /**
  * Действие успешной регистрации
+ * @param { string } token
+ *
  * @return { Object } }
  **/
-export function signupSuccess() {
-    return { type: TYPE.SIGNUP_SUCCESS };
+export function signupSuccess( token ) {
+    return { type: TYPE.SIGNUP_SUCCESS, payload: token };
 }
 
 /**
@@ -39,6 +57,7 @@ export function signupError() {
 export function login() {
     return { type: TYPE.LOGIN };
 }
+
 /**
  * Действие успешной авторизации
  * @param { String } token
@@ -47,6 +66,7 @@ export function login() {
 export function loginSuccess( token ) {
     return { type: TYPE.LOGIN_SUCCESS, payload: token };
 }
+
 /**
  * Действие ошибки при авторизации
  * @return { Object }

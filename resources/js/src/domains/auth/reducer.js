@@ -4,12 +4,12 @@ import { update as updateObject } from "../../common/helpers/object";
 
 /**
  * Начальное состояние редьюсера
- * @type { Object<{ isAuthorized: Boolean, signupFormData: User, authToken: String, errors: Array  }> }
+ * @type { Object<{ isAuthorized: Boolean, userData: User, authToken: String, errors: Array  }> }
  **/
 const authInitialState = {
     isAuthorized: false,
     authToken: null,
-    signupFormData: new User(),
+    userData: new User(),
     errors: [],
 }
 
@@ -35,14 +35,14 @@ export default function authReducer( state = authInitialState, action ) {
         /** Обновление данных о пользователе */
         case TYPE.CHANGE_SIGNUP_DATA: {
             const { key, value } = payload;
-            const { signupFormData } = state;
+            const { userData } = state;
 
             const newPropertyValue = [
                 [ key, value ],
-                [ "_errors", signupFormData._errors.filter( ([ attr ]) => attr !== key ) ],
+                [ "_errors", userData._errors.filter( ([ attr ]) => attr !== key ) ],
             ];
 
-            return { ...state, signupFormData: updateObject( signupFormData, newPropertyValue ) };
+            return { ...state, userData: updateObject( userData, newPropertyValue ) };
         }
         /** Обработка успешной регистрации */
         case TYPE.SIGNUP_SUCCESS: {
@@ -50,14 +50,14 @@ export default function authReducer( state = authInitialState, action ) {
                 ...state,
                 authToken: payload,
                 isAuthorized: true,
-                signupFormData: updateObject( state.signupFormData ),
+                userData: updateObject( state.userData ),
             };
         }
         /** Обработка ошибки на клиенте при регистрации */
         case TYPE.SIGNUP_ERROR: {
             return {
                 ...state,
-                signupFormData: updateObject( state.signupFormData ),
+                userData: updateObject( state.userData ),
                 errors: payload
             };
         }
@@ -67,14 +67,15 @@ export default function authReducer( state = authInitialState, action ) {
                 ...state,
                 authToken: payload,
                 isAuthorized: true,
-                signupFormData: updateObject( state.signupFormData ),
+                userData: updateObject( state.userData ),
             };
         }
         /** Обработка ошибки валидации на клиенте */
         case TYPE.LOGIN_ERROR: {
             return {
                 ...state,
-                signupFormData: updateObject( state.signupFormData )
+                isAuthorized: false,
+                userData: updateObject( state.userData )
             };
         }
         /** Обработка ошибки при валидации на бекенде */
@@ -82,7 +83,14 @@ export default function authReducer( state = authInitialState, action ) {
             return {
                 ...state,
                 errors: payload,
-                signupFormData: updateObject( state.signupFormData ),
+                userData: updateObject( state.userData ),
+            };
+        }
+        case TYPE.SET_USER_DATA: {
+            return {
+                ...state,
+                errors: payload,
+                userData: updateObject( state.userData, Object.entries( payload ) ),
             };
         }
         /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */

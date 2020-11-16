@@ -1,5 +1,8 @@
 const prefix = "@auth-";
 
+export const AUTH_BY_TOKEN = `${ prefix }AUTH_BY_TOKEN`;
+export const SET_USER_DATA = `${ prefix }SET_USER_DATA`;
+
 export const CHANGE_SIGNUP_DATA = `${ prefix }CHANGE_SIGNUP_DATA`;
 
 export const SUBMIT = `${ prefix }SUBMIT`;

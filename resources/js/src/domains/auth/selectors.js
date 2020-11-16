@@ -3,6 +3,15 @@
  * @param { Object } state
  * @return { User }
  **/
-export function getSignupFormData( state ) {
-    return state.auth.signupFormData;
+export function getUserData( state ) {
+    return state.auth.userData;
+}
+
+/**
+ * Получить токен 
+ * @param { Object } state
+ * @return { String }
+ **/
+export function getToken( state ) {
+    return state.auth.authToken;
 }

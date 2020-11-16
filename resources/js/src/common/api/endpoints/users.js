@@ -36,3 +36,22 @@ export function login( email, password ) {
         body: { email, password }
     };
 }
+
+/**
+ * Авторизация по токену и получение данных о пользователе
+ * @param { String } token
+ *
+ * @throws Error
+ **/
+export function getUser( token ) {
+    if ( !token ) {
+        throw new Error("Missing argument error");
+    }
+
+    return {
+        uri: "user",
+        headers: {
+            'Authorization': `Bearer ${ token }`
+        }
+    };
+}
