@@ -19,7 +19,7 @@ class Grade extends JsonResource
             'title' => $this->title,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'school' => $this->school,
+            'school' => $this->whenLoaded('school'),
             'users' => User::collection($this->whenLoaded('users'))
         ];
     }

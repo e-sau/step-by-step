@@ -22,7 +22,7 @@ class Task extends JsonResource
             'solution' => $this->solution,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'subject' => $this->subject,
+            'subject' => $this->whenLoaded('subject'),
             'additions' => Addition::collection($this->whenLoaded('additions')),
             'users' => User::collection($this->whenLoaded('users'))
         ];
