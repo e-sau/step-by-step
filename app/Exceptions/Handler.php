@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -56,6 +57,11 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'message' => $e->getMessage()
                 ], $e->getStatusCode());
+            }
+            else if ($e instanceof RelationNotFoundException) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], Response::HTTP_FAILED_DEPENDENCY);
             }
         }
 
