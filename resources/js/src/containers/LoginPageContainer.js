@@ -1,8 +1,9 @@
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { LoginPage } from "../components/loginPage";
-import { login, changeSignupData } from "../domains/auth/actions";
+import { login , changeUserData } from "../store/auth/actions";
 
 /**
  * Обертка над компонентом страници, в случае если пользоавтель авторизован, перенаправляем на главную
@@ -36,18 +37,15 @@ function mapStateToProps( state ) {
 
 /**
  * Мапим и оборачиваем функцией dispatch, все actionCreators
- * @param { Function } dispatch
+ * @param { any } dispatch
  * @return { Object }
  **/
-function mapDispatchToProps( dispatch ) {
-    function onChange( key, value ) {
-        dispatch( changeSignupData( key, value ) );
-    }
-    function onLogin() {
-        dispatch( login() );
-    }
-    return { onChange, onLogin };
-}
+const mapDispatchToProps = ( dispatch ) =>
+    bindActionCreators({
+        onChange: changeUserData,
+        onLogin: login,
+    }, dispatch);
+
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( PageWrapper );

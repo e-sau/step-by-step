@@ -7,7 +7,7 @@
  * @example Пример вызова функции, создаем переменную, и замыкаем то что хотим вызвать
  *          const someMemo = memo( ( params ) => userApi.get( params ) );
  **/
-export function memo( fn ) {
+export default function memo( fn ) {
     const memoCache = {};
     return function () {
         const key = JSON.stringify( arguments );

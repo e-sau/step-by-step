@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styled.sc";
-import { SignupForm } from "./form";
 import { User } from "../../models/User";
+import { SignupFormWrapper } from "./SignupFormWrapper";
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
@@ -29,7 +29,7 @@ export function SignupPage( props ) {
                     </HelperLinks>
                 </FormLeftSide>
                 <FormRightSide>
-                    <SignupForm
+                    <SignupFormWrapper
                         user={ user }
                         errors={ errors }
                         onChange={ onChange }
