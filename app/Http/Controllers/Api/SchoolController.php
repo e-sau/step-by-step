@@ -10,22 +10,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\School as SchoolResource;
 
 class SchoolController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', School::class);
 
-        return response()->json(School::all(), Response::HTTP_OK);
+        $schools = $this->getModelCollectionWithRequestParams($request, School::class);
+
+        return SchoolResource::collection($schools);
     }
 
     /**
@@ -50,15 +55,21 @@ class SchoolController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  School  $school
-     * @return JsonResponse
+     * @param Request $request
+     * @param School $school
+     * @return SchoolResource
      * @throws AuthorizationException
      */
-    public function show(School $school)
+    public function show(Request $request, School $school)
     {
         $this->authorize('view', $school);
 
-        return response()->json($school, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(School::class, $request->get('with'));
+        if ($with) {
+            return new SchoolResource(School::with($with)->find($school->id));
+        }
+
+        return new SchoolResource($school);
     }
 
     /**

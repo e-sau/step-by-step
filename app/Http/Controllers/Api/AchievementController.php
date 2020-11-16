@@ -8,22 +8,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Achievement as AchievementResource;
 
 class AchievementController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Achievement::class);
 
-        return response()->json(Achievement::all(), Response::HTTP_OK);
+        $achievements = $this->getModelCollectionWithRequestParams($request, Achievement::class);
+
+        return AchievementResource::collection($achievements);
     }
 
     /**
@@ -48,15 +53,21 @@ class AchievementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Achievement $achievement
-     * @return JsonResponse
+     * @param Request $request
+     * @param Achievement $achievement
+     * @return AchievementResource
      * @throws AuthorizationException
      */
-    public function show(Achievement $achievement)
+    public function show(Request $request, Achievement $achievement)
     {
         $this->authorize('view', $achievement);
 
-        return response()->json($achievement, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Achievement::class, $request->get('with'));
+        if ($with) {
+            return new AchievementResource(Achievement::with($with)->find($achievement->id));
+        }
+
+        return new AchievementResource($achievement);
     }
 
     /**

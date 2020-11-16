@@ -8,22 +8,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Role as RoleResource;
 
 class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Role::class);
 
-        return response()->json(Role::all(), Response::HTTP_OK);
+        $roles = $this->getModelCollectionWithRequestParams($request, Role::class);
+
+        return RoleResource::collection($roles);
     }
 
     /**
@@ -48,15 +53,21 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Role $role
-     * @return JsonResponse
+     * @return RoleResource
      * @throws AuthorizationException
      */
-    public function show(Role $role)
+    public function show(Request $request, Role $role)
     {
         $this->authorize('view', $role);
 
-        return response()->json($role, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Role::class, $request->get('with'));
+        if ($with) {
+            return new RoleResource(Role::with($with)->find($role->id));
+        }
+
+        return new RoleResource($role);
     }
 
     /**

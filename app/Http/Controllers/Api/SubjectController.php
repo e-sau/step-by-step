@@ -5,23 +5,30 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Subject as SubjectResource;
 
 class SubjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Subject::class);
 
-        return response()->json(Subject::all(), Response::HTTP_OK);
+        $subjects = $this->getModelCollectionWithRequestParams($request, Subject::class);
+
+        return SubjectResource::collection($subjects);
     }
 
     /**
@@ -45,14 +52,21 @@ class SubjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Subject $subject
-     * @return JsonResponse
+     * @param Request $request
+     * @param Subject $subject
+     * @return SubjectResource
+     * @throws AuthorizationException
      */
-    public function show(Subject $subject)
+    public function show(Request $request, Subject $subject)
     {
         $this->authorize('view', $subject);
 
-        return response()->json($subject, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
+        if ($with) {
+            return new SubjectResource(Subject::with($with)->find($subject->id));
+        }
+
+        return new SubjectResource($subject);
     }
 
     /**

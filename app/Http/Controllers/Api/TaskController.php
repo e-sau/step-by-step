@@ -8,22 +8,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Task as TaskResource;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Task::class);
 
-        return response()->json(Task::all(), Response::HTTP_OK);
+        $tasks = $this->getModelCollectionWithRequestParams($request, Task::class);
+
+        return TaskResource::collection($tasks);
     }
 
     /**
@@ -48,15 +53,21 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Task  $task
-     * @return JsonResponse
+     * @param Request $request
+     * @param Task $task
+     * @return TaskResource
      * @throws AuthorizationException
      */
-    public function show(Task $task)
+    public function show(Request $request, Task $task)
     {
         $this->authorize('view', $task);
 
-        return response()->json($task, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Task::class, $request->get('with'));
+        if ($with) {
+            return new TaskResource(Task::with($with)->find($task->id));
+        }
+
+        return new TaskResource($task);
     }
 
     /**
