@@ -10,11 +10,41 @@ export class User extends Model {
     static LOGIN_SCENARIO = "login";
     static SIGNUP_SCENARIO = "signup";
 
+    /**
+     * ID пользователя в базе данных
+     * @type int
+     **/
+    id;
+    /**
+     * Имя пользователя
+     * @type string
+     **/
     name;
+    /**
+     * Пароль
+     * @type string
+     **/
     password;
+    /**
+     * Подверждение ввода пароля
+     * @type string
+     **/
     rePassword;
+    /**
+     * Почта
+     * @type string
+     **/
     email;
+    /**
+     * Роли пользователя
+     * @type Array
+     **/
+    roles = [];
 
+    /**
+     * Правила валидации модели, с учетом разных стратегий
+     * @type Object
+     **/
     _rules = {
         signup: [
             [ "name", [ required, getLengthValidator( 4 ) ] ],
@@ -28,14 +58,20 @@ export class User extends Model {
         ],
     };
 
+    /**
+     * Маппинг текстовых ошибок валидации бека, на наш перевод
+     * @type Object
+     **/
     _errorTranslates = {
         "The email has already been taken.": "Адресс электронной почты уже используется",
         "Wrong username or password": "Неверный email или пароль",
     }
 
     /**
+     * Получить Label для атрибута модели
+     * @override  Переопределение родительского метода
+     *
      * @return { Object }
-     * @override
      **/
     attributeLabels() {
         return {
@@ -48,8 +84,10 @@ export class User extends Model {
     }
 
     /**
+     * Получить даные о пользователе в виде простого обьекта
+     * @override  Переопределение родительского метода
+     *
      * @return { Object }
-     * @override
      **/
     getData() {
         return {
