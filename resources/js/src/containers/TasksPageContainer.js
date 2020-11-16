@@ -1,8 +1,10 @@
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
 import { TasksPage } from "../components/tasksPage";
-import { fetchRequest as fetchGrades, click as gradeOnClick } from "../domains/grade/actions";
-import { click as subjectOnClick } from "../domains/subject/actions";
+import { fetchRequest as fetchGrades, click as gradeOnClick } from "../store/grade/actions";
+import { click as subjectOnClick } from "../store/subject/actions";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -18,27 +20,15 @@ function mapStateToProps( state ) {
     } = state;
 
     return {
-        gradeIsFetching, subjectIsFetching, taskIsFetching, /// индикаторы загрузки
-        isAuthorized, gradesList, subjectsList, tasksList,  /// списки
+        gradeIsFetching, subjectIsFetching, taskIsFetching,
+        isAuthorized, gradesList, subjectsList, tasksList,
     };
 }
 
-/**
- * Мапим и оборачиваем функцией dispatch, все actionCreators
- * @param { Function } dispatch
- * @return { Object }
- **/
-function mapDispatchToProps( dispatch ) {
-    return {
-        fetchGrades: () => dispatch( fetchGrades() ),
-        gradeOnClick: ( gradeId ) => () => {
-            dispatch( gradeOnClick( gradeId ) )
-        },
-        subjectOnClick: ( subjectId ) => () => {
-            dispatch( subjectOnClick( subjectId ) )
-        },
-    }
-}
+/** Мапим и оборачиваем функцией dispatch, все actionCreators */
+const mapDispatchToProps = ( dispatch ) => bindActionCreators({
+    gradeOnClick, subjectOnClick, fetchGrades,
+}, dispatch);
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( TasksPage );

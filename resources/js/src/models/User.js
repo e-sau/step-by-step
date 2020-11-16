@@ -23,8 +23,8 @@ export class User extends Model {
             [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
         ],
         login: [
-            [ "email", [ required, getMatchValidator( EMAIL_REGEXP ) ] ],
-            [ "password", [ required, getLengthValidator( 6, 60 )] ],
+            [ "email", [ required ] ],
+            [ "password", [ required ] ],
         ],
     };
 

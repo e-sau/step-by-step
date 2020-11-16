@@ -22,21 +22,18 @@ export function LoginPage( props ) {
     return (
         <PageContainer>
             <Typography variant="h5" align="center">Авторизация</Typography>
-
             <Form
-                dto={ user }
+                model={ user }
                 onChange={ onChange }
                 fieldsList={ fieldsList }
                 errors={ errors }
             />
-
             <ControlsContainer>
                 <Button variant="contained" color="primary" onClick={ onLogin }>Войти</Button>
                 <Link to={ "/restore/password" }>
                     <Typography align="center">Забыли пароль?</Typography>
                 </Link>
             </ControlsContainer>
-
         </PageContainer>
     );
 }

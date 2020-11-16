@@ -15,12 +15,19 @@ export function TasksPage( props ) {
         fetchGrades()
     }, []);
 
+    function bindIdToAction( id, actionCreator ) {
+        return () => actionCreator( id );
+    }
+
     return (
         <div>
             <h3>grades</h3>
             <List component="nav" aria-label="main mailbox folders" style={{ display: "flex"}}>
                 { gradesList.map( ({ title, id }) => (
-                    <ListItem key={ id } onClick={ gradeOnClick( id ) }>
+                    <ListItem
+                        key={ id }
+                        onClick={ bindIdToAction( id, gradeOnClick ) }
+                    >
                         <ListItem button>
                             <ListItemText primary={ title } />
                         </ListItem>
@@ -33,7 +40,10 @@ export function TasksPage( props ) {
                 <h3>Subjects</h3>
                 <List component="nav" aria-label="main mailbox folders" style={{ display: "flex"}}>
                     { subjectsList.map( ({ title, id }) => (
-                        <ListItem key={ id } onClick={ subjectOnClick( id ) }>
+                        <ListItem
+                            key={ id }
+                            onClick={ bindIdToAction( id, subjectOnClick ) }
+                        >
                             <ListItem button>
                                 <ListItemText primary={ title } />
                             </ListItem>

@@ -1,3 +1,5 @@
+import { ValidateResult } from "../common/validators";
+
 /**
  * Родительский класс для всех обьектов работы с данными
  * @class Model
@@ -8,7 +10,7 @@ export class Model {
 
     /** Ошибки валидации с бека, и их перевод для пользователя */
     _errorTranslates = {
-        "Error text from backend": "Какойто текст",
+        "Error text from backend": "Текс ошибки с бекенда",
         default: "Произошла неизвестная ошика"
     }
 
@@ -60,12 +62,21 @@ export class Model {
     }
 
     /**
-     *
      * Получить ошибки валидаций
      * @return { Array }
      **/
     getErrors() {
         return this._errors;
+    }
+
+    /**
+     * Установить ошибки валидаций с бека
+     * @return { void }
+     **/
+    setErrors( errors ) {
+        this._errors = Object.entries(errors).map( ([ key, error ]) => {
+            return [ key, new ValidateResult( false, 'required', this.getErrorTranslate( error ) )]
+        });
     }
 
     /**

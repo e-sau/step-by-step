@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { TextField, Typography } from "@material-ui/core";
 import { Form as StyledForm } from "./styled.sc";
 
-import { ValidateResult } from "../../common/validators/ValidateResult";
+import { ValidateResult } from "../../common/validators";
 import { Model } from "../../models/Model";
 
 export function Form( props ) {
-    const { dto, onChange, errors, fieldsList } = props;
+    const { model, onChange, errors, fieldsList } = props;
 
     /**
      * Обработчик изменения данных формы
@@ -28,7 +28,7 @@ export function Form( props ) {
             return null;
         }
         const setOfErrors = errors.reduce( (acc, error) => {
-            return acc.add( dto.getErrorTranslate( error ) )
+            return acc.add( model.getErrorTranslate( error ) )
         }, new Set() );
 
         return (
@@ -39,18 +39,16 @@ export function Form( props ) {
     }
 
     /**
-     * Рендер нужных полей
-     * @param { Model } user
-     * @param { Array } fields
-     *
+     * Рендер полей формы
      * @return { JSX[] }
-     * @todo ненравится функция, хочу переделать, если ктото придумает красивое решение и переделает, заранее спасибо!
      **/
-    function renderInputs( user, fields ) {
-        return fields.map( field => {
+    function renderInputs() {
+        return fieldsList.map( field => {
             const { attribute, ...rest } = field;
-            const value = ( user[ attribute ] || "" );
-            const errors = dto.getErrors().find(([ key ]) => key === attribute );
+            const value = ( model[ attribute ] || "" );
+            const errors = model.getErrors().find(
+                ([ key ]) => key === attribute
+            );
             const [ _, validateResult = new ValidateResult(true ) ] = errors || [];
 
             return (
@@ -61,7 +59,7 @@ export function Form( props ) {
                     name={ attribute }
                     autoComplete="false"
                     onChange={ handleChange }
-                    label={ user.getLabel( attribute ) }
+                    label={ model.getLabel( attribute ) }
                     error={ !validateResult.isValid() }
                     helperText={ validateResult.getMessage() }
                 />
@@ -71,15 +69,22 @@ export function Form( props ) {
 
     return (
         <StyledForm autoComplete="off">
-            { renderInputs( dto, fieldsList ) }
+            { renderInputs() }
             { prepareErrorsMessage() }
         </StyledForm>
     );
 }
 
 Form.propTypes = {
-    dto: PropTypes.instanceOf( Model ).isRequired,
+    model: PropTypes.instanceOf( Model ).isRequired,
     onChange: PropTypes.func.isRequired,
     errors: PropTypes.array,
-    fieldsList: PropTypes.array.isRequired
+    fieldsList: PropTypes.arrayOf(
+        PropTypes.shape({
+            attribute: PropTypes.string.isRequired,
+            required: PropTypes.bool,
+            type: PropTypes.string,
+            placeholder: PropTypes.string,
+        }),
+    ).isRequired
 };

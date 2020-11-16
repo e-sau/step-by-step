@@ -8,7 +8,7 @@ import routes from './routes';
 import SiteContainer from "./containers/SiteContainer";
 
 /** @type JSX.Element корень приложения */
-const App = (
+ReactDOM.render(
     <Suspense fallback={ "loading" }>
         <Provider store={ store }>
             <SiteContainer>
@@ -22,9 +22,6 @@ const App = (
             </SiteContainer>
         </Provider>
     </Suspense>
+    ,
+    document.getElementById('main')
 );
-
-const $node = document.getElementById('main');
-if ( $node ) {
-    ReactDOM.render( App, $node );
-}
