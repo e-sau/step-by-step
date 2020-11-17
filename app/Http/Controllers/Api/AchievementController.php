@@ -64,7 +64,7 @@ class AchievementController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(Achievement::class, $request->get('with'));
         if ($with) {
-            return new AchievementResource(Achievement::with($with)->find($achievement->id));
+            return new AchievementResource($achievement->load($with));
         }
 
         return new AchievementResource($achievement);
