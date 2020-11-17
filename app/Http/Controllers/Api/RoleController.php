@@ -64,7 +64,7 @@ class RoleController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(Role::class, $request->get('with'));
         if ($with) {
-            return new RoleResource(Role::with($with)->find($role->id));
+            return new RoleResource($role->load($with));
         }
 
         return new RoleResource($role);

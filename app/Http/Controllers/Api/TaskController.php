@@ -64,7 +64,7 @@ class TaskController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(Task::class, $request->get('with'));
         if ($with) {
-            return new TaskResource(Task::with($with)->find($task->id));
+            return new TaskResource($task->load($with));
         }
 
         return new TaskResource($task);

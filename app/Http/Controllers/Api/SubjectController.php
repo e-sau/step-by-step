@@ -63,7 +63,7 @@ class SubjectController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
         if ($with) {
-            return new SubjectResource(Subject::with($with)->find($subject->id));
+            return new SubjectResource($subject->load($with));
         }
 
         return new SubjectResource($subject);

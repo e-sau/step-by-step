@@ -64,7 +64,7 @@ class AdditionController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(Addition::class, $request->get('with'));
         if ($with) {
-            return new AdditionResource(Addition::with($with)->find($addition->id));
+            return new AdditionResource($addition->load($with));
         }
 
         return new AdditionResource($addition);
