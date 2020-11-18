@@ -50,6 +50,7 @@ export const StyledLoader = styled("div")`
     display: inline-block;
     overflow: hidden;
     background: #f1f2f3;
+    margin: auto;
   }
   .ldio-kzhmg3skfv {
     width: 100%;
