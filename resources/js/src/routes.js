@@ -1,11 +1,11 @@
 import React from "react";
 
 export default [
-    { path: "/", exact: true, component: null },
+    { path: "/", exact: true },
     {
         path: "/signup",
         exact: true,
-        component: React.lazy(() => import("./containers/SignupPageContainer" ) ),
+        component: React.lazy(() => import("./containers/SignupPageContainer" )),
     },
     {
         path: "/login",

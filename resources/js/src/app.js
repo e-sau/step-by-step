@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -9,19 +9,17 @@ import SiteContainer from "./containers/SiteContainer";
 
 /** @type JSX.Element корень приложения */
 ReactDOM.render(
-    <Suspense fallback={ "loading" }>
-        <Provider store={ store }>
+    <Provider store={ store }>
+        <BrowserRouter>
             <SiteContainer>
-                <BrowserRouter>
-                    <Switch>
-                        { routes.map( ( route, idx ) =>
-                            <Route key={ idx } { ...route } />
-                        )}
-                    </Switch>
-                </BrowserRouter>
+                <Switch>
+                    { routes.map( ( route, idx ) =>
+                        <Route key={ idx } { ...route } />
+                    )}
+                </Switch>
             </SiteContainer>
-        </Provider>
-    </Suspense>
+        </BrowserRouter>
+    </Provider>
     ,
     document.getElementById('main')
 );

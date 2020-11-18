@@ -1,7 +1,6 @@
 import styled from "styled-components"
 
 export const PageContainer = styled("div")`
-    height: 80vh;
 `;
 
 export const FormContainer = styled("div")`
