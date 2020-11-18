@@ -24,8 +24,9 @@ class GradesTableSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             Grade::create([
-                'title' => $faker->numberBetween(1, 11) . $faker->randomElement(['а', 'б', 'в']),
-                'school_id' => $faker->unique()->numberBetween(1, School::count())
+                'letter' => $faker->randomElement(['а', 'б', 'в']),
+                'school_id' => $faker->unique()->numberBetween(1, School::count()),
+                'level' => 1
             ]);
         }
     }
