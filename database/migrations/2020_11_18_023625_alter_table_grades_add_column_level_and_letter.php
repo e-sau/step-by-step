@@ -15,7 +15,7 @@ class AlterTableGradesAddColumnLevelAndLetter extends Migration
     {
         Schema::table('grades', function (Blueprint $table) {
             $table->unsignedTinyInteger('level');
-            $table->string('letter');
+            $table->string('letter')->nullable(true);
         });
     }
 
