@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const StyledBlockReviews = styled("div")`
+  display: flex;
+  flex-dierction: row;
+  flex-wrap: wrap;
+  width: calc(100% - 200px);
+  margin: auto;
+`;
 
 export const StyledBlockAdvert = styled("div")`
   width: 100%;
