@@ -5,6 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *  @OA\Schema(
+ *      @OA\Xml(name="Task"),
+ *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="title", type="string"),
+ *      @OA\Property(property="description", type="string"),
+ *      @OA\Property(property="difficult", type="integer"),
+ *      @OA\Property(property="solution", type="text"),
+ *      @OA\Property(property="subject_id", type="integer"),
+ *      @OA\Property(property="created_at", type="string"),
+ *      @OA\Property(property="updated_at", type="string"),
+ *      @OA\Property(
+ *          property="subject", type="object",
+ *          @OA\Items(ref="#/components/schemas/Subject"),
+ *      ),
+ *      @OA\Property(
+ *          property="additions", type="array",
+ *          @OA\Items(ref="#/components/schemas/Addition"),
+ *      ),
+ *      @OA\Property(
+ *          property="users", type="array",
+ *          @OA\Items(ref="#/components/schemas/User"),
+ *      ),
+ *  )
+ */
 class Task extends Model
 {
     use HasFactory;

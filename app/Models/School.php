@@ -5,6 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *  @OA\Schema(
+ *      @OA\Xml(name="School"),
+ *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="title", type="string"),
+ *      @OA\Property(property="created_at", type="string"),
+ *      @OA\Property(property="updated_at", type="string"),
+ *      @OA\Property(
+ *          property="grades", type="array",
+ *          @OA\Items(ref="#/components/schemas/Grade"),
+ *      ),
+ *  )
+ */
 class School extends Model
 {
     use HasFactory;

@@ -5,6 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *  @OA\Schema(
+ *      @OA\Xml(name="Achievement"),
+ *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="title", type="string"),
+ *      @OA\Property(property="description", type="string"),
+ *      @OA\Property(property="code", type="string"),
+ *      @OA\Property(property="image", type="string"),
+ *      @OA\Property(property="created_at", type="string"),
+ *      @OA\Property(property="updated_at", type="string"),
+ *      @OA\Property(
+ *          property="users", type="array",
+ *          @OA\Items(ref="#/components/schemas/User"),
+ *      ),
+ *  )
+ */
 class Achievement extends Model
 {
     use HasFactory;

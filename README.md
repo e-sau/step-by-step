@@ -30,3 +30,9 @@ Refresh DB (execute all migrations and seed the data):
 
 If you catch error then run:  
 ```php artisan migrate:fresh --seed```
+
+***
+#### Swagger
+```php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"```  
+```php artisan l5-swagger:generate```
+- Open localhost/api/documentation
