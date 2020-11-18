@@ -8,22 +8,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Grade as GradeResource;
 
 class GradeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Grade::class);
 
-        return response()->json(Grade::all(), Response::HTTP_OK);
+        $grades = $this->getModelCollectionWithRequestParams($request, Grade::class);
+
+        return GradeResource::collection($grades);
     }
 
     /**
@@ -48,15 +53,21 @@ class GradeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Grade  $grade
-     * @return JsonResponse
+     * @param Request $request
+     * @param Grade $grade
+     * @return GradeResource
      * @throws AuthorizationException
      */
-    public function show(Grade $grade)
+    public function show(Request $request, Grade $grade)
     {
         $this->authorize('view', $grade);
 
-        return response()->json($grade, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Grade::class, $request->get('with'));
+        if ($with) {
+            return new GradeResource($grade->load($with));
+        }
+
+        return new GradeResource($grade);
     }
 
     /**

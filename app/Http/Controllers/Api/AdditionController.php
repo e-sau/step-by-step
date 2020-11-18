@@ -8,22 +8,27 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Addition as AdditionResource;
 
 class AdditionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', Addition::class);
 
-        return response()->json(Addition::all(), Response::HTTP_OK);
+        $additions = $this->getModelCollectionWithRequestParams($request, Addition::class);
+
+        return AdditionResource::collection($additions);
     }
 
     /**
@@ -48,15 +53,21 @@ class AdditionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Addition $addition
-     * @return JsonResponse
+     * @param Request $request
+     * @param Addition $addition
+     * @return AdditionResource
      * @throws AuthorizationException
      */
-    public function show(Addition $addition)
+    public function show(Request $request, Addition $addition)
     {
         $this->authorize('view', $addition);
 
-        return response()->json($addition, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(Addition::class, $request->get('with'));
+        if ($with) {
+            return new AdditionResource($addition->load($with));
+        }
+
+        return new AdditionResource($addition);
     }
 
     /**

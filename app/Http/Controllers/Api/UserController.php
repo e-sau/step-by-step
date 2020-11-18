@@ -8,22 +8,26 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return JsonResponse
+     * @param Request $request
+     * @return AnonymousResourceCollection
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize('viewAny', User::class);
 
-        return response()->json(User::all(), Response::HTTP_OK);
+        $users = $this->getModelCollectionWithRequestParams($request, User::class);
+
+        return UserResource::collection($users);
     }
 
     /**
@@ -44,15 +48,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  User  $user
-     * @return JsonResponse
+     * @param Request $request
+     * @param User $user
+     * @return UserResource
      * @throws AuthorizationException
      */
-    public function show(User  $user)
+    public function show(Request $request, User  $user)
     {
         $this->authorize('view', $user);
 
-        return response()->json($user, Response::HTTP_OK);
+        $with = $this->getWithRelationsParameterInModel(User::class, $request->get('with'));
+        if ($with) {
+            return new UserResource($user->load($with));
+        }
+
+        return new UserResource($user);
     }
 
     /**
