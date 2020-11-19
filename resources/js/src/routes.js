@@ -1,16 +1,15 @@
 import React from "react";
 
 export default [
-    { path: "/", exact: true },
+    {
+        path: "/",
+        exact: true,
+        component: React.lazy(() => import("./pages/Main" )),
+    },
     {
         path: "/signup",
         exact: true,
         component: React.lazy(() => import("./containers/SignupPageContainer" )),
-    },
-    {
-        path: "/login",
-        exact: true,
-        component:  React.lazy(() => import("./containers/LoginPageContainer") ),
     },
     {
         path: "/tasks",

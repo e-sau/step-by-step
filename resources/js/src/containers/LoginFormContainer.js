@@ -1,8 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { LoginPage } from "../components/loginPage";
+import { LoginForm } from "../components/loginForm";
 import { login , changeUserData } from "../store/auth/actions";
 
 /**
@@ -14,11 +13,12 @@ import { login , changeUserData } from "../store/auth/actions";
  * @todo повторяет логику SignupPage, пересмотреть кому редирект можно делегировать
  **/
 function PageWrapper( props ) {
-    const { isAuthorized, ...rest } = props;
+    const { isAuthorized, user, ...rest } = props;
+
     if ( isAuthorized ) {
-        return <Redirect to="/"/>;
+        return <h2>`Hello ${ user.getName() }`</h2>;
     }
-    return <LoginPage { ...rest } />;
+    return <LoginForm user={ user } { ...rest } />;
 }
 
 /**

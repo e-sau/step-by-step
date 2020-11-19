@@ -7,7 +7,7 @@ import { ValidateResult } from "../../common/validators";
 import { Model } from "../../models/Model";
 
 export function Form( props ) {
-    const { model, onChange, errors, fieldsList } = props;
+    const { useLabel, model, onChange, errors, fieldsList, variant, inputError } = props;
 
     /**
      * Обработчик изменения данных формы
@@ -58,10 +58,11 @@ export function Form( props ) {
                     key={ attribute }
                     name={ attribute }
                     autoComplete="false"
+                    variant={ variant }
                     onChange={ handleChange }
-                    label={ model.getLabel( attribute ) }
+                    label={ useLabel && model.getLabel( attribute ) }
                     error={ !validateResult.isValid() }
-                    helperText={ validateResult.getMessage() }
+                    helperText={ inputError && validateResult.getMessage() }
                 />
             )
         });
@@ -75,7 +76,16 @@ export function Form( props ) {
     );
 }
 
+Form.defaultProps = {
+    variant: "outlined",
+    useLabel: true,
+    inputError: true
+}
+
 Form.propTypes = {
+    inputError: PropTypes.bool,
+    useLabel: PropTypes.bool,
+    variant: PropTypes.string,
     model: PropTypes.instanceOf( Model ).isRequired,
     onChange: PropTypes.func.isRequired,
     errors: PropTypes.array,
