@@ -21,7 +21,7 @@ class Task extends Model
             'difficult' => 'required|integer',
             'solution' => 'required|min:10',
             'subject_id' => 'required|exists:'.Subject::class.',id',
-            'type' => 'nullable|string|min:5'
+            'type_id' => 'required|exists:'.TaskType::class.',id'
         ];
     }
 
@@ -33,13 +33,18 @@ class Task extends Model
             'difficult' => 'integer',
             'solution' => 'min:10',
             'subject_id' => 'exists:'.Subject::class.',id',
-            'type' => 'nullable|string|min:5'
+            'type_id' => 'required|exists:'.TaskType::class.',id'
         ];
     }
 
     public function subject()
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TaskType::class);
     }
 
     public function additions()

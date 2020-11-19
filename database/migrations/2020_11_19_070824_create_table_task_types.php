@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableTasksAddColumnType extends Migration
+class CreateTableTaskTypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AlterTableTasksAddColumnType extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->string('type')->unique()->nullable(true);
+        Schema::create('task_types', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
+            $table->string('name')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AlterTableTasksAddColumnType extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('type');
-        });
+        Schema::dropIfExists('task_types');
     }
 }

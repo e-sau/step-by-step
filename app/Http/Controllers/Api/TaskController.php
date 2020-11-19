@@ -56,6 +56,8 @@ class TaskController extends Controller
     {
         $this->authorize('view', $task);
 
+        $task->type = $task->type->name;
+
         return response()->json($task, Response::HTTP_OK);
     }
 
