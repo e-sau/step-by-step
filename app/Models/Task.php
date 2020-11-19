@@ -10,7 +10,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'difficult', 'solution', 'subject_id'
+        'title', 'description', 'difficult', 'solution', 'subject_id', 'type'
     ];
 
     public static function createRules()
@@ -20,7 +20,8 @@ class Task extends Model
             'description' => 'required|min:5|max:255',
             'difficult' => 'required|integer',
             'solution' => 'required|min:10',
-            'subject_id' => 'required|exists:'.Subject::class.',id'
+            'subject_id' => 'required|exists:'.Subject::class.',id',
+            'type' => 'nullable|string|min:5'
         ];
     }
 
@@ -31,7 +32,8 @@ class Task extends Model
             'description' => 'min:5|max:255',
             'difficult' => 'integer',
             'solution' => 'min:10',
-            'subject_id' => 'exists:'.Subject::class.',id'
+            'subject_id' => 'exists:'.Subject::class.',id',
+            'type' => 'nullable|string|min:5'
         ];
     }
 
