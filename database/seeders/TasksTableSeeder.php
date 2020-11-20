@@ -28,7 +28,8 @@ class TasksTableSeeder extends Seeder
                 'description' => $faker->sentence(5),
                 'difficult' => $faker->numberBetween(0, 3),
                 'solution' => $faker->text(100),
-                'subject_id' => $faker->numberBetween(1, Subject::count())
+                'subject_id' => $faker->numberBetween(1, Subject::count()),
+                'type_id' => 1
             ]);
         }
     }

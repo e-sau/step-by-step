@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\TaskType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Task extends JsonResource
@@ -24,7 +25,8 @@ class Task extends JsonResource
             'updated_at' => $this->updated_at,
             'subject' => $this->whenLoaded('subject'),
             'additions' => Addition::collection($this->whenLoaded('additions')),
-            'users' => User::collection($this->whenLoaded('users'))
+            'users' => User::collection($this->whenLoaded('users')),
+            'type' => $this->whenLoaded('type')
         ];
     }
 }
