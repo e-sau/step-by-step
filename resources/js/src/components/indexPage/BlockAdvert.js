@@ -5,7 +5,7 @@ import { Summary } from "../Summary/Summary";
 export function BlockAdvert() {
     return (
         <StyledBlockAdvert>
-          <div className="block_advert__image"></div>
+          <div className="block_advert__image"/>
           <TextContainer>
             <h4>Наши преимущества</h4>
             {ADVANTAGES_ARRAY.map(advantage => <Summary key={ advantage.heading } summary={advantage} />)}

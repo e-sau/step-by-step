@@ -1,7 +1,7 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { LoginForm } from "../components/loginForm";
+import { LoginForm } from "../components/LoginForm";
 import { login , changeUserData } from "../store/auth/actions";
 
 /**

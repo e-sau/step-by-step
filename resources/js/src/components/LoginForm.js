@@ -1,10 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Model } from "../../models/Model";
-import { Link } from "react-router-dom";
-import { FormContainer, ControlsContainer } from "./styled.sc";
-import { Button, Typography } from "@material-ui/core";
-import { Form } from "../form";
+import styled from "styled-components";
+
+import { Model } from "../models/Model";
+import { Link } from "./ui/Link";
+import { Button } from "./ui/Button";
+import { Form } from "./form";
+
+export const FormContainer = styled("div")`
+    display: grid;
+    grid-gap: 20px;
+    grid-template-rows: auto;
+`;
+
+export const ControlsContainer = styled("div")`
+    display: grid;
+    grid-template-columns: 66% auto;
+    align-items: center;
+`;
+
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
@@ -30,15 +44,10 @@ export function LoginForm( props ) {
                 inputError={ false }
             />
             <ControlsContainer>
-                <Button className="login" variant="contained" color="primary">
-                    <span className="login_link" onClick={ onLogin } >
-                        Войти
-                    </span>
+                <Button onClick={ onLogin } text={ "Войти" } color="primary">
+                    Войти
                 </Button>
-
-                <Link className="link" to={ "/signup" }>
-                    <Typography align="center">Регистрация</Typography>
-                </Link>
+                <Link className="link" uri={ "/signup" } text={ "Регистрация" }/>
             </ControlsContainer>
         </FormContainer>
     );
