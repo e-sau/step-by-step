@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
 export const Form = styled("form")`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-
     & .MuiTextField-root {
-        width: 80%;
-        margin: 8px;
+        width: 100%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    & .MuiOutlinedInput-input {
+        background: white;
+        border-radius: 4px;
+        padding: 15px 16px;
     }
 `;

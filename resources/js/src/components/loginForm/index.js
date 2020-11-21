@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Model } from "../../models/Model";
 import { Link } from "react-router-dom";
-import { PageContainer, ControlsContainer } from "./styled.sc";
+import { FormContainer, ControlsContainer } from "./styled.sc";
 import { Button, Typography } from "@material-ui/core";
 import { Form } from "../form";
 
@@ -11,34 +11,40 @@ import { Form } from "../form";
  * @param { Object } props
  * @return { JSX.Element }
  **/
-export function LoginPage( props ) {
+export function LoginForm( props ) {
     const { user, onChange, onLogin, errors } = props;
 
     const fieldsList = [
-        { attribute: "email", required: true, type: "email", placeholder: "example@mai.com" },
-        { attribute: "password", required: true, type: "password"  },
+        { attribute: "email", required: true, type: "email", placeholder: "E-mail" },
+        { attribute: "password", required: true, type: "password", placeholder: "Пароль"  },
     ];
 
     return (
-        <PageContainer>
-            <Typography variant="h5" align="center">Авторизация</Typography>
+        <FormContainer>
             <Form
                 model={ user }
                 onChange={ onChange }
                 fieldsList={ fieldsList }
                 errors={ errors }
+                useLabel={ false }
+                inputError={ false }
             />
             <ControlsContainer>
-                <Button variant="contained" color="primary" onClick={ onLogin }>Войти</Button>
-                <Link to={ "/restore/password" }>
-                    <Typography align="center">Забыли пароль?</Typography>
+                <Button className="login" variant="contained" color="primary">
+                    <span className="login_link" onClick={ onLogin } >
+                        Войти
+                    </span>
+                </Button>
+
+                <Link className="link" to={ "/signup" }>
+                    <Typography align="center">Регистрация</Typography>
                 </Link>
             </ControlsContainer>
-        </PageContainer>
+        </FormContainer>
     );
 }
 
-LoginPage.propTypes = {
+LoginForm.propTypes = {
     user: PropTypes.instanceOf( Model ),
     onChange: PropTypes.func.isRequired,
     onLogin: PropTypes.func.isRequired,

@@ -39,7 +39,7 @@ const mapDispatchToProps = ( dispatch ) =>
     bindActionCreators({
         onChange: changeUserData,
         onSubmit: submit,
-    }, dispatch);
+    }, dispatch );
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( PageWrapper );

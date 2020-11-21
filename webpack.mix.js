@@ -14,5 +14,5 @@ const mix = require('laravel-mix');
 mix.react('resources/js/src/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .webpackConfig({
-        output: { chunkFilename: 'js/chunks/[name]-[chunkhash].js' },
+        output: { chunkFilename: 'js/chunks/[name].js' },
     });
