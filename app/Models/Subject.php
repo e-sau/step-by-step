@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  *      @OA\Property(property="title", type="string"),
  *      @OA\Property(property="created_at", type="string"),
  *      @OA\Property(property="updated_at", type="string"),
+ *      @OA\Property(property="slug", type="string"),
  *      @OA\Property(
  *          property="grades", type="array",
  *          @OA\Items(ref="#/components/schemas/Grade"),
@@ -30,10 +31,19 @@ class Subject extends Model
         'title'
     ];
 
-    public static function rules()
+    public static function createRules()
     {
         return [
             'title' => 'required|min:3|max:50',
+            'slug' => 'required|min:3|max:50',
+        ];
+    }
+
+    public static function updateRules()
+    {
+        return [
+            'title' => 'min:3|max:50',
+            'slug' => 'min:3|max:50',
         ];
     }
 

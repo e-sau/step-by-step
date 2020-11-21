@@ -19,12 +19,17 @@ class SubjectsTableSeeder extends Seeder
         Subject::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $faker = \Faker\Factory::create();
-
-        for ($i = 0; $i < 3; $i++) {
-            Subject::create([
-                'title' => $faker->unique()->randomElement(['maths', 'russian language', 'world around']),
-            ]);
-        }
+        Subject::create([
+                'title' => 'Математика',
+                'slug' => 'maths',
+        ]);
+        Subject::create([
+            'title' => 'Русский язык',
+                'slug' => 'russian_language',
+        ]);
+        Subject::create([
+            'title' => 'Окружающий мир',
+            'slug' => 'world_around',
+        ]);
     }
 }
