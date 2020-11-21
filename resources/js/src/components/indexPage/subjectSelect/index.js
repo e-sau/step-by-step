@@ -1,21 +1,24 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button } from "../../ui/Button";
 import { Spacer } from "../../Spacer";
 import { Container, Message, Link, SubjectsGrid } from "./styled.sc";
+import { Subject } from "../../../models/Subject";
 
 export function SubjectSelect( props ) {
     const { subjects } = props;
 
     function renderSubjects() {
-        return subjects.map( () => {
+        return subjects.map( (subject) => {
+
             return (
-                <Button className="login" color="primary">
-                    <Link className="link_login" to={ "/login" }>
-                        Войти
+                <Button key={ subject.id } color="primary">
+                    <Link to={ `/subjects/${ subject.id }` }>
+                        { subject.title }
                     </Link>
                 </Button>
             );
-        })
+        });
     }
 
     return (
@@ -33,6 +36,8 @@ export function SubjectSelect( props ) {
     );
 }
 
-SubjectSelect.defaultProps = {
-    subjects: []
-};
+SubjectSelect.propTypes = {
+    subjects: PropTypes.arrayOf(
+        PropTypes.instanceOf( Subject )
+    ).isRequired,
+}

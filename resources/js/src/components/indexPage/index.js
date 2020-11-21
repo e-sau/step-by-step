@@ -1,13 +1,12 @@
 import React from "react";
-import {SubjectSelect} from "./subjectSelect";
 import Preview from "./preview";
+import SubjectsSelectContainer from "../../containers/SubjectsSelectContainer";
 
 export default function ( props ) {
     return (
         <React.Fragment>
-            <Preview/>
-            <SubjectSelect/>
+            {/*<Preview/>*/}
+            <SubjectsSelectContainer/>
         </React.Fragment>
-
     );
 }

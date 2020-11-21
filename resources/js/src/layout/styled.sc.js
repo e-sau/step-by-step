@@ -35,13 +35,10 @@ export const StyledHeader = styled("header")`
         padding: 0;
 
         & .link_login {
-            width: 109px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3em;
-            letter-spacing: 0.05em;
+            line-height: 16px;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+            font-size: 18px;
         }
     }
 `;

@@ -49,4 +49,5 @@ export const Link = styled( RouterLink )`
 
     color: #E33371;
     text-decoration: none;
+    text-transform: none;
 `;

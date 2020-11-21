@@ -1,4 +1,5 @@
 import * as TYPE from "./types";
+import {Subject} from "../../models/Subject";
 
 /**
  * Начальное состояние
@@ -7,6 +8,13 @@ import * as TYPE from "./types";
 const subjectInitialState = {
     isFetching: false,
     selectedId: null,
+
+    /** @todo получать это с бека, с переводом, написать задачу на бек( чтоб позволили получать список предметом без авторизации ) */
+    previewList: [
+        new Subject( 1,"Русский язык" ),
+        new Subject(2,"Математика" ),
+        new Subject(3,"Окружающий мир" ),
+    ],
     list: [],
     error: null
 };

@@ -16,7 +16,14 @@ const StyledButton = styled( MaterialButton )`
             color: #ffffff;
             background: ${ props => props.bg };;
             width: 100%;
-            padding: 12px 40px;
+            min-width: 190px;
+            border-radius: 4px;
+            padding: 17px 0;
+
+            display: grid;
+            justify-content: center;
+
+            text-transform: none;
         }
 
         a {
