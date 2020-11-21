@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::middleware('auth:api')->group(function() {
     Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout');
+
+    Route::get('/user', function (Request $request) {
+        $with = $request->get('with');
+
+        /* Roles always retrieves */
+        $request->merge(['with' => "$with,roles"]);
+
+        return (new \App\Http\Controllers\Api\UserController)->show($request, $request->user());
+    });
 
     Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);

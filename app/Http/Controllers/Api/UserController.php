@@ -16,6 +16,49 @@ class UserController extends Controller
 {
     /**
      *  @OA\Get(
+     *      path="/user",
+     *      summary="Get current user",
+     *      description="Return current user with relations (roles always retrieves)",
+     *      operationId="getCurrentUser",
+     *      tags={"users"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets user relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/User",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+
+    /**
+     *  @OA\Get(
      *      path="/users",
      *      summary="Get users",
      *      description="Return list of users with relations",
