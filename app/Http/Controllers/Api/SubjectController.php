@@ -24,7 +24,7 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Subject::class);
+//        $this->authorize('viewAny', Subject::class);
 
         $subjects = $this->getModelCollectionWithRequestParams($request, Subject::class);
 
@@ -59,7 +59,7 @@ class SubjectController extends Controller
      */
     public function show(Request $request, Subject $subject)
     {
-        $this->authorize('view', $subject);
+//        $this->authorize('view', $subject);
 
         $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
         if ($with) {
@@ -108,5 +108,16 @@ class SubjectController extends Controller
         $subject->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+//    public function getBySlug(string $slug)
+//    {
+//        return Subject::find(['slug' => $slug])->get();
+//    }
+
+    public function getBySlug(Request $request, string $slug)
+    {
+        $subject = Subject::find(['slug' => $slug])->get();
+        return $this->show($request, $subject);
     }
 }
