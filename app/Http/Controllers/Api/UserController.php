@@ -15,6 +15,49 @@ use App\Http\Resources\User as UserResource;
 class UserController extends Controller
 {
     /**
+     *  @OA\Get(
+     *      path="/users",
+     *      summary="Get users",
+     *      description="Return list of users with relations",
+     *      operationId="getUsers",
+     *      tags={"users"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets user relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      ref="#/components/schemas/User",
+     *                  ),
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -31,6 +74,37 @@ class UserController extends Controller
     }
 
     /**
+     *  @OA\Post(
+     *      path="/users",
+     *      summary="Create user",
+     *      description="Create a new user",
+     *      operationId="createUser",
+     *      tags={"users"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"name", "email", "password"},
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="email_verified_at", type="string"),
+     *              @OA\Property(property="password", type="string"),
+     *              @OA\Property(property="remember_token", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *      ),
+     *  )
+     */
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -45,6 +119,57 @@ class UserController extends Controller
         return response()->json(null, Response::HTTP_CREATED);
     }
 
+    /**
+     *  @OA\Get(
+     *      path="/users/{id}",
+     *      summary="Get user",
+     *      description="Return user with relations",
+     *      operationId="showUser",
+     *      tags={"users"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="User ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets user relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string",
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/User",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
     /**
      * Display the specified resource.
      *
@@ -66,6 +191,45 @@ class UserController extends Controller
     }
 
     /**
+     *  @OA\Put(
+     *      path="/users/{id}",
+     *      summary="Update user",
+     *      description="Update user",
+     *      operationId="updateUser",
+     *      tags={"users"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="User ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="email", type="string"),
+     *              @OA\Property(property="email_verified_at", type="string"),
+     *              @OA\Property(property="password", type="string"),
+     *              @OA\Property(property="remember_token", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *  )
+     */
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -81,6 +245,35 @@ class UserController extends Controller
         return response()->json(null, Response::HTTP_OK);
     }
 
+    /**
+     *  @OA\Delete(
+     *      path="/users/{id}",
+     *      summary="Delete user",
+     *      description="Delete user",
+     *      operationId="deleteUser",
+     *      tags={"users"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="User ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Remove the specified resource from storage.
      *

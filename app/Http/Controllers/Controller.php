@@ -10,6 +10,17 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
+/**
+ * @OA\Info(
+ *      title="Step-By-Step Application Api",
+ *      version="1.0.0",
+ * )
+ *
+ * @OA\Server(
+ *      url="http://localhost/api",
+ *      description="Step-By-Step Api Server"
+ * )
+ */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;

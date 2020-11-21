@@ -13,6 +13,42 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    /**
+     *  @OA\Post(
+     *      path="/register",
+     *      summary="Register",
+     *      description="Register User",
+     *      operationId="authRegister",
+     *      tags={"auth"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"name", "email", "password", "password_confirmation"},
+     *              @OA\Property(property="name", type="string", example="user"),
+     *              @OA\Property(property="email", type="string", example="api@step-by-step.ru"),
+     *              @OA\Property(property="password", type="string", example="strongPass"),
+     *              @OA\Property(property="password_confirmation", type="string", example="strongPass"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="The given data was invalid",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *              @OA\Property(property="errors", type="array",
+     *                  @OA\Items(type="string")
+     *              ),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User Register Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="token", type="string"),
+     *          ),
+     *      ),
+     * )
+     */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), User::$registerRules);
@@ -39,6 +75,44 @@ class AuthController extends Controller
         return response(['token' => $token], Response::HTTP_OK);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/login",
+     *      summary="Sign In",
+     *      description="Login user by email and password",
+     *      operationId="authLogin",
+     *      tags={"auth"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"email", "password"},
+     *              @OA\Property(property="email", type="string", example="api@step-by-step.ru"),
+     *              @OA\Property(property="password", type="string", example="strongPass"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Wrong credentials",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *              @OA\Property(property="errors", type="array",
+     *                  @OA\Items(type="string")
+     *              ),
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="User not found",
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Authentication Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="token", type="string")
+     *          ),
+     *      ),
+     * ),
+     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), User::$loginRules);
@@ -62,10 +136,30 @@ class AuthController extends Controller
                 ], Response::HTTP_UNPROCESSABLE_ENTITY);
             }
         } else {
-            return response(null, Response::HTTP_UNPROCESSABLE_ENTITY);
+            return response(null, Response::HTTP_NOT_FOUND);
         }
     }
 
+    /**
+     *  @OA\Post(
+     *      path="/logout",
+     *      summary="Logout",
+     *      description="Logout user",
+     *      operationId="authLogout",
+     *      tags={"auth"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     * )
+     */
     public function logout(Request $request)
     {
         $token = $request->user()->token();

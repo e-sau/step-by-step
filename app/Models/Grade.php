@@ -6,6 +6,24 @@ use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ *  @OA\Schema(
+ *      @OA\Xml(name="User"),
+ *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="title", type="string"),
+ *      @OA\Property(property="school_id", type="integer"),
+ *      @OA\Property(property="created_at", type="string"),
+ *      @OA\Property(property="updated_at", type="string"),
+ *      @OA\Property(
+ *          property="school", type="object",
+ *          @OA\Items(ref="#/components/schemas/School"),
+ *      ),
+ *      @OA\Property(
+ *          property="users", type="array",
+ *          @OA\Items(ref="#/components/schemas/User"),
+ *      ),
+ *  )
+ */
 class Grade extends Model
 {
     use HasFactory;
