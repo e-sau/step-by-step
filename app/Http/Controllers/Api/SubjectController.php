@@ -42,7 +42,7 @@ class SubjectController extends Controller
     {
         $this->authorize('create', Subject::class);
 
-        $data = $this->validate($request, Subject::rules());
+        $data = $this->validate($request, Subject::createRules());
 
         $subject = Subject::create($data);
 
@@ -81,7 +81,7 @@ class SubjectController extends Controller
     {
         $this->authorize('update', $subject);
 
-        $data = $this->validate($request, Subject::rules());
+        $data = $this->validate($request, Subject::updateRules());
 
         $subject->update($data);
 
