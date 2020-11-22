@@ -109,15 +109,4 @@ class SubjectController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
-
-//    public function getBySlug(string $slug)
-//    {
-//        return Subject::find(['slug' => $slug])->get();
-//    }
-
-    public function getBySlug(Request $request, string $slug)
-    {
-        $subject = Subject::find(['slug' => $slug])->get();
-        return $this->show($request, $subject);
-    }
 }
