@@ -6,6 +6,10 @@ export const StyledCard = styled("div")`
   align-items: center;
   width: 500px;
 
+  &:nth-child(odd) {
+    grid-row: 1;
+  }
+
   img {
     width: 85px;
     height: 85px;

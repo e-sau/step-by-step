@@ -16,11 +16,4 @@ export const ContainerGrid = styled("div")`
 
         color: #E33371;
     }
-
-    .previews {
-        padding: 40px 0;
-        &>div {
-            position: unset !important;
-        }
-    }
 `;

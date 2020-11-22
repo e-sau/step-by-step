@@ -22,6 +22,7 @@ export const Message = styled("div")`
 `;
 export const Container = styled("div")`
     display: grid;
+    z-index: 10;
     grid-template-rows: auto auto auto;
     gap: 25px;
     padding: 40px;

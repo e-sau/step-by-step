@@ -1,7 +1,7 @@
 import React from "react";
-import HorizontalScroll from "react-scroll-horizontal";
 import { TaskExample } from "../../taskExample";
 import { ContainerGrid } from "./styled.sc";
+import { HorizontalScroll } from "../../ui/HorizontalScroll";
 
 /**
  * @todo вынести и проработать в ракмказ задачи https://igorskipper.atlassian.net/browse/IS100-18

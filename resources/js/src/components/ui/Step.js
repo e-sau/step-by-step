@@ -14,6 +14,10 @@ const StyledDiv = styled( "div" )`
     letter-spacing: 0.04em;
     padding: 4px;
 
+    &:first-of-type {
+        border-radius: 4px 0 0 4px;
+    }
+
     &:after {
         content: "";
         width: 15px;
@@ -22,7 +26,7 @@ const StyledDiv = styled( "div" )`
         display: block;
         position: absolute;
         right: -8px;
-        top: 3px;
+        top: 4px;
         transform: rotate(45deg);
         z-index: 10;
     }
