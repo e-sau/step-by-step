@@ -24,7 +24,7 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $this->authorize('viewAny', Subject::class);
+//        $this->authorize('viewAny', Subject::class);
 
         $subjects = $this->getModelCollectionWithRequestParams($request, Subject::class);
 
@@ -42,7 +42,7 @@ class SubjectController extends Controller
     {
         $this->authorize('create', Subject::class);
 
-        $data = $this->validate($request, Subject::rules());
+        $data = $this->validate($request, Subject::createRules());
 
         $subject = Subject::create($data);
 
@@ -59,7 +59,7 @@ class SubjectController extends Controller
      */
     public function show(Request $request, Subject $subject)
     {
-        $this->authorize('view', $subject);
+//        $this->authorize('view', $subject);
 
         $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
         if ($with) {
@@ -81,7 +81,7 @@ class SubjectController extends Controller
     {
         $this->authorize('update', $subject);
 
-        $data = $this->validate($request, Subject::rules());
+        $data = $this->validate($request, Subject::updateRules());
 
         $subject->update($data);
 
