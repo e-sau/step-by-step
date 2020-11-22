@@ -1,7 +1,9 @@
 import React from "react";
-import Preview from "./preview";
+import { Preview } from "./blockPreview";
+import { Features } from "./blockFeatures";
 import SubjectsSelectContainer from "../../containers/SubjectsSelectContainer";
-import {Features} from "./features";
+import { ExampleTasks } from "./blockExample";
+
 
 export default function ( props ) {
     return (
@@ -9,6 +11,7 @@ export default function ( props ) {
             <Preview/>
             <SubjectsSelectContainer/>
             <Features/>
+            <ExampleTasks/>
         </React.Fragment>
     );
 }
