@@ -19,10 +19,9 @@ export function Card( props ) {
 
 
 Card.propTypes = {
-  review: PropTypes.arrayOf(
-    PropTypes.shape({
+  review: PropTypes.shape({
       author: PropTypes.string.isRequired,
       text: PropTypes.string,
       image: PropTypes.string,
-  })
+  }
 )}

@@ -15,7 +15,7 @@ Spacer.defaultProps = {
 
 Spacer.propTypes = {
   size: PropTypes.oneOf(
-    [4, 8, 20, 24, 32, 48, 64, 80, 120]
+    [4, 8, 20, 24, 32, 48, 64, 80, 100, 120]
   ).isRequired
 };
 

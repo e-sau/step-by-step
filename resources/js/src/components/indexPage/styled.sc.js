@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
 export const StyledBlockReviews = styled("div")`
-  display: flex;
-  flex-dierction: row;
-  flex-wrap: wrap;
-  width: calc(100% - 200px);
-  margin: auto;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: calc(100% - 200px);
+    // margin: auto;
+    column-gap: 125px;
+    row-gap: 25px;
+    padding: 0 100px;
 `;
 
 export const StyledBlockAdvert = styled("div")`
   width: 100%;
-  height: 800px;
+/*  height: 800px;*/
 
   h4 {
     font-weight: 500;

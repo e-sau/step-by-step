@@ -12,4 +12,4 @@ export function BlockReviews() {
 
 const REVIEW = { author: "Ольга Иванова", text: "«Мы занимаемся уже второй год. Моей дочке особенно нравится курс математики и уроки с роботом. Мы его для себя открыли недавно и уже прошли достаточно приличное количество карточек.»", image: "https://a.bmstatic.com/iu/10/156/Ellipse 1-0e7525ab21e35a4782bc172489117311.png" };
 
-const REVIEWS_ARRAY = Array(6).fill(REVIEW);
+const REVIEWS_ARRAY = Array(12).fill(REVIEW);

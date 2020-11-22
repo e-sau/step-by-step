@@ -9,6 +9,10 @@ export const StyledContainer = styled("div")`
         width: 1440px;
         margin: 0 auto;
     }
+
+    .page-body {
+         min-width: 100%;
+    }
 `;
 
 export const StyledHeader = styled("header")`

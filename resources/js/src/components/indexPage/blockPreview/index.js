@@ -2,7 +2,7 @@ import React from "react";
 import LoginFormContainer from "../../../containers/LoginFormContainer";
 import { StyledContainer, Wrapper } from "./styled.sc";
 
-export default function Preview() {
+export function Preview() {
     return (
         <StyledContainer>
             <div className="background">

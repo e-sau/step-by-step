@@ -16,7 +16,7 @@ function PageWrapper( props ) {
     const { isAuthorized, user, ...rest } = props;
 
     if ( isAuthorized ) {
-        return <h2>`Hello ${ user.getName() }`</h2>;
+        return null;
     }
     return <LoginForm user={ user } { ...rest } />;
 }

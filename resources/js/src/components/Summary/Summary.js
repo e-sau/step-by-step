@@ -18,9 +18,8 @@ export function Summary( props ) {
 
 
 Summary.propTypes = {
-  summary: PropTypes.arrayOf(
-    PropTypes.shape({
+  summary: PropTypes.shape({
       heading: PropTypes.string.isRequired,
       text: PropTypes.string,
-  })
+  }
 )}
