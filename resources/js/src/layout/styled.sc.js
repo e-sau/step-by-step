@@ -22,7 +22,7 @@ export const StyledHeader = styled("header")`
         font-weight: 900;
         font-size: 32px;
         line-height: 37px;
-        /* identical to box height */
+
         letter-spacing: 0.04em;
         text-decoration: none;
         align-self: center;
@@ -35,15 +35,10 @@ export const StyledHeader = styled("header")`
         padding: 0;
 
         & .link_login {
-            color: #ffffff;
-            text-decoration: none;
-            width: 189px;
-            height: 49px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3em;
-            letter-spacing: 0.05em;
+            line-height: 16px;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+            font-size: 18px;
         }
     }
 `;
