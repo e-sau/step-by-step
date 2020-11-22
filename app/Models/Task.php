@@ -14,11 +14,16 @@ use Illuminate\Database\Eloquent\Model;
  *      @OA\Property(property="difficult", type="integer"),
  *      @OA\Property(property="solution", type="text"),
  *      @OA\Property(property="subject_id", type="integer"),
+ *      @OA\Property(property="type_id", type="integer"),
  *      @OA\Property(property="created_at", type="string"),
  *      @OA\Property(property="updated_at", type="string"),
  *      @OA\Property(
  *          property="subject", type="object",
  *          @OA\Items(ref="#/components/schemas/Subject"),
+ *      ),
+ *      @OA\Property(
+ *          property="type", type="object",
+ *          @OA\Items(ref="#/components/schemas/TaskType"),
  *      ),
  *      @OA\Property(
  *          property="additions", type="array",
@@ -58,7 +63,7 @@ class Task extends Model
             'difficult' => 'integer',
             'solution' => 'min:10',
             'subject_id' => 'exists:'.Subject::class.',id',
-            'type_id' => 'required|exists:'.TaskType::class.',id'
+            'type_id' => 'exists:'.TaskType::class.',id'
         ];
     }
 
