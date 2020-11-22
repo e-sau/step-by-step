@@ -20,7 +20,7 @@ class TaskTypesSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         TaskType::create([
-            'name' => 'DRA_AND_DROP'
+            'name' => 'DRAG_AND_DROP'
         ]);
     }
 }
