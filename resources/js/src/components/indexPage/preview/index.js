@@ -6,7 +6,7 @@ export default function Preview() {
     return (
         <StyledContainer>
             <div className="background">
-                <img className="background_image" src={"/images/image.png"} alt="img"/>
+                <img className="background_image" src={"/images/home-preview.png"} alt="img"/>
                 <Wrapper className="background_overflow"/>
             </div>
 
