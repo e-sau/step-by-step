@@ -21,7 +21,7 @@ class User extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'roles' => Role::collection($this->whenLoaded('roles')),
-            'grades' => Grade::collection($this->whenLoaded('grades')),
+            'grade' => Grade::collection($this->whenLoaded('grade')),
             'tasks' => Task::collection($this->whenLoaded('tasks')),
             'achievements' => Achievement::collection($this->whenLoaded('achievements')),
         ];

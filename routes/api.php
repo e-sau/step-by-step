@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group(function() {
     Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout');
 
+    Route::get('/ratings/grade', function(Request $request) {
+        return (new \App\Http\Controllers\Api\UserController)->getUserRatingByGrade($request);
+
+    });
+
     Route::get('/user', function (Request $request) {
         $with = $request->get('with');
 
