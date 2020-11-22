@@ -9,7 +9,7 @@ export const TaskItem = styled( "div" )`
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 10px 10px 20px rgba(71, 145, 219, 0.2);
     border-radius: 4px;
-    width: 505px;
+    width: 425px;
     height: 292px;
     margin: 0 10px;
 
