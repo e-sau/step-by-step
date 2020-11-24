@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Passport\HasApiTokens;
 
 /**
@@ -20,7 +22,7 @@ use Laravel\Passport\HasApiTokens;
  *      @OA\Property(property="created_at", type="string"),
  *      @OA\Property(property="updated_at", type="string"),
  *      @OA\Property(
- *          property="grades", type="array",
+ *          property="grade", type="array",
  *          @OA\Items(ref="#/components/schemas/Grade"),
  *      ),
  *      @OA\Property(
@@ -84,7 +86,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function grades()
+    public function grade()
     {
         return $this->belongsToMany(Grade::class, 'user_grades');
     }

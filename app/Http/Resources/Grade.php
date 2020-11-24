@@ -16,11 +16,12 @@ class Grade extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'level' => $this->level,
+            'letter' => $this->letter,
+            'school' => $this->whenLoaded('school'),
+            'users' => User::collection($this->whenLoaded('users')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'school' => $this->whenLoaded('school'),
-            'users' => User::collection($this->whenLoaded('users'))
         ];
     }
 }

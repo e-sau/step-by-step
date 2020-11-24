@@ -204,7 +204,7 @@
                     "users"
                 ],
                 "summary": "Get current user",
-                "description": "Return current user with relations (roles always retireves)",
+                "description": "Return current user with relations (roles always retrieves)",
                 "operationId": "getCurrentUser",
                 "parameters": [
                     {
@@ -551,6 +551,59 @@
                     }
                 }
             }
+        },
+        "/ratings/grade": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get grade rating",
+                "description": "Retrieve users grade rating for authorized user",
+                "operationId": "getGradeRating",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "grade": {
+                                                    "type": "string",
+                                                    "example": "1A"
+                                                },
+                                                "rating": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Billy"
+                                                            },
+                                                            "completed": {
+                                                                "type": "integer",
+                                                                "example": 5
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -720,6 +773,9 @@
                     "updated_at": {
                         "type": "string"
                     },
+                    "slug": {
+                        "type": "string"
+                    },
                     "grades": {
                         "type": "array",
                         "items": {
@@ -758,6 +814,9 @@
                     "subject_id": {
                         "type": "integer"
                     },
+                    "type_id": {
+                        "type": "integer"
+                    },
                     "created_at": {
                         "type": "string"
                     },
@@ -768,6 +827,12 @@
                         "type": "object",
                         "items": {
                             "$ref": "#/components/schemas/Subject"
+                        }
+                    },
+                    "type": {
+                        "type": "object",
+                        "items": {
+                            "$ref": "#/components/schemas/TaskType"
                         }
                     },
                     "additions": {
@@ -786,6 +851,32 @@
                 "type": "object",
                 "xml": {
                     "name": "Task"
+                }
+            },
+            "TaskType": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TaskType"
                 }
             },
             "User": {
@@ -814,7 +905,7 @@
                     "updated_at": {
                         "type": "string"
                     },
-                    "grades": {
+                    "grade": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Grade"
