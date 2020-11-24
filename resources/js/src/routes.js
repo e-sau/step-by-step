@@ -12,6 +12,11 @@ export default [
         component: React.lazy(() => import("./containers/SignupPageContainer" )),
     },
     {
+        path: "/account",
+        exact: true,
+        component: React.lazy(() => import("./containers/AccountPageContainer") ),
+    },
+    {
         path: "/tasks",
         exact: true,
         component: React.lazy(() => import("./containers/TasksPageContainer") ),
