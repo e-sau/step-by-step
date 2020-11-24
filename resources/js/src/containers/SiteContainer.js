@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 
 import Layout from "../layout";
 import { authByToken } from "../store/auth/actions";
-import { Loader } from "../components/loader/Loader";
+import { Loader } from "../components/ui/loader/Loader";
 
 /**
  * Компонент обертка, над всем приложением, кидает сигнал инициализации отдельных элементов
@@ -27,7 +27,6 @@ function SiteWrapper( props ) {
     );
 }
 
-/** @return { Object } **/
 const mapStateToProps = () => ({});
 
 /** Мапим и оборачиваем функцией dispatch, все actionCreators **/

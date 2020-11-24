@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "../../ui/Button";
-import { Spacer } from "../../Spacer";
+import { Spacer } from "../../ui/Spacer";
 import { Container, Message, Link, SubjectsGrid } from "./styled.sc";
 import { Subject } from "../../../models/Subject";
 

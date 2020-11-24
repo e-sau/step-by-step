@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Typography } from "@material-ui/core";
 import { ControlsContainer } from "./styled.sc";
 import { User } from "../../models/User";
-import { Form } from "../form";
+import { Form } from "../ui/form";
 
 export function SignupFormWrapper( props ) {
     /** @type User **/

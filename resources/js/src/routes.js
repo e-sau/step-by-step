@@ -18,5 +18,5 @@ export default [
     },
 
     /** @todo добавить новые маршруты */
-    { component: React.lazy(() => import("./components/pageNotFound")) } /// этот роут всегда должен быть в конце
+    { component: React.lazy(() => import("./components/notFoundPage")) } /// этот роут всегда должен быть в конце
 ];
