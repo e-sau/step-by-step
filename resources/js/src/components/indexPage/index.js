@@ -11,7 +11,7 @@ import { HorizontalScroll } from "../ui/HorizontalScroll";
 import { Spacer } from "../Spacer";
 
 const SubjectsContainer = styled( "div" )`
-    width: 820px;
+    max-width: 820px;
     margin: 0 auto;
     margin-top: -67px;
     display: grid;

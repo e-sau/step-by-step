@@ -45,6 +45,14 @@ export const StyledHeader = styled("header")`
             font-size: 18px;
         }
     }
+    @media (max-width: 420px) {
+      padding: 30px 30px;
+      width: 80vw;
+      .site_name {
+        font-size: 16px;
+        line-height: 20px;
+      } 
+    }
 `;
 
 export const StyledFooter = styled("footer")`

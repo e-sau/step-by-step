@@ -45,5 +45,11 @@ export const StyledContainer = styled("div")`
             grid-row: 2;
         }
     }
+    @media (max-width: 420px) {
+      .content_text {
+        font-size: 16px;
+        line-height: 20px;
+      } 
+    }
 `;
 
