@@ -1,15 +1,12 @@
 import * as TYPE from './types';
-import { User } from "../../models/User";
-import { object } from "../../common/helpers";
 
 /**
  * Начальное состояние редьюсера
- * @type { Object<{ isAuthorized: Boolean, userData: User, authToken: String, errors: Array  }> }
+ * @type { Object<{ isAuthorized: Boolean, authToken: String, errors: Array  }> }
  **/
 const authInitialState = {
     isAuthorized: false,
     authToken: null,
-    userData: new User(),
     errors: [],
 }
 
@@ -32,33 +29,18 @@ export default function authReducer( state = authInitialState, action ) {
                 errors: authInitialState.errors,
             };
         }
-        /** Обновление данных о пользователе */
-        case TYPE.CHANGE_USER_DATA: {
-            const { key, value } = payload;
-            const { userData } = state;
-
-            const newPropertyValue = [
-                [ key, value ],
-                [ "_errors", userData._errors.filter( ([ attr ]) => attr !== key ) ],
-            ];
-
-            return { ...state, userData: object.update( userData, newPropertyValue ) };
-        }
         /** Обработка успешной регистрации */
         case TYPE.SIGNUP_SUCCESS: {
             return {
                 ...state,
                 authToken: payload,
                 isAuthorized: true,
-                userData: object.update( state.userData ),
             };
         }
         /** Обработка ошибки на клиенте при регистрации */
         case TYPE.SIGNUP_ERROR: {
             return {
-                ...state,
-                userData: object.update( state.userData ),
-                errors: payload
+                ...state, errors: payload
             };
         }
         /** Обработка успешной авторизации */
@@ -67,7 +49,6 @@ export default function authReducer( state = authInitialState, action ) {
                 ...state,
                 authToken: payload,
                 isAuthorized: true,
-                userData: object.update( state.userData ),
             };
         }
         /** Обработка ошибки валидации на клиенте */
@@ -75,22 +56,13 @@ export default function authReducer( state = authInitialState, action ) {
             return {
                 ...state,
                 isAuthorized: false,
-                userData: object.update( state.userData )
             };
         }
         /** Обработка ошибки при валидации на бекенде */
-        case TYPE.BACKEND_VALIDATION_ERROR: {
+        case TYPE.RESPONSE_ERROR: {
             return {
                 ...state,
                 errors: payload,
-                userData: object.update( state.userData ),
-            };
-        }
-        case TYPE.SET_USER_DATA: {
-            return {
-                ...state,
-                errors: payload,
-                userData: object.update( state.userData, Object.entries( payload ) ),
             };
         }
         /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */

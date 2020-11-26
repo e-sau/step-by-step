@@ -3,7 +3,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { SignupPage } from "../components/signupPage";
-import { changeUserData, submit } from "../store/auth/actions";
+import { submit } from "../store/auth/actions";
+import { changeModelAttribute } from "../store/user/actions";
 
 /**
  * Обертка над компонентом страници, в случае если пользоавтель авторизован, перенаправляем на главную
@@ -24,10 +25,10 @@ function PageWrapper( props ) {
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { userData, isAuthorized, errors } } = state;
+    const { auth: { isAuthorized, errors }, user: { model } } = state;
     return {
         errors,
-        user: userData,
+        user: model,
         isAuthorized,
     };
 }
@@ -37,7 +38,7 @@ function mapStateToProps( state ) {
  **/
 const mapDispatchToProps = ( dispatch ) =>
     bindActionCreators({
-        onChange: changeUserData,
+        onChange: changeModelAttribute,
         onSubmit: submit,
     }, dispatch );
 

@@ -220,19 +220,19 @@ class UserController extends Controller
      *
      * @param Request $request
      * @param User $user
-     * @return UserResource
+     * @return User
      * @throws AuthorizationException
      */
-    public function show(Request $request, User  $user)
+    public function show(Request $request, User $user)
     {
         $this->authorize('view', $user);
 
         $with = $this->getWithRelationsParameterInModel(User::class, $request->get('with'));
         if ($with) {
-            return new UserResource($user->load($with));
+            return $user->load($with);
         }
 
-        return new UserResource($user);
+        return $user;
     }
 
     /**

@@ -3,17 +3,12 @@ import { put, select, call } from "redux-saga/effects";
 import { User } from "../../models/User";
 import makeRequest from "../../api/makeRequest";
 import { login, signup, getUser } from "../../api/endpoints/users";
-
-import { getUserData, getToken } from "./selectors";
-import {
-    backendValidationError,
-    loginError,
-    loginSuccess,
-    setUserData,
-    signupError,
-    signupSuccess
-} from "./actions";
 import { object, string } from "../../common/helpers";
+
+import { getModel } from "../user/selectors";
+import { getToken } from "./selectors";
+import { setUserData, updateRef as updateUserRef } from "../user/actions";
+import { responseError, loginError, loginSuccess, signupError, signupSuccess } from "./actions";
 
 /**
  * Получение токена, и вызов цепочки действия при успешном логине ( костыльно, возможно потом переработаем )
@@ -38,7 +33,7 @@ export function* getTokenFromStorageWorker() {
  * @yield
  **/
 export function* submitWorker() {
-    const user = yield select( getUserData );
+    const user = yield select( getModel );
 
     try {
         if ( !user || !user.validate( User.SIGNUP_SCENARIO ) ) {
@@ -50,11 +45,12 @@ export function* submitWorker() {
             user.setErrors( data.errors );
             throw new Error("Validation error");
         }
-
         yield put( signupSuccess( data.token ) );
     } catch ( ex ) {
         yield put( signupError() );
     }
+
+    yield put( updateUserRef() );
 }
 
 /**
@@ -62,7 +58,7 @@ export function* submitWorker() {
  * @yield
  **/
 export function* loginWorker() {
-    const user = yield select( getUserData );
+    const user = yield select( getModel );
 
     if ( user.validate( User.LOGIN_SCENARIO ) ) {
         const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
@@ -70,11 +66,13 @@ export function* loginWorker() {
         if ( status === 200 ) {
             yield put( loginSuccess( data.token ) );
         } else {
-            yield put( backendValidationError([ "Wrong username or password" ]) );
+            yield put( responseError([ "Wrong username or password" ]) );
         }
     } else {
         yield put( loginError() );
     }
+
+    yield put( updateUserRef() );
 }
 
 /**
