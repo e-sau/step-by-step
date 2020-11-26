@@ -1,6 +1,7 @@
 import { Model } from "./Model";
 import { EMAIL_REGEXP } from "../common/regexp";
 import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
+import momemt from "moment";
 
 /**
  * Класс отражающий сущьность пользователя
@@ -20,6 +21,19 @@ export class User extends Model {
      * @type string
      **/
     name;
+
+    /**
+     * Фамилия пользователя
+     * @type string
+     **/
+    surname;
+
+    /**
+     * Дата рождения пользователя
+     * @type string
+     **/
+    birthDate;
+
     /**
      * Пароль
      * @type string
@@ -40,6 +54,12 @@ export class User extends Model {
      * @type Array
      **/
     roles = [];
+
+    /**
+     * Ссылка на фото пользовтеля
+     * @type String
+     **/
+    photo = '/images/no-avatar.png';
 
     /**
      * Правила валидации модели, с учетом разных стратегий
@@ -75,11 +95,13 @@ export class User extends Model {
      **/
     attributeLabels() {
         return {
-            username: "Имя пользователя",
+            name: "Имя",
+            surname: "Фамилия",
+            birthDate: "Дата рождения",
             password: "Пароль",
             rePassword: "Повтор пароля",
             email: "E-mail",
-            name: "Имя",
+            photo: "Фото"
         };
     }
 
@@ -92,9 +114,23 @@ export class User extends Model {
     getData() {
         return {
             name: this.name,
+            surname: this.surname,
+            birthDate: this.birthDate,
             password: this.password,
             password_confirmation: this.rePassword,
             email: this.email,
+            photo: this.photo
         }
+    }
+
+    /**
+     * Получить количество лет, исходя из даты рождения
+     * @return { String }
+     **/
+    getAge() {
+        if ( !this.birthDate ) {
+            return null;
+        }
+        return momemt( this.birthDate ).locale('ru').toNow(true);
     }
 }
