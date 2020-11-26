@@ -17,6 +17,10 @@ export const ControlsContainer = styled("div")`
     display: grid;
     grid-template-columns: 66% auto;
     align-items: center;
+
+    @media (max-width: 420px) {
+      grid-template-columns: 100% auto;
+    }
 `;
 
 

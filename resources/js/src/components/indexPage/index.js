@@ -13,8 +13,12 @@ import { Spacer } from "../Spacer";
 const SubjectsContainer = styled( "div" )`
     max-width: 820px;
     margin: 0 auto;
-    margin-top: -67px;
+    margin-top: calc(10vh - 67px);
     display: grid;
+
+    @media (max-width: 420px) {
+      margin-top: calc(20vh - 67px);
+    }
 `;
 
 export default function ( props ) {

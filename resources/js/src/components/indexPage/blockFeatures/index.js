@@ -7,6 +7,11 @@ const Grid = styled( "div" )`
     justify-content: center;
     gap: 20px;
     text-align: center;
+
+  @media (max-width: 420px) {
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
 `;
 
 const Article = styled( "article" )`
@@ -30,6 +35,10 @@ const Article = styled( "article" )`
     .text {
         align-self: start;
     }
+
+  @media (max-width: 900px) {
+    padding: 0px 20px;
+  }
 `;
 
 export function Features() {
