@@ -1,4 +1,4 @@
-import { object, string } from "../../src/common/helpers";
+import { object, string, func } from "../../src/common/helpers";
 
 describe("Testing objectHelpers", () => {
 
@@ -68,13 +68,10 @@ describe("Testing objectHelpers", () => {
                 anotherSnakeCase: "anotherValue"
             });
         });
-
     });
-
 });
 
 describe("Testing stringHelpers", () => {
-
     describe('testing snakeCaseToCamelCase function', function () {
         it("should to throw Error", function () {
             expect( string.snakeCaseToCamelCase ).toThrow( Error );
@@ -88,6 +85,24 @@ describe("Testing stringHelpers", () => {
             expect( string.snakeCaseToCamelCase("b_a") ).toBe( "bA" );
         });
     });
-
 });
 
+describe("Testing funcHelpers", () => {
+    describe('testing memo function', function () {
+        it("should to throw Error", function () {
+            expect( func.memo ).toThrow( Error );
+        });
+
+        it("should to throw TypeError", function () {
+            expect( () => func.memo("string") ).toThrow( TypeError );
+            expect( () => func.memo(1) ).toThrow( TypeError );
+            expect( () => func.memo({}) ).toThrow( TypeError );
+            expect( () => func.memo([]) ).toThrow( TypeError );
+        });
+
+        it("should to return function", function () {
+            const mockFunc = func.memo( () => 1 );
+            expect( () => mockFunc() ).toBeInstanceOf( Function );
+        });
+    });
+});
