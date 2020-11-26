@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Model } from "../models/Model";
 import { Link } from "./ui/Link";
 import { Button } from "./ui/Button";
-import { Form } from "./form";
+import { Form } from "./ui/form";
 
 export const FormContainer = styled("div")`
     display: grid;

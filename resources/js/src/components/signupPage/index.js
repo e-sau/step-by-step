@@ -10,6 +10,8 @@ import { SignupFormWrapper } from "./SignupFormWrapper";
  * Думаю подробить, но когда дизайн будем навешивать везде
  * @param { Object } props
  * @return { JSX.Element }
+ *
+ * @todo отрефакторить когда будет готов макет
  **/
 export function SignupPage( props ) {
     const { user, onChange, onSubmit, errors } = props;

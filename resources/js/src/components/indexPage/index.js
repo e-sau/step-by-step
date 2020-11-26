@@ -8,7 +8,7 @@ import SubjectsSelectContainer from "../../containers/SubjectsSelectContainer";
 import { ExampleTasks } from "./blockExample";
 import { HorizontalScroll } from "../ui/HorizontalScroll";
 
-import { Spacer } from "../Spacer";
+import { Spacer } from "../ui/Spacer";
 
 const SubjectsContainer = styled( "div" )`
     width: 820px;

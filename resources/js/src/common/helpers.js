@@ -1,15 +1,27 @@
 /**
  * Обьект содержащий функции хелперы для обьектов
+ * @todo вложенные обьекты будут иметь старые ссылки! при необходимости глубокого копирования ставим immutable.js или рекурсивно обновляем сами
  * @type Object
  **/
 export const object = {
     /**
      * Обновление ссылки на обьект
      * @param { Object } object
-     * @param { Object } properties
+     * @param { Array } properties
      * @return { User }
+     *
+     * @throws TypeError
      **/
     update( object, properties= [] ) {
+
+        if ( !object || typeof object !== "object" ) {
+            throw new TypeError("First argument must be Object type!");
+        }
+
+        if ( !Array.isArray( properties ) ) {
+            throw new TypeError("Second argument must be Array type!");
+        }
+
         /**
          * Установка дескрипторов атрибуду обьекта
          * @param { any } value
@@ -18,8 +30,8 @@ export const object = {
         function setPropertyDescriptors( value ) {
             return { value, enumerable: true, configurable: true, writable: true };
         }
-
-        const configuredProperties = properties.reduce((acc, item) => {
+        const combinedProperties = [ ...Object.entries( object ), ...properties ];
+        const configuredProperties = combinedProperties.reduce((acc, item) => {
             const [ key, value ] = item;
             return { ...acc, [key]: setPropertyDescriptors( value ) };
         }, {})
@@ -35,7 +47,7 @@ export const object = {
      * @param { Function } transformFunc
      *
      * @return { Object }
-     * @throws Error
+     * @throws Error|TypeError
      **/
     keysTransform( input, transformFunc ) {
         if ( arguments.length < 2 ) {
@@ -43,11 +55,11 @@ export const object = {
         }
 
         if ( !input || typeof input !== "object" ) {
-            throw new Error("Second argument must be Object");
+            throw new TypeError("Second argument must be Object");
         }
 
         if ( !transformFunc || typeof transformFunc !== "function" ) {
-            throw new Error("Second argument must be function");
+            throw new TypeError("Second argument must be function");
         }
 
         return Object.entries( input ).reduce(( acc, [ key, value] ) => {
@@ -68,17 +80,24 @@ export const string = {
      * Простой алгоритм конвертации snakeCase нотации в camelCase
      * @param { String } string
      *
-     * @todo протестировать
+     * @throws Error|TypeError
      **/
     snakeCaseToCamelCase( string ) {
+        if ( !string ) {
+            throw new Error( "Missing argument error ");
+        }
+
         const parts = String( string ).split( "_" );
 
         return parts.reduce( ( acc, item, idx ) => {
-            if ( !idx ) {
+            /** обработка крайнего случая, так как мы недолжны капсить букву если она одна */
+            const isFirstAndLastItem = !acc && ( idx === parts.length - 1 );
+
+            if ( !idx || isFirstAndLastItem ) {
                 return item;
             }
             const preparedPart = item.trim().replace(
-                item[0], item[0].toUpperCase()
+                item[0], item[0]?.toUpperCase()
             );
             return `${ acc }${ preparedPart }`;
         }, "")
