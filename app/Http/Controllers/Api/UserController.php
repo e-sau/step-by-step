@@ -229,7 +229,7 @@ class UserController extends Controller
 
         $with = $this->getWithRelationsParameterInModel(User::class, $request->get('with'));
         if ($with) {
-            return new UserResource(User::with($with)->find($user->id));
+            return new UserResource($user->load($with));
         }
 
         return new UserResource($user);
