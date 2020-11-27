@@ -16,6 +16,49 @@ use App\Http\Resources\Subject as SubjectResource;
 class SubjectController extends Controller
 {
     /**
+     *  @OA\Get(
+     *      path="/subjects",
+     *      summary="Get subjects",
+     *      description="Return list of subjects with relations",
+     *      operationId="getSubjects",
+     *      tags={"subjects"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets subject relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      ref="#/components/schemas/Subject",
+     *                  ),
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
