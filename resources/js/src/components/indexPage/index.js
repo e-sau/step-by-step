@@ -11,10 +11,14 @@ import { HorizontalScroll } from "../ui/HorizontalScroll";
 import { Spacer } from "../ui/Spacer";
 
 const SubjectsContainer = styled( "div" )`
-    width: 820px;
+    max-width: 820px;
     margin: 0 auto;
-    margin-top: -67px;
+    margin-top: calc(10vh - 67px);
     display: grid;
+
+    @media (max-width: 420px) {
+      margin-top: calc(20vh - 67px);
+    }
 `;
 
 export default function ( props ) {

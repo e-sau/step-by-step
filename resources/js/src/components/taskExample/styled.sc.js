@@ -25,6 +25,13 @@ export const TaskItem = styled( "div" )`
         letter-spacing: 0.04em;
         color: #000000;
     }
+
+    @media (max-width: 420px) {
+      &:first-of-type {
+        margin-left: 50px;
+      }
+    }
+
 `;
 
 export const StepsGrid = styled( "div" )`

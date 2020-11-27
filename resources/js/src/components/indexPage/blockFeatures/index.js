@@ -7,6 +7,11 @@ const Grid = styled( "div" )`
     justify-content: center;
     gap: 20px;
     text-align: center;
+
+  @media (max-width: 420px) {
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
 `;
 
 const Article = styled( "article" )`
@@ -15,9 +20,10 @@ const Article = styled( "article" )`
     grid-template-rows: 140px 20px auto;
     align-items: end;
     justify-content: center;
-    width: 266px;
+    max-width: 266px;
+    min-height: 292px;
+    height: fit-content;
     padding: 0px 67px;
-    height: 292px;
 
     background: #FFFFFF;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 10px 10px 20px rgba(71, 145, 219, 0.2);
@@ -29,6 +35,10 @@ const Article = styled( "article" )`
     .text {
         align-self: start;
     }
+
+  @media (max-width: 900px) {
+    padding: 0px 20px;
+  }
 `;
 
 export function Features() {

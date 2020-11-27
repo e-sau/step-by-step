@@ -45,6 +45,14 @@ export const StyledHeader = styled("header")`
             font-size: 18px;
         }
     }
+    @media (max-width: 420px) {
+      padding: 30px 30px;
+      width: 100vw;
+      .site_name {
+        font-size: 16px;
+        line-height: 20px;
+      } 
+    }
 `;
 
 export const StyledFooter = styled("footer")`
@@ -78,4 +86,14 @@ export const StyledFooter = styled("footer")`
             color: #ffffff;
         }
     }
+
+  @media (max-width: 1075px) {
+    grid-template-columns: 1fr 2fr auto;
+  }
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr 1fr auto;
+  }
+  @media (max-width: 420px) {
+    padding: 30px 20px;
+  }
 `;

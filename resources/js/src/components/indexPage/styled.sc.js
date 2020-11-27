@@ -33,7 +33,7 @@ export const TextContainer = styled("div")`
   position: relative;
   z-index: 1;
   top: -100px;
-  width: 820px;
+  max-width: 820px;
   height: fit-content;
   background: #FFFFFF;
   box-shadow: 10px 10px 20px rgba(71, 145, 219, 0.2);

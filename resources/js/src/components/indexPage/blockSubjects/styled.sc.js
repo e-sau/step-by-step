@@ -39,6 +39,11 @@ export const SubjectsGrid = styled("div")`
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 20px;
+
+  @media (max-width: 420px) {
+    grid-template-columns: none;
+    grid-template-rows: auto;
+  }
 `;
 
 export const Link = styled( RouterLink )`
