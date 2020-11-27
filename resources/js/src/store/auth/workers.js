@@ -81,10 +81,10 @@ export function* loginWorker() {
  **/
 export function* tokenAuthWorker() {
     const token = yield select( getToken );
-    const { status, data } = yield call( makeRequest, getUser( token ) );
+    const { status, data: responseBody } = yield call( makeRequest, getUser( token ) );
 
     if ( status === 200 ) {
-        const preparedUserData = object.keysTransform( data, string.snakeCaseToCamelCase );
+        const preparedUserData = object.keysTransform( responseBody.data, string.snakeCaseToCamelCase );
         yield put( setUserData( preparedUserData ) );
 
         /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
