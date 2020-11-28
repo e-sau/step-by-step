@@ -55,23 +55,23 @@ class Controller extends BaseController
         $perPage = $request->get('perPage');
         $with = $this->getWithRelationsParameterInModel($model, $request->get('with'));
 
-        $users = [];
+        $modelCollection = [];
 
         if ($with) {
-            $users = $model::with($with);
+            $modelCollection = $model::with($with);
         }
 
         if ($perPage) {
-            if ($users instanceof Builder) {
-                $users = $users->paginate($perPage);
+            if ($modelCollection instanceof Builder) {
+                $modelCollection = $modelCollection->paginate($perPage);
             } else {
-                $users = $model::paginate($perPage);
+                $modelCollection = $model::paginate($perPage);
             }
-        } elseif ($users) {
-            /** @var Builder $users */
-            $users = $users->get();
+        } elseif ($modelCollection) {
+            /** @var Builder $modelCollection */
+            $modelCollection = $modelCollection->get();
         }
 
-        return $users ?: $model::all();
+        return $modelCollection ?: $model::all();
     }
 }

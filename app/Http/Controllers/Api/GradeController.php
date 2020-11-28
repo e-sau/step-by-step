@@ -63,11 +63,8 @@ class GradeController extends Controller
         $this->authorize('view', $grade);
 
         $with = $this->getWithRelationsParameterInModel(Grade::class, $request->get('with'));
-        if ($with) {
-            return new GradeResource($grade->load($with));
-        }
 
-        return new GradeResource($grade);
+        return $with ? new GradeResource($grade->load($with)) : new GradeResource($grade);
     }
 
     /**
