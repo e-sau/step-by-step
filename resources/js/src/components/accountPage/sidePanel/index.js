@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { User } from "../../../models/User";
 import { GridContainer, StyledListItem } from "./styled.sc";
+import { ProfileCard } from "../../profileCard";
+import { Spacer } from "../../ui/Spacer";
 
 export function SidePanel( props ) {
     const { user, navItems, selectedId, onSelect } = props;
@@ -43,9 +45,8 @@ export function SidePanel( props ) {
 
     return (
         <GridContainer>
-            <div>
-                {/*  @todo https://igorskipper.atlassian.net/browse/IS100-39  */}
-            </div>
+            <ProfileCard user={ user }/>
+            <Spacer size={ 48 }/>
             <List className={"nav"} component="nav">
                 { renderNavItems() }
             </List>

@@ -4,10 +4,10 @@ import { Header } from "../layout/Header";
 
 /** @return { Object } **/
 function mapStateToProps( state ) {
-    const { auth: { userData, isAuthorized } } = state;
+    const { auth: { isAuthorized }, user: { model } } = state;
     return {
         isAuthorized,
-        model: userData
+        model: model
     };
 }
 

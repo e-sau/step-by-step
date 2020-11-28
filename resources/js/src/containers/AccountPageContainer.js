@@ -25,10 +25,12 @@ const NAV_ITEMS = [
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { isAuthorized, userData }, } = state;
+    const { auth: { isAuthorized }, user: { model } } = state;
 
     return {
-        isAuthorized, user: userData, navList: NAV_ITEMS
+        isAuthorized,
+        user: model,
+        navList: NAV_ITEMS
     };
 }
 

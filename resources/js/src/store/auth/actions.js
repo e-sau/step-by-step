@@ -9,22 +9,6 @@ export function authByToken() {
 }
 
 /**
- * Действие получения данных о пользователе после авторизации по токену, и заполнение ими модели
- * @return { Object }
- **/
-export function setUserData( data ) {
-    return { type: TYPE.SET_USER_DATA, payload: data };
-}
-
-/**
- * Действие изменения данных пользователя
- * @return { Object } }
- **/
-export function changeUserData( key, value ) {
-    return { type: TYPE.CHANGE_USER_DATA, payload: { key, value } };
-}
-
-/**
  * Действие отправки формы на регистрацию
  * @return { Object }
  **/
@@ -80,6 +64,6 @@ export function loginError() {
  * @param { Array } errors
  * @return { Object }
  **/
-export function backendValidationError( errors ) {
-    return { type: TYPE.BACKEND_VALIDATION_ERROR, payload: errors };
+export function responseError( errors ) {
+    return { type: TYPE.RESPONSE_ERROR, payload: errors };
 }

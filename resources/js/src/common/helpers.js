@@ -103,3 +103,39 @@ export const string = {
         }, "")
     }
 }
+
+/**
+ * Обьект содержащий функции хелперы для функций
+ * @type Object
+ **/
+export const func = {
+    /**
+     * Функция мемоизации ( кеширование на стороне клиента, кешируется до перезагрузки страници )
+     *
+     * @param { Function } fn
+     * @return { Function }
+     *
+     * @example Пример вызова функции, создаем переменную, и замыкаем то что хотим вызвать
+     *          const someMemo = memo( ( params ) => userApi.get( params ) );
+     *
+     * @throws Error|TypeError
+     **/
+    memo( fn ) {
+        if ( !fn ) {
+            throw Error();
+        }
+
+        if ( typeof fn !== "function" ) {
+            throw TypeError();
+        }
+        const memoCache = {};
+        return function () {
+            const key = JSON.stringify( arguments );
+
+            if ( !memoCache[ key ] ) {
+                memoCache[ key ] = fn.apply( null, arguments );
+            }
+            return memoCache[ key ];
+        }
+    }
+}
