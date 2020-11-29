@@ -128,10 +128,12 @@ class UserController extends Controller
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(
-     *              required={"name", "email", "password"},
+     *              @OA\Property(property="login", type="string"),
      *              @OA\Property(property="name", type="string"),
+     *              @OA\Property(property="surname", type="string"),
+     *              @OA\Property(property="birthday", type="date"),
      *              @OA\Property(property="email", type="string"),
-     *              @OA\Property(property="email_verified_at", type="string"),
+     *              @OA\Property(property="created_at", type="string"),
      *              @OA\Property(property="password", type="string"),
      *              @OA\Property(property="remember_token", type="string"),
      *          ),

@@ -27,7 +27,10 @@ class UsersTableSeeder extends Seeder
 
         /* Admin */
         $admin = User::create([
-           'name' => $faker->name,
+           'login' => 'admin',
+           'name' => $faker->firstName,
+           'surname' => $faker->lastName,
+           'birthday' => '1990-01-01',
            'email' => $faker->email,
            'password' => $password
         ]);
@@ -42,12 +45,15 @@ class UsersTableSeeder extends Seeder
 
         for ($i = 0; $i < 9; $i++) {
             $user = User::create([
-                'name' => $faker->name,
+                'login' => $faker->unique()->word(),
+                'name' => $faker->firstName,
+                'surname' => $faker->lastName,
+                'birthday' => $faker->dateTimeBetween('-7 years', '-6 years')->format('Y-m-d'),
                 'email' => $faker->email,
                 'password' => $password
             ]);
             $user->createToken(config('app.name'))->accessToken;
-            $user->roles()->attach($faker->randomElement([$teacherRoleId, $studentRoleId]));
+            $user->roles()->attach($studentRoleId);
         }
     }
 }
