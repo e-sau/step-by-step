@@ -57,16 +57,15 @@ class SubjectController extends Controller
      * @return SubjectResource
      * @throws AuthorizationException
      */
-    public function show(Request $request, Subject $subject)
+    public function show(Request $request, $id)
     {
 //        $this->authorize('view', $subject);
 
-        $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
-        if ($with) {
-            return new SubjectResource($subject->load($with));
-        }
+        $subject = preg_match('/^[0-9]+$/', $id) ? Subject::find($id) : Subject::where(['slug' => $id])->get()->first();
 
-        return new SubjectResource($subject);
+        $with = $this->getWithRelationsParameterInModel(Subject::class, $request->get('with'));
+
+        return $with ? new SubjectResource($subject->load($with)) : new SubjectResource($subject);
     }
 
     /**

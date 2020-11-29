@@ -65,11 +65,8 @@ class SchoolController extends Controller
         $this->authorize('view', $school);
 
         $with = $this->getWithRelationsParameterInModel(School::class, $request->get('with'));
-        if ($with) {
-            return new SchoolResource($school->load($with));
-        }
 
-        return new SchoolResource($school);
+        return $with ? new SchoolResource($school->load($with)) : new SchoolResource($school);
     }
 
     /**

@@ -17,19 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group(function() {
     Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout');
 
-    Route::get('/ratings/grade', function(Request $request) {
-        return (new \App\Http\Controllers\Api\UserController)->getUserRatingByGrade($request);
+    Route::get('/ratings/grade', \App\Http\Controllers\Api\UserController::class.'@getUserRatingByGrade');
 
-    });
-
-    Route::get('/user', function (Request $request) {
-        $with = $request->get('with');
-
-        /* Roles always retrieves */
-        $request->merge(['with' => "$with,roles"]);
-
-        return (new \App\Http\Controllers\Api\UserController)->show($request, $request->user());
-    });
+    Route::get('/user', \App\Http\Controllers\Api\UserController::class.'@show')->middleware('addWithParams');
 
     Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
@@ -51,16 +41,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 /* Subjects */
     Route::get('/subjects', \App\Http\Controllers\Api\SubjectController::class.'@index');
-
-    Route::get('/subjects/{slug}', function (Request $request, $slug) {
-        $subject = \App\Models\Subject::where(['slug' => $slug])->get()->first();
-        return (new \App\Http\Controllers\Api\SubjectController())->show($request, $subject);
-    })->where('slug', '[a-z]+');
-
-    Route::get('/subjects/{id}', function (Request $request, $id) {
-        $subject = \App\Models\Subject::where(['id' => $id])->get()->first();
-        return (new \App\Http\Controllers\Api\SubjectController())->show($request, $subject);
-    })->where('id', '[0-9]+');
+    Route::get('/subjects/{id}', \App\Http\Controllers\Api\SubjectController::class.'@show');
 /* /Subjects */
 });
 

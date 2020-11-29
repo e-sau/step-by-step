@@ -63,11 +63,8 @@ class TaskController extends Controller
         $this->authorize('view', $task);
 
         $with = $this->getWithRelationsParameterInModel(Task::class, $request->get('with'));
-        if ($with) {
-            return new TaskResource($task->load($with));
-        }
 
-        return new TaskResource($task);
+        return $with ? new TaskResource($task->load($with)) : new TaskResource($task);
     }
 
     /**

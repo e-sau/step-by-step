@@ -63,11 +63,8 @@ class AchievementController extends Controller
         $this->authorize('view', $achievement);
 
         $with = $this->getWithRelationsParameterInModel(Achievement::class, $request->get('with'));
-        if ($with) {
-            return new AchievementResource($achievement->load($with));
-        }
 
-        return new AchievementResource($achievement);
+        return $with ? new AchievementResource($achievement->load($with)) : new AchievementResource($achievement);
     }
 
     /**
