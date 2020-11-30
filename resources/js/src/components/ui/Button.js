@@ -6,7 +6,10 @@ import { colorsMap } from "./colors";
 
 const StyledButton = styled( MaterialButton )`
     &.button {
+        font-weight: bold;
+        letter-spacing: 1.2px;
         padding: 0;
+
         .children {
             color: #ffffff;
             background: ${ props => props.bg };

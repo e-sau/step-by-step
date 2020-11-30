@@ -109,3 +109,25 @@ export function getCompareValidator( compareWith ) {
         );
     }
 }
+
+/**
+ * @param { Array } typesList
+ * @param { Number } maxSize
+ *
+ * @return { Function }
+ * @throws Error
+ * @todo add tests
+ **/
+export function getFileValidator( typesList, maxSize ) {
+    return function file( value ) {
+        const isFile = ( value instanceof File );
+        const isValidSize = ( maxSize ? value.size <= maxSize : true );
+        const isValidType = typesList.some( type => value.type === type );
+
+        return new ValidateResult(
+            isFile && isValidSize && isValidType,
+            "file",
+            `Файл должен быть следующих типов ${ typesList.join(";") } и быть меньше ${ Math.floor( maxSize / 1e6 ) } мб!`
+        );
+    }
+}

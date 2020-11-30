@@ -1,6 +1,6 @@
 import { Model } from "./Model";
 import { EMAIL_REGEXP } from "../common/regexp";
-import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
+import { required, getCompareValidator, getLengthValidator, getMatchValidator, getFileValidator } from "../common/validators";
 import momemt from "moment";
 
 /**
@@ -10,6 +10,10 @@ import momemt from "moment";
 export class User extends Model {
     static LOGIN_SCENARIO = "login";
     static SIGNUP_SCENARIO = "signup";
+    static UPDATE_SCENARIO = "update";
+
+    static PHOTO_TYPES = ["image/jpeg", "image/gif", "image/png" ];
+    static PHOTO_KB_SIZE = 50000000;
 
     /**
      * ID пользователя в базе данных
@@ -76,6 +80,9 @@ export class User extends Model {
             [ "email", [ required ] ],
             [ "password", [ required ] ],
         ],
+        update: [
+            [ "photo", [ getFileValidator( User.PHOTO_TYPES, User.PHOTO_KB_SIZE ) ] ],
+        ]
     };
 
     /**
