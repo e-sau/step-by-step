@@ -75,6 +75,34 @@ class SubjectController extends Controller
     }
 
     /**
+     *  @OA\Post(
+     *      path="/subjects",
+     *      summary="Create subject",
+     *      description="Create a new subject",
+     *      operationId="createSabject",
+     *      tags={"subjects"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"title", "slug"},
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="slug", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *      ),
+     *  )
+     */
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -92,6 +120,57 @@ class SubjectController extends Controller
         return response()->json($subject, Response::HTTP_CREATED);
     }
 
+    /**
+     *  @OA\Get(
+     *      path="/subjects/{id}",
+     *      summary="Get subject",
+     *      description="Return subject with relations",
+     *      operationId="showSubject",
+     *      tags={"subjects"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Subject ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets subject relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string",
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Subject",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
     /**
      * Display the specified resource.
      *
@@ -113,6 +192,42 @@ class SubjectController extends Controller
     }
 
     /**
+     *  @OA\Put(
+     *      path="/subjects/{id}",
+     *      summary="Update subject",
+     *      description="Update subject",
+     *      operationId="updateSubject",
+     *      tags={"subjects"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Subject ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="slug", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *  )
+     */
+    /**
      * Update the specified resource in storage.
      *
      * @param Request $request
@@ -131,6 +246,35 @@ class SubjectController extends Controller
         return response()->json($subject, Response::HTTP_OK);
     }
 
+    /**
+     *  @OA\Delete(
+     *      path="/subjects/{id}",
+     *      summary="Delete subject",
+     *      description="Delete subject",
+     *      operationId="deleteSubject",
+     *      tags={"subjects"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Subject ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Remove the specified resource from storage.
      *
