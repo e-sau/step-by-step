@@ -19,7 +19,7 @@ export class Model {
      * @return { String }
      **/
     getErrorTranslate( error ) {
-        return this._errorTranslates[ error ] || this._errorTranslates.default
+        return this._errorTranslates[ error ] || this._errorTranslates.default;
     }
 
     /**
@@ -48,10 +48,10 @@ export class Model {
         let result = null;
         /** обратить внимание, все функции валидаторы могут обратится к this обьекта DTO */
         const isValid = validators.every( func => {
-           /** @type ValidateResult */
-           const validateResult = func.call( this, this[ field ]);
-           result = validateResult.isValid() ? null : validateResult;
-           return validateResult.isValid();
+            /** @type ValidateResult */
+            const validateResult = func.call( this, this[ field ]);
+            result = validateResult.isValid() ? null : validateResult;
+            return validateResult.isValid();
         });
 
         if ( !isValid ) {
@@ -75,7 +75,7 @@ export class Model {
      **/
     setErrors( errors ) {
         this._errors = Object.entries(errors).map( ([ key, error ]) => {
-            return [ key, new ValidateResult( false, 'required', this.getErrorTranslate( error ) )]
+            return [ key, new ValidateResult( false, "required", this.getErrorTranslate( error ) )];
         });
     }
 

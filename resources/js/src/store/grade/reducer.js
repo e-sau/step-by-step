@@ -20,7 +20,7 @@ export default function gradesReducer( state = gradesInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-        /** сохранение Id выбранного класса */
+    /** сохранение Id выбранного класса */
         case TYPE.SELECT: {
             return {
                 ...state,

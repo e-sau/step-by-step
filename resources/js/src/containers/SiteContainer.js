@@ -1,4 +1,5 @@
 import React, { Suspense, useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -15,7 +16,7 @@ import { Loader } from "../components/ui/loader/Loader";
 function SiteWrapper( props ) {
     const { authByToken, children } = props;
     useEffect( () => {
-        authByToken()
+        authByToken();
     }, []);
 
     return (
@@ -26,6 +27,11 @@ function SiteWrapper( props ) {
         </Layout>
     );
 }
+
+SiteWrapper.propTypes = {
+    authByToken: PropTypes.func.isRequired,
+    children: PropTypes.any
+};
 
 const mapStateToProps = () => ({});
 

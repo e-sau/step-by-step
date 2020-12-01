@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LoginForm } from "../components/LoginForm";
 import { login } from "../store/auth/actions";
 import { changeModelAttribute } from "../store/user/actions";
+import { User } from "../models/User";
 
 /**
  * Обертка над компонентом страници, в случае если пользоавтель авторизован, перенаправляем на главную
@@ -21,6 +23,10 @@ function PageWrapper( props ) {
     }
     return <LoginForm user={ user } { ...rest } />;
 }
+PageWrapper.propTypes = {
+    isAuthorized: PropTypes.bool.isRequired,
+    user: PropTypes.instanceOf( User )
+};
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

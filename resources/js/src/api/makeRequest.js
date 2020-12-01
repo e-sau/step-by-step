@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const BASE_HEADERS = {
-    'X-Requested-With': 'XMLHttpRequest',
-    'Content-type': 'application/json'
+    "X-Requested-With": "XMLHttpRequest",
+    "Content-type": "application/json"
 };
 
 /**
@@ -59,7 +59,7 @@ export default function makeRequest( requestObj, apiCaller = axiosCall ) {
         uri = "",                          /** String uri, например /users  */
         headers = {},                      /** Object заголовки запроса */
         body = {} ,                        /** Object тело запроса */
-        method = 'GET',                    /** String метод запроса */
+        method = "GET",                    /** String метод запроса */
     } = requestParams;
 
     return apiCaller({

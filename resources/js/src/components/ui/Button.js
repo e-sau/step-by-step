@@ -52,9 +52,11 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.any,
     color: PropTypes.oneOf(
         Object.keys( colorsMap )
     ),
     onClick: PropTypes.func,
     variant: PropTypes.string,
-}
+};

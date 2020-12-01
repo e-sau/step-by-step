@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import PropTypes from "prop-types";
 import { TextField, Typography } from "@material-ui/core";
 import { Form as StyledForm } from "./styled.sc";
@@ -28,7 +28,7 @@ export function Form( props ) {
             return null;
         }
         const setOfErrors = errors.reduce( (acc, error) => {
-            return acc.add( model.getErrorTranslate( error ) )
+            return acc.add( model.getErrorTranslate( error ) );
         }, new Set() );
 
         return (
@@ -49,7 +49,7 @@ export function Form( props ) {
             const errors = model.getErrors().find(
                 ([ key ]) => key === attribute
             );
-            const [ _, validateResult = new ValidateResult(true ) ] = errors || [];
+            const [, validateResult = new ValidateResult(true ) ] = errors || [];
 
             return (
                 <TextField
@@ -64,7 +64,7 @@ export function Form( props ) {
                     error={ !validateResult.isValid() }
                     helperText={ inputError && validateResult.getMessage() }
                 />
-            )
+            );
         });
     }
 
@@ -80,7 +80,7 @@ Form.defaultProps = {
     variant: "outlined",
     useLabel: true,
     inputError: true
-}
+};
 
 Form.propTypes = {
     inputError: PropTypes.bool,

@@ -10,16 +10,16 @@ export function AccountPage( props ) {
     const [ activeItem, setActiveItem ] = useState( navList[ 0 ].id || 0 );
 
     if ( !isAuthorized ) {
-        return <Redirect to={ '/' } />;
+        return <Redirect to={ "/" } />;
     }
 
     return (
         <Fragment>
             <div>
-            {/*   @todo place for -> return to main page button  */}
+                {/*   @todo place for -> return to main page button  */}
             </div>
             {/* @todo Убрать инлайн стили когда будем собирать страницу */}
-            <div className="content-grid" style={{ display: 'grid', height: '100%' }}>
+            <div className="content-grid" style={{ display: "grid", height: "100%" }}>
                 <SidePanel
                     selectedId={ activeItem }
                     user={ user }
@@ -41,4 +41,4 @@ AccountPage.propTypes = {
             label: PropTypes.string.isRequired,
         })
     ).isRequired,
-}
+};
