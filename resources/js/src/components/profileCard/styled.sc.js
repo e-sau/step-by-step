@@ -9,6 +9,7 @@ export const CardGrid = styled('div')`
 
     .photo_container {
         padding: 20px;
+        margin: 0 auto;
 
         .photo {
             height: 150px;

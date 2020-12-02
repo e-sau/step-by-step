@@ -9,11 +9,9 @@ describe("Testing 'getAll()' from 'subjects' endpoints", () => {
 });
 
 describe("Testing 'getByGrade()' from 'subjects' endpoints", () => {
-    /** @todo с реализацией метода доработать */
     it('should return Object', function () {
         const testSubjectID = 1;
         const requestBody = getByGrade( testSubjectID );
-
         expect( requestBody ).toBeInstanceOf( Object );
         expect( requestBody.uri ).toBe(`subjects/getByGrade/${ testSubjectID }`);
     });

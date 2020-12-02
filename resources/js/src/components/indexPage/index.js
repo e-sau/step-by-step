@@ -21,7 +21,7 @@ const SubjectsContainer = styled( "div" )`
     }
 `;
 
-export default function ( props ) {
+export default function () {
     return (
         <React.Fragment>
             <Preview/>
@@ -36,9 +36,12 @@ export default function ( props ) {
             <ExampleTasks/>
             <BlockAdvert/>
 
-            <HorizontalScroll>
-                <BlockReviews/>
-            </HorizontalScroll>
+            <div className={ "reviews" }>
+                <HorizontalScroll>
+                    <BlockReviews/>
+                </HorizontalScroll>
+            </div>
+
             <Spacer size={ 120 } />
         </React.Fragment>
     );

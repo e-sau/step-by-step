@@ -12,6 +12,8 @@ export function AccountPage( props ) {
     if ( !isAuthorized ) {
         return <Redirect to={ '/' } />;
     }
+    const navItemBody = navList.find( item => item.id === activeItem );
+    const Component = navItemBody?.component;
 
     return (
         <Fragment>
@@ -19,13 +21,14 @@ export function AccountPage( props ) {
             {/*   @todo place for -> return to main page button  */}
             </div>
             {/* @todo Убрать инлайн стили когда будем собирать страницу */}
-            <div className="content-grid" style={{ display: 'grid', height: '100%' }}>
+            <div className="content-grid" style={{ display: 'grid', height: '100%', gridTemplateColumns: '400px auto' }}>
                 <SidePanel
                     selectedId={ activeItem }
                     user={ user }
                     navItems={ navList }
                     onSelect={ setActiveItem }
                 />
+                <Component { ...navItemBody.props }/>
             </div>
         </Fragment>
     );
