@@ -129,5 +129,5 @@ export function getFileValidator( typesList, maxSize ) {
             "file",
             `Файл должен быть следующих типов ${ typesList.join(";") } и быть меньше ${ Math.floor( maxSize / 1e6 ) } мб!`
         );
-    }
+    };
 }

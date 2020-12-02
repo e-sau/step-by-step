@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,8 +47,8 @@ export function ProfileEditForm( props ) {
                         </ListItemIcon>
                     </Wrapper>
                     <input type="file"
-                           accept="image/jpeg,image/gif,image/png"
-                           className="hidden" onChange={ handleSelectPhoto }
+                        accept="image/jpeg,image/gif,image/png"
+                        className="hidden" onChange={ handleSelectPhoto }
                     />
                 </label>
 
