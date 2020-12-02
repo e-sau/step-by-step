@@ -23,12 +23,16 @@ export function AccountPage( props ) {
             {/* @todo Убрать инлайн стили когда будем собирать страницу */}
             <div className="content-grid" style={{ display: 'grid', height: '100%', gridTemplateColumns: '400px auto' }}>
                 <SidePanel
+                    className="left_side"
                     selectedId={ activeItem }
                     user={ user }
                     navItems={ navList }
                     onSelect={ setActiveItem }
                 />
-                <Component { ...navItemBody.props }/>
+                <div className="right_side">
+                    <Component { ...navItemBody.props }/>
+                </div>
+
             </div>
         </Fragment>
     );

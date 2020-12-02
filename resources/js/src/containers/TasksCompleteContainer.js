@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import { ProfileEditForm } from "../components/accountPage/profileEditForm";
 import { bindActionCreators } from "redux";
 import { changeModelAttribute, photoSelect, updateProfile } from "../store/user/actions";
+import { CompletedTasks } from "../components/accountPage/completedTasks";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -24,4 +24,4 @@ const mapDispatchToProps = ( dispatch ) =>
     }, dispatch );
 
 /** Отдаем на использование подготовленный контейнер */
-export default connect( mapStateToProps, mapDispatchToProps )( ProfileEditForm );
+export default connect( mapStateToProps, mapDispatchToProps )( CompletedTasks );
