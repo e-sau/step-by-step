@@ -12,9 +12,5 @@ const StyledScroll = styled( HScroll )`
 `;
 
 export function HorizontalScroll( props ) {
-    return (
-        <div>
-            <StyledScroll { ...props } />
-        </div>
-    );
+    return <StyledScroll { ...props } />;
 }

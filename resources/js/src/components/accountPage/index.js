@@ -12,6 +12,8 @@ export function AccountPage( props ) {
     if ( !isAuthorized ) {
         return <Redirect to={ "/" } />;
     }
+    const navItemBody = navList.find( item => item.id === activeItem );
+    const Component = navItemBody?.component;
 
     return (
         <Fragment>
@@ -26,6 +28,7 @@ export function AccountPage( props ) {
                     navItems={ navList }
                     onSelect={ setActiveItem }
                 />
+                <Component { ...navItemBody.props }/>
             </div>
         </Fragment>
     );

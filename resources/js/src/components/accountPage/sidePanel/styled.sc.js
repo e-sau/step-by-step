@@ -7,7 +7,7 @@ export const GridContainer = styled("div")`
     box-shadow: 10px 10px 20px rgba(71, 145, 219, 0.2);
     border-radius: 4px;
 
-    padding: 40px 105px;
+    padding: 40px 20%;
     display: grid;
     grid-template-rows: 38% auto;
 `;
@@ -18,4 +18,6 @@ export const StyledListItem = styled( ListItem )`
     .item_icon {
         color: inherit  !important;
     }
+
+    background-color: transparent !important;
 `;

@@ -36,9 +36,12 @@ export default function IndexPage() {
             <ExampleTasks/>
             <BlockAdvert/>
 
-            <HorizontalScroll>
-                <BlockReviews/>
-            </HorizontalScroll>
+            <div className={ "reviews" }>
+                <HorizontalScroll>
+                    <BlockReviews/>
+                </HorizontalScroll>
+            </div>
+
             <Spacer size={ 120 } />
         </React.Fragment>
     );

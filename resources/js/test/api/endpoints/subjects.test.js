@@ -13,7 +13,6 @@ describe("Testing 'getByGrade()' from 'subjects' endpoints", () => {
     it("should return Object", function () {
         const testSubjectID = 1;
         const requestBody = getByGrade( testSubjectID );
-
         expect( requestBody ).toBeInstanceOf( Object );
         expect( requestBody.uri ).toBe(`subjects/getByGrade/${ testSubjectID }`);
     });
