@@ -32,6 +32,9 @@ Route::middleware('auth:api')->group(function() {
         Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
         Route::apiResource('achievements', \App\Http\Controllers\Api\AchievementController::class);
         Route::apiResource('additions', \App\Http\Controllers\Api\AdditionController::class);
+        Route::apiResource('reviews', \App\Http\Controllers\Api\ReviewController::class, [
+            'except' => ['index', 'show']
+        ]);
     });
 });
 
@@ -43,6 +46,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::get('/subjects', \App\Http\Controllers\Api\SubjectController::class.'@index');
     Route::get('/subjects/{id}', \App\Http\Controllers\Api\SubjectController::class.'@show');
 /* /Subjects */
+
+/* Reviews */
+    Route::get('/reviews', \App\Http\Controllers\Api\ReviewController::class.'@index');
+    Route::get('/reviews/{review}', \App\Http\Controllers\Api\ReviewController::class.'@show');
+/* /Reviews */
 });
 
 Route::get('{path}', function () {
