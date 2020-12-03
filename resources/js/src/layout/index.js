@@ -5,18 +5,18 @@ import { Footer } from "./Footer";
 import { StyledContainer } from "./styled.sc";
 
 export default function Layout( props ) {
-    const { children} = props;
-    return (
-        <StyledContainer>
-            <HeaderContainer/>
-            <div className="page-body">
-                { children }
-            </div>
-            <Footer/>
-        </StyledContainer>
-    );
+  const { children} = props;
+  return (
+    <StyledContainer>
+      <HeaderContainer/>
+      <div className="page-body">
+        { children }
+      </div>
+      <Footer/>
+    </StyledContainer>
+  );
 }
 
 Layout.propTypes = {
-    children: PropTypes.any,
+  children: PropTypes.any,
 };
