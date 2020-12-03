@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { User } from "../../models/User";
+import { User } from "../../../models/User";
 import { CardGrid } from "./styled.sc";
 
 export function ProfileCard( props ) {

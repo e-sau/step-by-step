@@ -4,13 +4,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
-import { User } from "../../models/User";
-import { Form } from "../ui/form";
-import { Button } from "../ui/Button";
-import { Spacer } from "../ui/Spacer";
+import { User } from "../../../models/User";
+import { Form } from "../../ui/form";
+import { Button } from "../../ui/Button";
+import { Spacer } from "../../ui/Spacer";
 import { GridContainer, Wrapper } from "./styled.sc";
-import {Typography} from "@material-ui/core";
-import {getFileValidator} from "../../common/validators";
+import { Typography } from "@material-ui/core";
+import { getFileValidator } from "../../../common/validators";
 
 export function ProfileEditForm( props ) {
     const [ warning, setPhotoWarning ] = useState( "" );

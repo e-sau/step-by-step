@@ -3,9 +3,8 @@ import { faBullhorn, faCheckSquare, faEnvelope, faMedal, faPenSquare, faUser } f
 
 import { AccountPage } from "../components/accountPage";
 import ProfileEditFormContainer from "../containers/ProfileEditFormContainer";
-import {bindActionCreators} from "redux";
-import {changeModelAttribute} from "../store/user/actions";
-// import {submit} from "../store/auth/actions";
+import { bindActionCreators } from "redux";
+import { changeModelAttribute } from "../store/user/actions";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

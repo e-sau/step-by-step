@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { User } from "../../../models/User";
 import { GridContainer, StyledListItem } from "./styled.sc";
-import { ProfileCard } from "../../profileCard";
+import { ProfileCard } from "../profileCard";
 import { Spacer } from "../../ui/Spacer";
 
 export function SidePanel( props ) {

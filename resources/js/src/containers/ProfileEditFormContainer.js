@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { ProfileEditForm } from "../components/profileEditForm";
+import { ProfileEditForm } from "../components/accountPage/profileEditForm";
 import { bindActionCreators } from "redux";
 import { changeModelAttribute, photoSelect, updateProfile } from "../store/user/actions";
 
