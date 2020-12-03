@@ -21,12 +21,12 @@
     "react", "babel"
   ],
   "rules": {
-    "indent": [ "error", 2, { "SwitchCase": 1 } ],
-    "quotes": [ "error", "double" ],
-    "semi": [ "error", "always" ],
+    "indent": [ "warn", 2, { "SwitchCase": 1 } ],
+    "quotes": [ "warn", "double" ],
+    "semi": [ "warn", "always" ],
     "prefer-const": ["error", {
-    "destructuring": "any",
-    "ignoreReadBeforeAssign": false
+    	"destructuring": "any",
+      "ignoreReadBeforeAssign": false
   }],
     "no-var": [ "error" ]
   }
