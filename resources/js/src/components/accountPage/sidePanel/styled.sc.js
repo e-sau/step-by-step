@@ -9,7 +9,7 @@ export const GridContainer = styled("div")`
 
     padding: 40px 20%;
     display: grid;
-    grid-template-rows: 38% auto;
+    grid-template-rows: 282px auto;
 `;
 
 export const StyledListItem = styled( ListItem )`
