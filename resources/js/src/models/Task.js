@@ -1,5 +1,7 @@
 import { Model } from "./Model";
 
-class Task extends Model {
-
+export class Task extends Model {
+    constructor() {
+        super();
+    }
 }

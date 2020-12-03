@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -18,6 +19,10 @@ function PageWrapper( props ) {
     }
     return <SignupPage { ...rest } />;
 }
+
+PageWrapper.propTypes = {
+    isAuthorized: PropTypes.bool.isRequired
+};
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

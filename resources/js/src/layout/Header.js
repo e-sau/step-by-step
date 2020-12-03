@@ -7,12 +7,12 @@ import { Button } from "../components/ui/Button";
 import { User } from "../models/User";
 
 export function Header( props ) {
-    const { isAuthorized, model } = props;
+    const { isAuthorized } = props;
 
     const buttonConfig = {
         to: isAuthorized ? "/account" : "/login" ,
         text: isAuthorized ? "Личный кабинет" : "Войти"
-    }
+    };
 
     return (
         <StyledHeader>
@@ -30,4 +30,4 @@ export function Header( props ) {
 Header.propTypes = {
     isAuthorized: PropTypes.bool.isRequired,
     model: PropTypes.instanceOf( User ).isRequired,
-}
+};

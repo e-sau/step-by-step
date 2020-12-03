@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import List from '@material-ui/core/List';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import List from "@material-ui/core/List";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { User } from "../../../models/User";
@@ -67,4 +67,4 @@ SidePanel.propTypes = {
             label: PropTypes.string.isRequired,
         })
     ).isRequired,
-}
+};

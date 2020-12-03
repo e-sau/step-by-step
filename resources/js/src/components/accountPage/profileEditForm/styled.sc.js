@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const GridContainer = styled('div')`
+export const GridContainer = styled("div")`
     display: grid;
     grid-template-rows: 1fr auto 1fr;
     padding: 0px 52% 0 16%;
