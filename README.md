@@ -36,3 +36,7 @@ If you catch error then run:
 ```php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"```  
 ```php artisan l5-swagger:generate```
 - Open localhost/api/documentation
+
+***
+For store images create symlink  
+```php artisan storage:link```

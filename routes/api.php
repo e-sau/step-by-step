@@ -32,6 +32,24 @@ Route::middleware('auth:api')->group(function() {
         Route::apiResource('tasks', \App\Http\Controllers\Api\TaskController::class);
         Route::apiResource('achievements', \App\Http\Controllers\Api\AchievementController::class);
         Route::apiResource('additions', \App\Http\Controllers\Api\AdditionController::class);
+
+        /* User Photos */
+        Route::group([
+            'as' => 'avatar',
+            'prefix' => 'user'
+        ], function () {
+            Route::post('/avatar', \App\Http\Controllers\Api\UserPhotoController::class.'@store');
+            Route::delete('/avatar', \App\Http\Controllers\Api\UserPhotoController::class.'@destroy');
+        });
+
+        Route::group([
+            'as' => 'photo',
+            'prefix' => 'user'
+        ], function () {
+            Route::post('/photo', \App\Http\Controllers\Api\UserPhotoController::class.'@store');
+            Route::delete('/photo', \App\Http\Controllers\Api\UserPhotoController::class.'@destroy');
+        });
+        /* /User Photos */
     });
 });
 
