@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LoginForm } from "../components/LoginForm";
@@ -21,6 +22,11 @@ function PageWrapper( props ) {
     }
     return <LoginForm user={ user } { ...rest } />;
 }
+
+PageWrapper.propTypes = {
+    isAuthorized: PropTypes.bool.isRequired,
+    user: PropTypes.object
+};
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

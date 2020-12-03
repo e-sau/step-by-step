@@ -40,4 +40,4 @@ SubjectSelect.propTypes = {
     subjects: PropTypes.arrayOf(
         PropTypes.instanceOf( Subject )
     ).isRequired,
-}
+};

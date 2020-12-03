@@ -4,7 +4,7 @@
  * @return { Object<{ uri: String }> }
  **/
 export function getTest() {
-    return { uri: 'test', headers: { 'X_TEXT': '1'} };
+    return { uri: "test", headers: { "X_TEXT": "1"} };
 }
 
 /**
@@ -13,8 +13,8 @@ export function getTest() {
  **/
 export function postTest() {
     return {
-        uri: 'test',
-        method: 'POST',
-        body: { test: 'test' }
+        uri: "test",
+        method: "POST",
+        body: { test: "test" }
     };
 }

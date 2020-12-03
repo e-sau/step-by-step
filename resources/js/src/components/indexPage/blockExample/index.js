@@ -11,9 +11,9 @@ const items = [
     { id: 2, title: "Сколько всего литров компота?", shortQuestion: "Сложи числа", shortAnswer: "Запиши ответ" },
     { id: 3, title: "Сколько всего литров компота?", shortQuestion: "Сложи числа", shortAnswer: "Запиши ответ" },
     { id: 4, title: "Сколько всего литров компота?", shortQuestion: "Сложи числа", shortAnswer: "Запиши ответ" }
-]
+];
 
-export function ExampleTasks( props ) {
+export function ExampleTasks() {
     return (
         <ContainerGrid>
             <h3 className="heading">Примеры заданий</h3>

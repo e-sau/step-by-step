@@ -63,7 +63,7 @@ export class User extends Model {
      * Ссылка на фото пользовтеля
      * @type String
      **/
-    photo = '/images/no-avatar.png';
+    photo = "/images/no-avatar.png";
 
     /**
      * Правила валидации модели, с учетом разных стратегий
@@ -73,7 +73,7 @@ export class User extends Model {
         signup: [
             [ "name", [ required, getLengthValidator( 4 ) ] ],
             [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
-            [ "rePassword", [ getCompareValidator( 'password') ] ],
+            [ "rePassword", [ getCompareValidator( "password") ] ],
             [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
         ],
         login: [
@@ -127,7 +127,7 @@ export class User extends Model {
             password_confirmation: this.rePassword,
             email: this.email,
             photo: this.photo
-        }
+        };
     }
 
     /**
@@ -138,6 +138,6 @@ export class User extends Model {
         if ( !this.birthDate ) {
             return null;
         }
-        return momemt( this.birthDate ).locale('ru').toNow(true);
+        return momemt( this.birthDate ).locale("ru").toNow(true);
     }
 }

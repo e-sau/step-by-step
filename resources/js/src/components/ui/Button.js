@@ -60,4 +60,6 @@ Button.propTypes = {
     ),
     onClick: PropTypes.func,
     variant: PropTypes.string,
-}
+    children: PropTypes.any,
+    className: PropTypes.string,
+};

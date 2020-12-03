@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 import { Divider, List, ListItem, ListItemText } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -12,7 +13,7 @@ export function TasksPage( props ) {
     const { fetchGrades, gradeOnClick, subjectOnClick, gradesList, subjectsList, tasksList  } = props;
 
     useEffect(() => {
-        fetchGrades()
+        fetchGrades();
     }, []);
 
     function bindIdToAction( id, actionCreator ) {
@@ -71,3 +72,12 @@ export function TasksPage( props ) {
         </div>
     );
 }
+
+TasksPage.propTypes = {
+    fetchGrades: PropTypes.func.isRequired,
+    gradeOnClick: PropTypes.func.isRequired,
+    subjectOnClick: PropTypes.func.isRequired,
+    gradesList: PropTypes.array.isRequired,
+    subjectsList: PropTypes.array.isRequired,
+    tasksList: PropTypes.array.isRequired
+};

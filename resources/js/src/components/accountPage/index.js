@@ -10,7 +10,7 @@ export function AccountPage( props ) {
     const [ activeItem, setActiveItem ] = useState( navList[ 0 ].id || 0 );
 
     if ( !isAuthorized ) {
-        return <Redirect to={ '/' } />;
+        return <Redirect to={ "/" } />;
     }
     const navItemBody = navList.find( item => item.id === activeItem );
     const Component = navItemBody?.component;
@@ -18,10 +18,10 @@ export function AccountPage( props ) {
     return (
         <Fragment>
             <div>
-            {/*   @todo place for -> return to main page button  */}
+                {/*   @todo place for -> return to main page button  */}
             </div>
             {/* @todo Убрать инлайн стили когда будем собирать страницу */}
-            <div className="content-grid" style={{ display: 'grid', height: '100%', gridTemplateColumns: '400px auto' }}>
+            <div className="content-grid" style={{ display: "grid", height: "100%", gridTemplateColumns: "400px auto" }}>
                 <SidePanel
                     className="left_side"
                     selectedId={ activeItem }
@@ -48,4 +48,4 @@ AccountPage.propTypes = {
             label: PropTypes.string.isRequired,
         })
     ).isRequired,
-}
+};
