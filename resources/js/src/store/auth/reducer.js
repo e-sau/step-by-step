@@ -1,4 +1,4 @@
-import * as TYPE from "./types";
+import * as TYPE from './types';
 
 /**
  * Начальное состояние редьюсера
@@ -8,7 +8,7 @@ const authInitialState = {
     isAuthorized: false,
     authToken: null,
     errors: [],
-};
+}
 
 /**
  * Редьюсер который работает с данными авторизации, и регистрации
@@ -22,7 +22,7 @@ export default function authReducer( state = authInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-    /** Обработка действия валидации и отправки данных на бекенд */
+        /** Обработка действия валидации и отправки данных на бекенд */
         case TYPE.SUBMIT: {
             return {
                 ...state,

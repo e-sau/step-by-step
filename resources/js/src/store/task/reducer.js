@@ -21,7 +21,7 @@ export default function taskReducer( state = taskInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-    /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
+        /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
         case TYPE.FETCH_REQUEST: {
             return { ...state, isFetching: true };
         }

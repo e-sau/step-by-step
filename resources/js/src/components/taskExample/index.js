@@ -20,4 +20,4 @@ TaskExample.propTypes = {
     title: PropTypes.string.isRequired,
     shortQuestion: PropTypes.string.isRequired,
     shortAnswer: PropTypes.string.isRequired,
-};
+}

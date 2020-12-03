@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import PropTypes from "prop-types";
-import { Header } from "../layout/Header";
-import { Footer } from "../layout/Footer";
+import { Header } from '../layout/Header';
+import { Footer } from '../layout/Footer';
 
 Task.propTypes = {
     name: PropTypes.string
@@ -13,7 +13,7 @@ export function Task( props ) {
     return (
         <>
             <Header />
-            <h1>Hello world!{ name }</h1>
+            <h1>Hello world!</h1>
             <Footer />
         </>
     );

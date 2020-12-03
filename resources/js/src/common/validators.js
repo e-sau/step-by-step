@@ -38,7 +38,7 @@ export class ValidateResult {
 
     getMessage () {
         return this._message;
-    }
+    };
 
 }
 
@@ -73,7 +73,7 @@ export function getLengthValidator( min, max= 255 ) {
         }
         const isValid = ( value.length >= min && value.length <= max );
         return new ValidateResult( isValid, "length", message );
-    };
+    }
 }
 /**
  * Проверка длины строки
@@ -88,7 +88,7 @@ export function getMatchValidator( regexp ) {
     }
     return function match( value ) {
         return new ValidateResult( regexp.test( value ), "match", "Не корректное значение поля" );
-    };
+    }
 }
 /**
  * Проверка на совпадение параметров
@@ -107,7 +107,7 @@ export function getCompareValidator( compareWith ) {
         return new ValidateResult(
             ( this[ compareWith ] === value ), "compare", message
         );
-    };
+    }
 }
 
 /**
@@ -129,5 +129,5 @@ export function getFileValidator( typesList, maxSize ) {
             "file",
             `Файл должен быть следующих типов ${ typesList.join(";") } и быть меньше ${ Math.floor( maxSize / 1e6 ) } мб!`
         );
-    };
+    }
 }

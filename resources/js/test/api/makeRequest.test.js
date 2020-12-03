@@ -18,17 +18,17 @@ describe("Testing makeRequest()", () => {
     const mockApiCall = ( data ) => data;
 
     it("should throw Error in wrong requestBody", () => {
-        expect(() => { makeRequest( null, mockApiCall ); }).toThrow( Error );
-        expect(() => { makeRequest( undefined, mockApiCall ); }).toThrow( Error );
-        expect(() => { makeRequest( true, mockApiCall ); }).toThrow( Error );
-        expect(() => { makeRequest( 1, mockApiCall ); }).toThrow( Error );
-        expect(() => { makeRequest( "string", mockApiCall ); }).toThrow( Error );
+        expect(() => { makeRequest( null, mockApiCall ) }).toThrow( Error );
+        expect(() => { makeRequest( undefined, mockApiCall ) }).toThrow( Error );
+        expect(() => { makeRequest( true, mockApiCall ) }).toThrow( Error );
+        expect(() => { makeRequest( 1, mockApiCall ) }).toThrow( Error );
+        expect(() => { makeRequest( "string", mockApiCall ) }).toThrow( Error );
     });
     it("should throw Error in wrong apiCallArgument", () => {
-        expect(() => { makeRequest({}, 1 ); }).toThrow( Error );
-        expect(() => { makeRequest({}, null ); }).toThrow( Error );
-        expect(() => { makeRequest({},  "string" ); }).toThrow( Error );
-        expect(() => { makeRequest({}, true ); }).toThrow( Error );
+        expect(() => { makeRequest({}, 1 ) }).toThrow( Error );
+        expect(() => { makeRequest({}, null ) }).toThrow( Error );
+        expect(() => { makeRequest({},  "string" ) }).toThrow( Error );
+        expect(() => { makeRequest({}, true ) }).toThrow( Error );
     });
 
     it("should return object", () => {
@@ -40,7 +40,7 @@ describe("Testing makeRequest()", () => {
         ];
 
         mockRequestObjects.forEach( payload => {
-            expect(() => { makeRequest( payload, mockApiCall ); }).toBeInstanceOf( Object );
+            expect(() => { makeRequest( payload, mockApiCall ) }).toBeInstanceOf( Object );
 
             expect( makeRequest( payload, mockApiCall ) ).toStrictEqual({
                 url: `${ payload.url }${ payload.uri }`,

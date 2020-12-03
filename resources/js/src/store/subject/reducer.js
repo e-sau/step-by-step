@@ -30,7 +30,7 @@ export default function subjectReducer( state = subjectInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-    /** сигнал что предмет был выбран, и сохранение его id */
+        /** сигнал что предмет был выбран, и сохранение его id */
         case TYPE.SELECT: {
             return { ...state, selectedId: payload };
         }

@@ -72,7 +72,7 @@ describe("Testing objectHelpers", () => {
 });
 
 describe("Testing stringHelpers", () => {
-    describe("testing snakeCaseToCamelCase function", function () {
+    describe('testing snakeCaseToCamelCase function', function () {
         it("should to throw Error", function () {
             expect( string.snakeCaseToCamelCase ).toThrow( Error );
         });
@@ -88,7 +88,7 @@ describe("Testing stringHelpers", () => {
 });
 
 describe("Testing funcHelpers", () => {
-    describe("testing memo function", function () {
+    describe('testing memo function', function () {
         it("should to throw Error", function () {
             expect( func.memo ).toThrow( Error );
         });

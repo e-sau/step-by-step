@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardGrid = styled("div")`
+export const CardGrid = styled('div')`
     display: grid;
     grid-template-rows: 1fr auto auto auto;
     row-gap: 8px;

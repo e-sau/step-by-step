@@ -23,4 +23,4 @@ export function Link( props ) {
 Link.propTypes = {
     uri: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired
-};
+}

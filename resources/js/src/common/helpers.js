@@ -34,7 +34,7 @@ export const object = {
         const configuredProperties = combinedProperties.reduce((acc, item) => {
             const [ key, value ] = item;
             return { ...acc, [key]: setPropertyDescriptors( value ) };
-        }, {});
+        }, {})
         return Object.create( object, configuredProperties );
     },
 
@@ -69,7 +69,7 @@ export const object = {
             };
         }, {});
     }
-};
+}
 
 /**
  * Обьект содержащий функции хелперы для строк
@@ -100,9 +100,9 @@ export const string = {
                 item[0], item[0]?.toUpperCase()
             );
             return `${ acc }${ preparedPart }`;
-        }, "");
+        }, "")
     }
-};
+}
 
 /**
  * Обьект содержащий функции хелперы для функций
@@ -136,6 +136,6 @@ export const func = {
                 memoCache[ key ] = fn.apply( null, arguments );
             }
             return memoCache[ key ];
-        };
+        }
     }
-};
+}

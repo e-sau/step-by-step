@@ -61,5 +61,4 @@ LoginForm.propTypes = {
     user: PropTypes.instanceOf( Model ),
     onChange: PropTypes.func.isRequired,
     onLogin: PropTypes.func.isRequired,
-    errors: PropTypes.arrayOf( PropTypes.string )
-};
+}

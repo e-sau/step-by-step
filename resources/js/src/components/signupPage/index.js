@@ -47,5 +47,4 @@ SignupPage.propTypes = {
     user: PropTypes.instanceOf( User ),
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    errors: PropTypes.arrayOf( PropTypes.string )
-};
+}

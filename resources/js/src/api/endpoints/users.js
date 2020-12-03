@@ -51,7 +51,7 @@ export function getUser( token ) {
     return {
         uri: "user",
         headers: {
-            "Authorization": `Bearer ${ token }`
+            'Authorization': `Bearer ${ token }`
         }
     };
 }

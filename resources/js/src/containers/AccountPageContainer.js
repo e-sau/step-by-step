@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { faBullhorn, faCheckSquare, faEnvelope, faMedal, faPenSquare, faUser } from "@fortawesome/free-solid-svg-icons";
+
 import { AccountPage } from "../components/accountPage";
+import { bindActionCreators } from "redux";
 import { changeModelAttribute } from "../store/user/actions";
 
 /**
@@ -35,7 +36,6 @@ const NAV_ITEMS = [
         component:  React.lazy(() => import("../components/notFoundPage" ) )
     },
 ];
-
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

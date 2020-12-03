@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled from "styled-components"
 import { Preview } from "./blockPreview";
 import { Features } from "./blockFeatures";
 import { BlockAdvert } from "./BlockAdvert";
@@ -21,7 +21,7 @@ const SubjectsContainer = styled( "div" )`
     }
 `;
 
-export default function IndexPage() {
+export default function () {
     return (
         <React.Fragment>
             <Preview/>

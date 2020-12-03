@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes from "prop-types"
 import styled from "styled-components";
 import { colorsMap } from "./colors";
 
@@ -46,8 +46,7 @@ Step.defaultProps = {
 };
 
 Step.propTypes = {
-    children: PropTypes.any,
     color:  PropTypes.oneOf(
         Object.keys( colorsMap )
     ),
-};
+}

@@ -1,4 +1,4 @@
-import * as TYPE from "./types";
+import * as TYPE from './types';
 import { User } from "../../models/User";
 import { object } from "../../common/helpers";
 
@@ -9,7 +9,7 @@ import { object } from "../../common/helpers";
 const authInitialState = {
     model: new User(),
     errors: [],
-};
+}
 
 /**
  * Редьюсер который работает с данными пользователя
@@ -23,7 +23,7 @@ export default function userReducer( state = authInitialState, action ) {
     const { type, payload } = action;
 
     switch ( type ) {
-    /** Обновление данных о пользователе */
+        /** Обновление данных о пользователе */
         case TYPE.CHANGE_MODEL_ATTRIBUTE: {
             const { key, value } = payload;
             const { model } = state;
