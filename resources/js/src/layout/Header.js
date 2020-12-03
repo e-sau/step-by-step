@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { StyledHeader } from "./styled.sc";
 
 import { Button } from "../components/ui/Button";
-import { Popup } from "../components/ui/Popup";
+import PopupContainer from "../containers/PopupContainer";
 import LoginFormContainer from "../containers/LoginFormContainer";
 
 import { User } from "../models/User";
@@ -21,9 +21,11 @@ export function Header( props ) {
     <StyledHeader>
       <Link to="/" className="site_name">Step by step</Link>
       {authFormShown && (
-        <Popup>
+        <PopupContainer>
+          <div>Войти</div>
+          <br />
           <LoginFormContainer />
-        </Popup>
+        </PopupContainer>
       )}
       <Button className="login link_login" color="primary" onClick={onClick}>
         { buttonConfig.text }
