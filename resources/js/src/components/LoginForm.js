@@ -30,36 +30,36 @@ export const ControlsContainer = styled("div")`
  * @return { JSX.Element }
  **/
 export function LoginForm( props ) {
-    const { user, onChange, onLogin, errors } = props;
+  const { user, onChange, onLogin, errors } = props;
 
-    const fieldsList = [
-        { attribute: "email", required: true, type: "email", placeholder: "E-mail" },
-        { attribute: "password", required: true, type: "password", placeholder: "Пароль"  },
-    ];
+  const fieldsList = [
+    { attribute: "email", required: true, type: "email", placeholder: "E-mail" },
+    { attribute: "password", required: true, type: "password", placeholder: "Пароль"  },
+  ];
 
-    return (
-        <FormContainer>
-            <Form
-                model={ user }
-                onChange={ onChange }
-                fieldsList={ fieldsList }
-                errors={ errors }
-                useLabel={ false }
-                inputError={ false }
-            />
-            <ControlsContainer>
-                <Button onClick={ onLogin } text={ "Войти" } color="primary">
+  return (
+    <FormContainer>
+      <Form
+        model={ user }
+        onChange={ onChange }
+        fieldsList={ fieldsList }
+        errors={ errors }
+        useLabel={ false }
+        inputError={ false }
+      />
+      <ControlsContainer>
+        <Button onClick={ onLogin } text={ "Войти" } color="primary">
                     Войти
-                </Button>
-                <Link className="link" uri={ "/signup" } text={ "Регистрация" }/>
-            </ControlsContainer>
-        </FormContainer>
-    );
+        </Button>
+        <Link className="link" uri={ "/signup" } text={ "Регистрация" }/>
+      </ControlsContainer>
+    </FormContainer>
+  );
 }
 
 LoginForm.propTypes = {
-    user: PropTypes.instanceOf( Model ),
-    onChange: PropTypes.func.isRequired,
-    onLogin: PropTypes.func.isRequired,
-    errors: PropTypes.array,
+  user: PropTypes.instanceOf( Model ),
+  onChange: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  errors: PropTypes.array,
 };
