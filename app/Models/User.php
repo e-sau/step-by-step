@@ -14,7 +14,10 @@ use Laravel\Passport\HasApiTokens;
  *  @OA\Schema(
  *      @OA\Xml(name="User"),
  *      @OA\Property(property="id", type="integer"),
+ *      @OA\Property(property="login", type="string"),
  *      @OA\Property(property="name", type="string"),
+ *      @OA\Property(property="surname", type="string"),
+ *      @OA\Property(property="birthday", type="date"),
  *      @OA\Property(property="email", type="string"),
  *      @OA\Property(property="email_verified_at", type="string"),
  *      @OA\Property(property="password", type="string"),
@@ -49,14 +52,20 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'login',
         'name',
+        'surname',
+        'birthday',
         'email',
         'password',
         'remember_token'
     ];
 
     public static $registerRules = [
+        'login' => 'required|string|max:30|unique:users',
         'name' => 'required|string|max:255',
+        'surname' => 'required|string|max:255',
+        'birthday' => 'required|date',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|max:50|confirmed',
         'remember_token' => 'string|size:10|nullable'
