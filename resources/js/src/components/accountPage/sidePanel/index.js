@@ -42,11 +42,13 @@ export function SidePanel( props ) {
         );
     });
 
-
     return (
         <GridContainer>
-            <ProfileCard user={ user }/>
-            <Spacer size={ 48 }/>
+            <div className="profile_card">
+                <ProfileCard user={ user }/>
+                <Spacer size={ 48 }/>
+            </div>
+
             <List className={"nav"} component="nav">
                 { renderNavItems() }
             </List>

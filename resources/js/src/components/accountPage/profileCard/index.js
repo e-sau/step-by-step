@@ -26,4 +26,5 @@ export function ProfileCard( props ) {
 
 ProfileCard.propTypes = {
     user: PropTypes.instanceOf( User )
+
 };
