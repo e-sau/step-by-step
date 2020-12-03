@@ -49,7 +49,7 @@ export function LoginForm( props ) {
       />
       <ControlsContainer>
         <Button onClick={ onLogin } text={ "Войти" } color="primary">
-                    Войти
+          Войти
         </Button>
         <Link className="link" uri={ "/signup" } text={ "Регистрация" }/>
       </ControlsContainer>

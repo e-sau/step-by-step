@@ -7,27 +7,25 @@ import { Button } from "../components/ui/Button";
 import { User } from "../models/User";
 
 export function Header( props ) {
-    const { isAuthorized } = props;
+  const { isAuthorized, onClick } = props;
 
-    const buttonConfig = {
-        to: isAuthorized ? "/account" : "/login" ,
-        text: isAuthorized ? "Личный кабинет" : "Войти"
-    };
+  const buttonConfig = {
+    to: isAuthorized ? "/account" : "/login" ,
+    text: isAuthorized ? "Личный кабинет" : "Войти"
+  };
 
-    return (
-        <StyledHeader>
-            <Link to="/" className="site_name">Step by step</Link>
-
-            <Button className="login" color="primary">
-                <Link className="link_login" to={ buttonConfig.to }>
-                    { buttonConfig.text }
-                </Link>
-            </Button>
-        </StyledHeader>
-    );
+  return (
+    <StyledHeader>
+      <Link to="/" className="site_name">Step by step</Link>
+      <Button className="login link_login" color="primary" onClick={onClick}>
+        { buttonConfig.text }
+      </Button>
+    </StyledHeader>
+  );
 }
 
 Header.propTypes = {
-    isAuthorized: PropTypes.bool.isRequired,
-    model: PropTypes.instanceOf( User ).isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  model: PropTypes.instanceOf( User ).isRequired,
 };
