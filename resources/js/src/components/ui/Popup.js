@@ -8,7 +8,6 @@ const StyledPopup= styled("div")`
     position: absolute;
     width: 90%;
     height: 100vh;
-    cursor: pointer;
   }
 
   .icon__close {
@@ -48,8 +47,8 @@ export function Popup( props ) {
   const { children, onClick } = props;
 
   return (
-    <StyledPopup className="popup__wrapper" onClick={onClick}>
-      <div className="icon__close">
+    <StyledPopup className="popup__wrapper">
+      <div className="icon__close" onClick={onClick}>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 511.76 511.76" xmlSpace="preserve">
           <g>
             <path d="M436.896,74.869c-99.84-99.819-262.208-99.819-362.048,0c-99.797,99.819-99.797,262.229,0,362.048
