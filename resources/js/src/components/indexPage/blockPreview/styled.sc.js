@@ -44,6 +44,7 @@ export const StyledContainer = styled("div")`
             padding-left: 100px;
             grid-row: 2;
         }
+
     }
     @media (max-width: 420px) {
       .content_text {

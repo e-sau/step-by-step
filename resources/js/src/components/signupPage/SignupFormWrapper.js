@@ -7,35 +7,35 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/Button";
 
 export function SignupFormWrapper( props ) {
-    /** @type User **/
-    const { user, onChange, onSubmit, errors } = props;
+  /** @type User **/
+  const { user, onChange, onSubmit, errors } = props;
 
-    const fieldsList = [
-        { attribute: "name", required: true, },
-        { attribute: "password", required: true, type: "password"  },
-        { attribute: "rePassword", required: true, type: "password" },
-        { attribute: "email", required: true, type: "email", placeholder: "example@mai.com" },
-    ];
+  const fieldsList = [
+    { attribute: "name", required: true, },
+    { attribute: "password", required: true, type: "password"  },
+    { attribute: "rePassword", required: true, type: "password" },
+    { attribute: "email", required: true, type: "email", placeholder: "example@mai.com" },
+  ];
 
-    return (
-        <Fragment>
-            <Typography variant="h5" align="center">Регистрация</Typography>
-            <Form
-                model={ user }
-                onChange={ onChange }
-                fieldsList={ fieldsList }
-                errors={ errors }
-            />
-            <ControlsContainer>
-                <Button variant="contained" color="primary" onClick={ onSubmit }>Регистрация</Button>
-            </ControlsContainer>
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <Typography variant="h5" align="center">Регистрация</Typography>
+      <Form
+        model={ user }
+        onChange={ onChange }
+        fieldsList={ fieldsList }
+        errors={ errors }
+      />
+      <ControlsContainer>
+        <Button variant="contained" color="primary" onClick={ onSubmit }>Регистрация</Button>
+      </ControlsContainer>
+    </Fragment>
+  );
 }
 
 SignupFormWrapper.propTypes = {
-    user: PropTypes.instanceOf( User ).isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    errors: PropTypes.array
+  user: PropTypes.instanceOf( User ).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.array
 };

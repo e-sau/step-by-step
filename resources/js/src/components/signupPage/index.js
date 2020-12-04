@@ -14,38 +14,38 @@ import { SignupFormWrapper } from "./SignupFormWrapper";
  * @todo отрефакторить когда будет готов макет
  **/
 export function SignupPage( props ) {
-    const { user, onChange, onSubmit, errors } = props;
+  const { user, onChange, onSubmit, errors } = props;
 
-    return (
-        <PageContainer>
-            <FormContainer>
-                <FormLeftSide>
-                    <article>{/** some text */}</article>
-                    <HelperLinks>
-                        <Link to={ "/restore/password" }>
-                            <Typography align="center">Забыли пароль?</Typography>
-                        </Link>
-                        <Link to={ "/login" }>
-                            <Typography align="center">Авторизация</Typography>
-                        </Link>
-                    </HelperLinks>
-                </FormLeftSide>
-                <FormRightSide>
-                    <SignupFormWrapper
-                        user={ user }
-                        errors={ errors }
-                        onChange={ onChange }
-                        onSubmit={ onSubmit }
-                    />
-                </FormRightSide>
-            </FormContainer>
-        </PageContainer>
-    );
+  return (
+    <PageContainer>
+      <FormContainer>
+        <FormLeftSide>
+          <article>{/** some text */}</article>
+          <HelperLinks>
+            <Link to={ "/restore/password" }>
+              <Typography align="center">Забыли пароль?</Typography>
+            </Link>
+            <Link to={ "/login" }>
+              <Typography align="center">Авторизация</Typography>
+            </Link>
+          </HelperLinks>
+        </FormLeftSide>
+        <FormRightSide>
+          <SignupFormWrapper
+            user={ user }
+            errors={ errors }
+            onChange={ onChange }
+            onSubmit={ onSubmit }
+          />
+        </FormRightSide>
+      </FormContainer>
+    </PageContainer>
+  );
 }
 
 SignupPage.propTypes = {
-    user: PropTypes.instanceOf( User ),
-    onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    errors: PropTypes.array
+  user: PropTypes.instanceOf( User ),
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.array
 };

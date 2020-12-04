@@ -5,7 +5,7 @@ import * as TYPE from "./types";
  * @return { Object }
  **/
 export function authByToken() {
-    return { type: TYPE.AUTH_BY_TOKEN };
+  return { type: TYPE.AUTH_BY_TOKEN };
 }
 
 /**
@@ -13,7 +13,7 @@ export function authByToken() {
  * @return { Object }
  **/
 export function submit() {
-    return { type: TYPE.SUBMIT };
+  return { type: TYPE.SUBMIT };
 }
 
 /**
@@ -23,7 +23,7 @@ export function submit() {
  * @return { Object } }
  **/
 export function signupSuccess( token ) {
-    return { type: TYPE.SIGNUP_SUCCESS, payload: token };
+  return { type: TYPE.SIGNUP_SUCCESS, payload: token };
 }
 
 /**
@@ -31,7 +31,7 @@ export function signupSuccess( token ) {
  * @return { Object }
  **/
 export function signupError() {
-    return { type: TYPE.SIGNUP_ERROR };
+  return { type: TYPE.SIGNUP_ERROR };
 }
 
 /**
@@ -39,7 +39,7 @@ export function signupError() {
  * @return { Object }
  **/
 export function login() {
-    return { type: TYPE.LOGIN };
+  return { type: TYPE.LOGIN };
 }
 
 /**
@@ -48,7 +48,7 @@ export function login() {
  * @return { Object }
  **/
 export function loginSuccess( token ) {
-    return { type: TYPE.LOGIN_SUCCESS, payload: token };
+  return { type: TYPE.LOGIN_SUCCESS, payload: token };
 }
 
 /**
@@ -56,7 +56,7 @@ export function loginSuccess( token ) {
  * @return { Object }
  **/
 export function loginError() {
-    return { type: TYPE.LOGIN_ERROR };
+  return { type: TYPE.LOGIN_ERROR };
 }
 
 /**
@@ -65,5 +65,13 @@ export function loginError() {
  * @return { Object }
  **/
 export function responseError( errors ) {
-    return { type: TYPE.RESPONSE_ERROR, payload: errors };
+  return { type: TYPE.RESPONSE_ERROR, payload: errors };
+}
+
+/**
+ * Действие открытия/закрытия формы входа
+ * @return { Object }
+ **/
+export function toggleAuthForm() {
+  return { type: TYPE.AUTH_FORM_TOGGLE };
 }
