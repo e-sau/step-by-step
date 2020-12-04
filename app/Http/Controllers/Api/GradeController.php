@@ -85,7 +85,8 @@ class GradeController extends Controller
      *          required=true,
      *          @OA\JsonContent(
      *              required={"level", "school_id"},
-     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="level", type="string"),
+     *              @OA\Property(property="letter", type="string"),
      *              @OA\Property(property="school_id", type="integer"),
      *          ),
      *      ),
