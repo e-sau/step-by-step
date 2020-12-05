@@ -15,14 +15,14 @@ import { responseError, loginError, loginSuccess, signupError, signupSuccess } f
  * @yield
  **/
 export function* getTokenFromStorageWorker() {
-    /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
-    const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
+  /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
+  const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
 
-    if ( token ) {
-        yield put( loginSuccess( token ) );
-    } else {
-        yield put( loginError() );
-    }
+  if ( token ) {
+    yield put( loginSuccess( token ) );
+  } else {
+    yield put( loginError() );
+  }
 }
 
 /**
@@ -33,24 +33,24 @@ export function* getTokenFromStorageWorker() {
  * @yield
  **/
 export function* submitWorker() {
-    const user = yield select( getModel );
+  const user = yield select( getModel );
 
-    try {
-        if ( !user || !user.validate( User.SIGNUP_SCENARIO ) ) {
-            throw new Error("Validation error");
-        }
-        const { status, data } = yield call( makeRequest, signup( user ) );
-
-        if ( status !== 200 ) {
-            user.setErrors( data.errors );
-            throw new Error("Validation error");
-        }
-        yield put( signupSuccess( data.token ) );
-    } catch ( ex ) {
-        yield put( signupError() );
+  try {
+    if ( !user || !user.validate( User.SIGNUP_SCENARIO ) ) {
+      throw new Error("Validation error");
     }
+    const { status, data } = yield call( makeRequest, signup( user ) );
 
-    yield put( updateUserRef() );
+    if ( status !== 200 ) {
+      user.setErrors( data.errors );
+      throw new Error("Validation error");
+    }
+    yield put( signupSuccess( data.token ) );
+  } catch ( ex ) {
+    yield put( signupError() );
+  }
+
+  yield put( updateUserRef() );
 }
 
 /**
@@ -58,21 +58,21 @@ export function* submitWorker() {
  * @yield
  **/
 export function* loginWorker() {
-    const user = yield select( getModel );
+  const user = yield select( getModel );
 
-    if ( user.validate( User.LOGIN_SCENARIO ) ) {
-        const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
+  if ( user.validate( User.LOGIN_SCENARIO ) ) {
+    const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
-        if ( status === 200 ) {
-            yield put( loginSuccess( data.token ) );
-        } else {
-            yield put( responseError([ "Wrong username or password" ]) );
-        }
+    if ( status === 200 ) {
+      yield put( loginSuccess( data.token ) );
     } else {
-        yield put( loginError() );
+      yield put( responseError([ "Wrong username or password" ]) );
     }
+  } else {
+    yield put( loginError() );
+  }
 
-    yield put( updateUserRef() );
+  yield put( updateUserRef() );
 }
 
 /**
@@ -80,16 +80,16 @@ export function* loginWorker() {
  * @yield
  **/
 export function* tokenAuthWorker() {
-    const token = yield select( getToken );
-    const { status, data: responseBody } = yield call( makeRequest, getUser( token ) );
+  const token = yield select( getToken );
+  const { status, data: responseBody } = yield call( makeRequest, getUser( token ) );
 
-    if ( status === 200 ) {
-        const preparedUserData = object.keysTransform( responseBody.data, string.snakeCaseToCamelCase );
-        yield put( setUserData( preparedUserData ) );
+  if ( status === 200 ) {
+    const preparedUserData = object.keysTransform( responseBody.data, string.snakeCaseToCamelCase );
+    yield put( setUserData( preparedUserData ) );
 
-        /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
-        localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, token );
-    } else {
-        yield put( loginError() );
-    }
+    /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
+    localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, token );
+  } else {
+    yield put( loginError() );
+  }
 }

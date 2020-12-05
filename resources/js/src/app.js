@@ -9,17 +9,17 @@ import SiteContainer from "./containers/SiteContainer";
 
 /** @type JSX.Element корень приложения */
 ReactDOM.render(
-    <Provider store={ store }>
-        <BrowserRouter>
-            <SiteContainer>
-                <Switch>
-                    { routes.map( ( route, idx ) =>
-                        <Route key={ idx } { ...route } />
-                    )}
-                </Switch>
-            </SiteContainer>
-        </BrowserRouter>
-    </Provider>
-    ,
-    document.getElementById("main")
+  <Provider store={ store }>
+    <BrowserRouter>
+      <SiteContainer>
+        <Switch>
+          { routes.map( ( route, idx ) =>
+            <Route key={ idx } { ...route } />
+          )}
+        </Switch>
+      </SiteContainer>
+    </BrowserRouter>
+  </Provider>
+  ,
+  document.getElementById("main")
 );

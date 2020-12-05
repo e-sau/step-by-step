@@ -7,7 +7,7 @@ import { SELECT as GRADE_SELECT } from "../grade/types";
  * @yield
  **/
 function* watchForSelect() {
-    yield takeEvery( GRADE_SELECT, fetchWorker );
+  yield takeEvery( GRADE_SELECT, fetchWorker );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForSelect() {
  * @yield
  **/
 export default function* subjectWatchers() {
-    yield all([
-        watchForSelect(),
-    ]);
+  yield all([
+    watchForSelect(),
+  ]);
 }

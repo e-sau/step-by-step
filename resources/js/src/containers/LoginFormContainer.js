@@ -15,17 +15,17 @@ import { changeModelAttribute } from "../store/user/actions";
  * @todo повторяет логику SignupPage, пересмотреть кому редирект можно делегировать
  **/
 function PageWrapper( props ) {
-    const { isAuthorized, user, ...rest } = props;
+  const { isAuthorized, user, ...rest } = props;
 
-    if ( isAuthorized ) {
-        return null;
-    }
-    return <LoginForm user={ user } { ...rest } />;
+  if ( isAuthorized ) {
+    return null;
+  }
+  return <LoginForm user={ user } { ...rest } />;
 }
 
 PageWrapper.propTypes = {
-    isAuthorized: PropTypes.bool.isRequired,
-    user: PropTypes.object
+  isAuthorized: PropTypes.bool.isRequired,
+  user: PropTypes.object
 };
 
 /**
@@ -34,12 +34,12 @@ PageWrapper.propTypes = {
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { isAuthorized, errors }, user: { model } } = state;
-    return {
-        errors,
-        user: model,
-        isAuthorized,
-    };
+  const { auth: { isAuthorized, errors }, user: { model } } = state;
+  return {
+    errors,
+    user: model,
+    isAuthorized,
+  };
 }
 
 /**
@@ -48,10 +48,10 @@ function mapStateToProps( state ) {
  * @return { Object }
  **/
 const mapDispatchToProps = ( dispatch ) =>
-    bindActionCreators({
-        onChange: changeModelAttribute,
-        onLogin: login,
-    }, dispatch);
+  bindActionCreators({
+    onChange: changeModelAttribute,
+    onLogin: login,
+  }, dispatch);
 
 
 /** Отдаем на использование подготовленный контейнер */

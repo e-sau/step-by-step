@@ -7,7 +7,7 @@ import { submitWorker, loginWorker, tokenAuthWorker, getTokenFromStorageWorker }
  * @yield
  **/
 function* watchForAuthByToken() {
-    yield takeEvery( AUTH_BY_TOKEN, getTokenFromStorageWorker );
+  yield takeEvery( AUTH_BY_TOKEN, getTokenFromStorageWorker );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForAuthByToken() {
  * @yield
  **/
 function* watchForSubmit() {
-    yield takeEvery( SUBMIT, submitWorker );
+  yield takeEvery( SUBMIT, submitWorker );
 }
 
 /**
@@ -23,7 +23,7 @@ function* watchForSubmit() {
  * @yield
  **/
 function* watchForLoginRequest() {
-    yield takeEvery( LOGIN, loginWorker );
+  yield takeEvery( LOGIN, loginWorker );
 }
 
 /**
@@ -31,7 +31,7 @@ function* watchForLoginRequest() {
  * @yield
  **/
 function* watchLoginSuccess() {
-    yield takeEvery( LOGIN_SUCCESS, tokenAuthWorker );
+  yield takeEvery( LOGIN_SUCCESS, tokenAuthWorker );
 }
 
 /**
@@ -39,7 +39,7 @@ function* watchLoginSuccess() {
  * @yield
  **/
 function* watchForSignup() {
-    yield takeEvery( SIGNUP_SUCCESS, tokenAuthWorker );
+  yield takeEvery( SIGNUP_SUCCESS, tokenAuthWorker );
 }
 
 /**
@@ -47,11 +47,11 @@ function* watchForSignup() {
  * @yield
  **/
 export default function* authWatchers() {
-    yield all([
-        watchForAuthByToken(),
-        watchForSubmit(),
-        watchForLoginRequest(),
-        watchLoginSuccess(),
-        watchForSignup(),
-    ]);
+  yield all([
+    watchForAuthByToken(),
+    watchForSubmit(),
+    watchForLoginRequest(),
+    watchLoginSuccess(),
+    watchForSignup(),
+  ]);
 }

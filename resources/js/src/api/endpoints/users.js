@@ -7,14 +7,14 @@ import { Model } from "../../models/Model";
  * @throws TypeError
  **/
 export function signup( user ) {
-    if ( !( user instanceof Model ) ) {
-        throw new TypeError("Invalid argument error");
-    }
-    return {
-        uri: "register",
-        method: "POST",
-        body: user.getData()
-    };
+  if ( !( user instanceof Model ) ) {
+    throw new TypeError("Invalid argument error");
+  }
+  return {
+    uri: "register",
+    method: "POST",
+    body: user.getData()
+  };
 }
 
 /**
@@ -26,15 +26,15 @@ export function signup( user ) {
  *  @throws Error
  **/
 export function login( email, password ) {
-    if ( !email || !password ) {
-        throw new Error("Missing argument error");
-    }
+  if ( !email || !password ) {
+    throw new Error("Missing argument error");
+  }
 
-    return {
-        uri: "login",
-        method: "POST",
-        body: { email, password }
-    };
+  return {
+    uri: "login",
+    method: "POST",
+    body: { email, password }
+  };
 }
 
 /**
@@ -44,14 +44,14 @@ export function login( email, password ) {
  * @throws Error
  **/
 export function getUser( token ) {
-    if ( !token ) {
-        throw new Error("Missing argument error");
-    }
+  if ( !token ) {
+    throw new Error("Missing argument error");
+  }
 
-    return {
-        uri: "user",
-        headers: {
-            "Authorization": `Bearer ${ token }`
-        }
-    };
+  return {
+    uri: "user",
+    headers: {
+      "Authorization": `Bearer ${ token }`
+    }
+  };
 }

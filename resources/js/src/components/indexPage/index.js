@@ -22,27 +22,27 @@ const SubjectsContainer = styled( "div" )`
 `;
 
 export default function IndexPage() {
-    return (
-        <React.Fragment>
-            <Preview/>
-            <SubjectsContainer>
-                <SubjectsSelectContainer/>
-            </SubjectsContainer>
+  return (
+    <React.Fragment>
+      <Preview/>
+      <SubjectsContainer>
+        <SubjectsSelectContainer/>
+      </SubjectsContainer>
 
-            <Spacer size={ 100 } />
-            <Features/>
-            <Spacer size={ 100 } />
+      <Spacer size={ 100 } />
+      <Features/>
+      <Spacer size={ 100 } />
 
-            <ExampleTasks/>
-            <BlockAdvert/>
+      <ExampleTasks/>
+      <BlockAdvert/>
 
-            <div className={ "reviews" }>
-                <HorizontalScroll>
-                    <BlockReviews/>
-                </HorizontalScroll>
-            </div>
+      <div className={ "reviews" }>
+        <HorizontalScroll>
+          <BlockReviews/>
+        </HorizontalScroll>
+      </div>
 
-            <Spacer size={ 120 } />
-        </React.Fragment>
-    );
+      <Spacer size={ 120 } />
+    </React.Fragment>
+  );
 }

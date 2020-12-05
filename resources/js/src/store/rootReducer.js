@@ -10,9 +10,9 @@ import userReducer from "./user/reducer";
  * @todo тестовый удалить на релизе
  **/
 export default combineReducers({
-    auth: authReducer,
-    user: userReducer,
-    grade: gradesReducer,
-    subject: subjectReducer,
-    task: taskReducer,
+  auth: authReducer,
+  user: userReducer,
+  grade: gradesReducer,
+  subject: subjectReducer,
+  task: taskReducer,
 });

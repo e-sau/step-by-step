@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const BASE_HEADERS = {
-    "X-Requested-With": "XMLHttpRequest",
-    "Content-type": "application/json"
+  "X-Requested-With": "XMLHttpRequest",
+  "Content-type": "application/json"
 };
 
 /**
@@ -11,13 +11,13 @@ export const BASE_HEADERS = {
  * @return { Promise }
  **/
 function axiosCall( requestConfig ) {
-    const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
+  const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
 
-    if ( token ) {
-        requestConfig.headers["Authorization"] = `Bearer ${ token }`;
-    }
+  if ( token ) {
+    requestConfig.headers["Authorization"] = `Bearer ${ token }`;
+  }
 
-    return axios( requestConfig ).catch( error => error.response );
+  return axios( requestConfig ).catch( error => error.response );
 }
 
 /**
@@ -26,10 +26,10 @@ function axiosCall( requestConfig ) {
  * @return { any }
  **/
 export function processRequestData( requestData ) {
-    if ( typeof requestData === "function" ) {
-        return requestData();
-    }
-    return requestData;
+  if ( typeof requestData === "function" ) {
+    return requestData();
+  }
+  return requestData;
 }
 
 /**
@@ -44,31 +44,31 @@ export function processRequestData( requestData ) {
  * @throws Error
  **/
 export default function makeRequest( requestObj, apiCaller = axiosCall ) {
-    const requestParams = processRequestData( requestObj );
+  const requestParams = processRequestData( requestObj );
 
-    if ( !( requestParams && typeof requestParams === "object") ) {
-        throw new Error("Invalid argument Error");
+  if ( !( requestParams && typeof requestParams === "object") ) {
+    throw new Error("Invalid argument Error");
+  }
+
+  if ( typeof apiCaller !== "function" ) {
+    throw new Error("Invalid argument Error");
+  }
+
+  const {
+    url = process.env.MIX_APP_API_URL, /** String адресс сервера куда кидаем запрос напримеро http://localhost/ */
+    uri = "",                          /** String uri, например /users  */
+    headers = {},                      /** Object заголовки запроса */
+    body = {} ,                        /** Object тело запроса */
+    method = "GET",                    /** String метод запроса */
+  } = requestParams;
+
+  return apiCaller({
+    url: `${ url }${ uri }`,
+    method,
+    data: body,
+    headers: {
+      ...BASE_HEADERS,
+      ...headers,
     }
-
-    if ( typeof apiCaller !== "function" ) {
-        throw new Error("Invalid argument Error");
-    }
-
-    const {
-        url = process.env.MIX_APP_API_URL, /** String адресс сервера куда кидаем запрос напримеро http://localhost/ */
-        uri = "",                          /** String uri, например /users  */
-        headers = {},                      /** Object заголовки запроса */
-        body = {} ,                        /** Object тело запроса */
-        method = "GET",                    /** String метод запроса */
-    } = requestParams;
-
-    return apiCaller({
-        url: `${ url }${ uri }`,
-        method,
-        data: body,
-        headers: {
-            ...BASE_HEADERS,
-            ...headers,
-        }
-    });
+  });
 }

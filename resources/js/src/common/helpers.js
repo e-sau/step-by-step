@@ -4,7 +4,7 @@
  * @type Object
  **/
 export const object = {
-    /**
+  /**
      * Обновление ссылки на обьект
      * @param { Object } object
      * @param { Array } properties
@@ -12,33 +12,33 @@ export const object = {
      *
      * @throws TypeError
      **/
-    update( object, properties= [] ) {
+  update( object, properties= [] ) {
 
-        if ( !object || typeof object !== "object" ) {
-            throw new TypeError("First argument must be Object type!");
-        }
+    if ( !object || typeof object !== "object" ) {
+      throw new TypeError("First argument must be Object type!");
+    }
 
-        if ( !Array.isArray( properties ) ) {
-            throw new TypeError("Second argument must be Array type!");
-        }
+    if ( !Array.isArray( properties ) ) {
+      throw new TypeError("Second argument must be Array type!");
+    }
 
-        /**
+    /**
          * Установка дескрипторов атрибуду обьекта
          * @param { any } value
          * @return { Object }
          **/
-        function setPropertyDescriptors( value ) {
-            return { value, enumerable: true, configurable: true, writable: true };
-        }
-        const combinedProperties = [ ...Object.entries( object ), ...properties ];
-        const configuredProperties = combinedProperties.reduce((acc, item) => {
-            const [ key, value ] = item;
-            return { ...acc, [key]: setPropertyDescriptors( value ) };
-        }, {});
-        return Object.create( object, configuredProperties );
-    },
+    function setPropertyDescriptors( value ) {
+      return { value, enumerable: true, configurable: true, writable: true };
+    }
+    const combinedProperties = [ ...Object.entries( object ), ...properties ];
+    const configuredProperties = combinedProperties.reduce((acc, item) => {
+      const [ key, value ] = item;
+      return { ...acc, [key]: setPropertyDescriptors( value ) };
+    }, {});
+    return Object.create( object, configuredProperties );
+  },
 
-    /**
+  /**
      * Слишком узконаправленная функция.
      * Суть в том, чтоб все обьекты которые приходят с бека в snake_case нам удобнее трансформировать в camelCase
      *
@@ -49,26 +49,26 @@ export const object = {
      * @return { Object }
      * @throws Error|TypeError
      **/
-    keysTransform( input, transformFunc ) {
-        if ( arguments.length < 2 ) {
-            throw new Error("Missing argument error");
-        }
-
-        if ( !input || typeof input !== "object" ) {
-            throw new TypeError("Second argument must be Object");
-        }
-
-        if ( !transformFunc || typeof transformFunc !== "function" ) {
-            throw new TypeError("Second argument must be function");
-        }
-
-        return Object.entries( input ).reduce(( acc, [ key, value] ) => {
-            return {
-                ...acc,
-                [ transformFunc(key) ]: value
-            };
-        }, {});
+  keysTransform( input, transformFunc ) {
+    if ( arguments.length < 2 ) {
+      throw new Error("Missing argument error");
     }
+
+    if ( !input || typeof input !== "object" ) {
+      throw new TypeError("Second argument must be Object");
+    }
+
+    if ( !transformFunc || typeof transformFunc !== "function" ) {
+      throw new TypeError("Second argument must be function");
+    }
+
+    return Object.entries( input ).reduce(( acc, [ key, value] ) => {
+      return {
+        ...acc,
+        [ transformFunc(key) ]: value
+      };
+    }, {});
+  }
 };
 
 /**
@@ -76,32 +76,32 @@ export const object = {
  * @type Object
  **/
 export const string = {
-    /**
+  /**
      * Простой алгоритм конвертации snakeCase нотации в camelCase
      * @param { String } string
      *
      * @throws Error|TypeError
      **/
-    snakeCaseToCamelCase( string ) {
-        if ( !string ) {
-            throw new Error( "Missing argument error ");
-        }
-
-        const parts = String( string ).split( "_" );
-
-        return parts.reduce( ( acc, item, idx ) => {
-            /** обработка крайнего случая, так как мы недолжны капсить букву если она одна */
-            const isFirstAndLastItem = !acc && ( idx === parts.length - 1 );
-
-            if ( !idx || isFirstAndLastItem ) {
-                return item;
-            }
-            const preparedPart = item.trim().replace(
-                item[0], item[0]?.toUpperCase()
-            );
-            return `${ acc }${ preparedPart }`;
-        }, "");
+  snakeCaseToCamelCase( string ) {
+    if ( !string ) {
+      throw new Error( "Missing argument error ");
     }
+
+    const parts = String( string ).split( "_" );
+
+    return parts.reduce( ( acc, item, idx ) => {
+      /** обработка крайнего случая, так как мы недолжны капсить букву если она одна */
+      const isFirstAndLastItem = !acc && ( idx === parts.length - 1 );
+
+      if ( !idx || isFirstAndLastItem ) {
+        return item;
+      }
+      const preparedPart = item.trim().replace(
+        item[0], item[0]?.toUpperCase()
+      );
+      return `${ acc }${ preparedPart }`;
+    }, "");
+  }
 };
 
 /**
@@ -109,7 +109,7 @@ export const string = {
  * @type Object
  **/
 export const func = {
-    /**
+  /**
      * Функция мемоизации ( кеширование на стороне клиента, кешируется до перезагрузки страници )
      *
      * @param { Function } fn
@@ -120,22 +120,22 @@ export const func = {
      *
      * @throws Error|TypeError
      **/
-    memo( fn ) {
-        if ( !fn ) {
-            throw Error();
-        }
-
-        if ( typeof fn !== "function" ) {
-            throw TypeError();
-        }
-        const memoCache = {};
-        return function () {
-            const key = JSON.stringify( arguments );
-
-            if ( !memoCache[ key ] ) {
-                memoCache[ key ] = fn.apply( null, arguments );
-            }
-            return memoCache[ key ];
-        };
+  memo( fn ) {
+    if ( !fn ) {
+      throw Error();
     }
+
+    if ( typeof fn !== "function" ) {
+      throw TypeError();
+    }
+    const memoCache = {};
+    return function () {
+      const key = JSON.stringify( arguments );
+
+      if ( !memoCache[ key ] ) {
+        memoCache[ key ] = fn.apply( null, arguments );
+      }
+      return memoCache[ key ];
+    };
+  }
 };

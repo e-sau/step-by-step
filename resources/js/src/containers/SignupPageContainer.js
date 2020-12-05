@@ -13,15 +13,15 @@ import { changeModelAttribute } from "../store/user/actions";
  * @return { JSX.Element }
  **/
 function PageWrapper( props ) {
-    const { isAuthorized, ...rest } = props;
-    if ( isAuthorized ) {
-        return <Redirect to="/"/>;
-    }
-    return <SignupPage { ...rest } />;
+  const { isAuthorized, ...rest } = props;
+  if ( isAuthorized ) {
+    return <Redirect to="/"/>;
+  }
+  return <SignupPage { ...rest } />;
 }
 
 PageWrapper.propTypes = {
-    isAuthorized: PropTypes.bool.isRequired
+  isAuthorized: PropTypes.bool.isRequired
 };
 
 /**
@@ -30,22 +30,22 @@ PageWrapper.propTypes = {
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { isAuthorized, errors }, user: { model } } = state;
-    return {
-        errors,
-        user: model,
-        isAuthorized,
-    };
+  const { auth: { isAuthorized, errors }, user: { model } } = state;
+  return {
+    errors,
+    user: model,
+    isAuthorized,
+  };
 }
 
 /**
  * Мапим и оборачиваем функцией dispatch, все actionCreators
  **/
 const mapDispatchToProps = ( dispatch ) =>
-    bindActionCreators({
-        onChange: changeModelAttribute,
-        onSubmit: submit,
-    }, dispatch );
+  bindActionCreators({
+    onChange: changeModelAttribute,
+    onSubmit: submit,
+  }, dispatch );
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( PageWrapper );

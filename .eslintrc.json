@@ -12,10 +12,10 @@
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
-    	"jsx": true
-  	},
-		"ecmaVersion": 12,
-		"sourceType": "module"
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
   "plugins": [
     "react", "babel"
@@ -24,10 +24,14 @@
     "indent": [ "warn", 2, { "SwitchCase": 1 } ],
     "quotes": [ "warn", "double" ],
     "semi": [ "warn", "always" ],
-    "prefer-const": ["error", {
-    	"destructuring": "any",
-      "ignoreReadBeforeAssign": false
-  }],
+    "prefer-const": [
+      "error", { "destructuring": "any", "ignoreReadBeforeAssign": false }
+    ],
     "no-var": [ "error" ]
+  },
+  "settings": {
+    "react": {
+        "version": "detect"
+    }
   }
 }

@@ -70,19 +70,19 @@ export class User extends Model {
      * @type Object
      **/
     _rules = {
-        signup: [
-            [ "name", [ required, getLengthValidator( 4 ) ] ],
-            [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
-            [ "rePassword", [ getCompareValidator( "password") ] ],
-            [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
-        ],
-        login: [
-            [ "email", [ required ] ],
-            [ "password", [ required ] ],
-        ],
-        update: [
-            [ "photo", [ getFileValidator( User.PHOTO_TYPES, User.PHOTO_KB_SIZE ) ] ],
-        ]
+      signup: [
+        [ "name", [ required, getLengthValidator( 4 ) ] ],
+        [ "password", [ required, getLengthValidator( 6, 60 ) ] ],
+        [ "rePassword", [ getCompareValidator( "password") ] ],
+        [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
+      ],
+      login: [
+        [ "email", [ required ] ],
+        [ "password", [ required ] ],
+      ],
+      update: [
+        [ "photo", [ getFileValidator( User.PHOTO_TYPES, User.PHOTO_KB_SIZE ) ] ],
+      ]
     };
 
     /**
@@ -90,8 +90,8 @@ export class User extends Model {
      * @type Object
      **/
     _errorTranslates = {
-        "The email has already been taken.": "Адресс электронной почты уже используется",
-        "Wrong username or password": "Неверный email или пароль",
+      "The email has already been taken.": "Адресс электронной почты уже используется",
+      "Wrong username or password": "Неверный email или пароль",
     }
 
     /**
@@ -101,15 +101,15 @@ export class User extends Model {
      * @return { Object }
      **/
     attributeLabels() {
-        return {
-            name: "Имя",
-            surname: "Фамилия",
-            birthDate: "Дата рождения",
-            password: "Пароль",
-            rePassword: "Повтор пароля",
-            email: "E-mail",
-            photo: "Фото"
-        };
+      return {
+        name: "Имя",
+        surname: "Фамилия",
+        birthDate: "Дата рождения",
+        password: "Пароль",
+        rePassword: "Повтор пароля",
+        email: "E-mail",
+        photo: "Фото"
+      };
     }
 
     /**
@@ -119,15 +119,15 @@ export class User extends Model {
      * @return { Object }
      **/
     getData() {
-        return {
-            name: this.name,
-            surname: this.surname,
-            birthDate: this.birthDate,
-            password: this.password,
-            password_confirmation: this.rePassword,
-            email: this.email,
-            photo: this.photo
-        };
+      return {
+        name: this.name,
+        surname: this.surname,
+        birthDate: this.birthDate,
+        password: this.password,
+        password_confirmation: this.rePassword,
+        email: this.email,
+        photo: this.photo
+      };
     }
 
     /**
@@ -135,9 +135,9 @@ export class User extends Model {
      * @return { String }
      **/
     getAge() {
-        if ( !this.birthDate ) {
-            return null;
-        }
-        return momemt( this.birthDate ).locale("ru").toNow(true);
+      if ( !this.birthDate ) {
+        return null;
+      }
+      return momemt( this.birthDate ).locale("ru").toNow(true);
     }
 }

@@ -33,21 +33,21 @@ const StyledDiv = styled( "div" )`
 `;
 
 export function Step( props ) {
-    const { children, color } = props;
-    return (
-        <StyledDiv bg={ colorsMap[ color ] || colorsMap.gray }>
-            { children }
-        </StyledDiv>
-    );
+  const { children, color } = props;
+  return (
+    <StyledDiv bg={ colorsMap[ color ] || colorsMap.gray }>
+      { children }
+    </StyledDiv>
+  );
 }
 
 Step.defaultProps = {
-    variant: "contained",
+  variant: "contained",
 };
 
 Step.propTypes = {
-    children: PropTypes.any,
-    color:  PropTypes.oneOf(
-        Object.keys( colorsMap )
-    ),
+  children: PropTypes.any,
+  color:  PropTypes.oneOf(
+    Object.keys( colorsMap )
+  ),
 };
