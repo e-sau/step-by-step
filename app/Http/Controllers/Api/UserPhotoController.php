@@ -73,8 +73,7 @@ class UserPhotoController extends Controller
             $this->delete($user, $userPhoto, $key);
         }
 
-        $filePath = str_replace("public", "storage", $path );
-        $photo = UserPhoto::create(['photo' => $filePath ]);
+        $photo = UserPhoto::create(['photo' => $path]);
 
         $property = "{$key}_id";
         $user->$property = $photo->id;
