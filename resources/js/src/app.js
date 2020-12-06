@@ -1,25 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import store from './store';
-import routes from './routes';
+import store from "./store";
+import routes from "./routes";
+import SiteContainer from "./containers/SiteContainer";
 
 /** @type JSX.Element корень приложения */
-const App = (
-    <Provider store={ store }>
-        <BrowserRouter>
-            <Switch>
-                { routes.map( ( route, idx ) =>
-                    <Route key={ idx } { ...route } />
-                )}
-            </Switch>
-        </BrowserRouter>
-    </Provider>
+ReactDOM.render(
+  <Provider store={ store }>
+    <BrowserRouter>
+      <SiteContainer>
+        <Switch>
+          { routes.map( ( route, idx ) =>
+            <Route key={ idx } { ...route } />
+          )}
+        </Switch>
+      </SiteContainer>
+    </BrowserRouter>
+  </Provider>
+  ,
+  document.getElementById("main")
 );
-
-const $node = document.getElementById('main');
-if ( $node ) {
-    ReactDOM.render( App, $node );
-}

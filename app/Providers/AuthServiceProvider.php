@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\School;
+use App\Models\User;
+use App\Policies\SchoolPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +30,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Passport::routes();
+
+        Gate::before(function ($user, $ability) {
+            return $user->isAdmin() ? true : null;
+        });
     }
 }
