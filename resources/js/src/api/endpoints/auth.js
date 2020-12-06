@@ -1,4 +1,5 @@
 import { Model } from "../../models/Model";
+
 /**
  * Чистая функция, гет запроса, передавать ее вызов в makeRequest
  * @param { Model } user
@@ -34,24 +35,5 @@ export function login( email, password ) {
     uri: "login",
     method: "POST",
     body: { email, password }
-  };
-}
-
-/**
- * Авторизация по токену и получение данных о пользователе
- * @param { String } token
- *
- * @throws Error
- **/
-export function getUser( token ) {
-  if ( !token ) {
-    throw new Error("Missing argument error");
-  }
-
-  return {
-    uri: "user",
-    headers: {
-      "Authorization": `Bearer ${ token }`
-    }
   };
 }

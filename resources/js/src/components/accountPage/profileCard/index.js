@@ -9,7 +9,7 @@ export function ProfileCard( props ) {
   return (
     <CardGrid>
       <div className="photo_container" >
-        <img src={ user.photo } className="photo" alt="photo" />
+        <img src={ user.getPhoto() } className="photo" alt="photo" />
       </div>
       <div className="profile_fio">
         { user.name } { user.surname }

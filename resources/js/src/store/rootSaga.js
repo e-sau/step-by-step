@@ -3,6 +3,7 @@ import authWatchers from "./auth/watchers";
 import gradeWatchers from "./grade/watchers";
 import subjectWatchers from "./subject/watchers";
 import taskWatchers from "./task/watchers";
+import userWatchers from "./user/watchers";
 
 /**
  * Корневая сага, в ней подключаются все "watchers:
@@ -14,5 +15,6 @@ export default function* () {
     gradeWatchers(),
     subjectWatchers(),
     taskWatchers(),
+    userWatchers(),
   ]);
 }

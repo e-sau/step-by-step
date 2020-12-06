@@ -2,7 +2,8 @@ import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
 import makeRequest from "../../api/makeRequest";
-import { login, signup, getUser } from "../../api/endpoints/users";
+import { login, signup } from "../../api/endpoints/auth";
+import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";
 
 import { getModel } from "../user/selectors";
@@ -81,11 +82,15 @@ export function* loginWorker() {
  **/
 export function* tokenAuthWorker() {
   const token = yield select( getToken );
-  const { status, data: responseBody } = yield call( makeRequest, getUser( token ) );
+  const { status, data: responseBody } = yield call( makeRequest, getUser );
 
   if ( status === 200 ) {
-    const preparedUserData = object.keysTransform( responseBody.data, string.snakeCaseToCamelCase );
-    yield put( setUserData( preparedUserData ) );
+    const body = responseBody.data;
+    const preparedUserData = {
+      ...object.keysTransform( body, string.snakeCaseToCamelCase ),
+      photo: body.avatar?.photo
+    };
+    yield put( setUserData( preparedUserData ));
 
     /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
     localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, token );

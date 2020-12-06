@@ -63,7 +63,7 @@ export class User extends Model {
      * Ссылка на фото пользовтеля
      * @type String
      **/
-    photo = "/images/no-avatar.png";
+    photo;
 
     /**
      * Правила валидации модели, с учетом разных стратегий
@@ -139,5 +139,9 @@ export class User extends Model {
         return null;
       }
       return momemt( this.birthDate ).locale("ru").toNow(true);
+    }
+
+    getPhoto() {
+      return `/${ this.photo || "images/no-avatar.png" }`;
     }
 }

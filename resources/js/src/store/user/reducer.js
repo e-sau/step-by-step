@@ -6,7 +6,7 @@ import { object } from "../../common/helpers";
  * Начальное состояние редьюсера
  * @type { Object<{ model: User, errors: Array  }> }
  **/
-const authInitialState = {
+const userInitialState = {
   model: new User(),
   errors: [],
 };
@@ -19,7 +19,7 @@ const authInitialState = {
  *
  * @return { Object }
  **/
-export default function userReducer( state = authInitialState, action ) {
+export default function userReducer( state = userInitialState, action ) {
   const { type, payload } = action;
 
   switch ( type ) {
@@ -43,7 +43,7 @@ export default function userReducer( state = authInitialState, action ) {
         model: object.update( state.model, Object.entries( payload ) ),
       };
     }
-
+    /** Обновить ссылку на обьект */
     case TYPE.UPDATE_REF: {
       return {
         ...state,
@@ -51,8 +51,19 @@ export default function userReducer( state = authInitialState, action ) {
         model: object.update( state.model ),
       };
     }
-
-    /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
+    /** Успеное обновление данных пользователя */
+    case TYPE.UPDATE_SUCCESS: {
+      return {
+        ...state,
+        errors: userInitialState.errors,
+      };
+    }
+    /** Ошибка при обновление данных пользователя */
+    case TYPE.UPDATE_ERROR: {
+      return {
+        ...state, errors: payload,
+      };
+    }
     default: {
       return state;
     }
