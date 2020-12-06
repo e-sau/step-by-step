@@ -13,15 +13,15 @@ import { changeModelAttribute } from "../store/user/actions";
 const NAV_ITEMS = [
   {
     id: 1, label: "Профиль", icon: faUser,
-    component: React.lazy(() => import("../containers/ProfileEditFormContainer" ) )
+    component: React.lazy(() => import("./ProfileEditFormContainer" ) )
   },
   {
     id: 2, label: "Сообщения", icon: faEnvelope,
-    component: React.lazy(() => import("../components/notFoundPage" ) )
+    component: React.lazy(() => import("./MessagesContainer" ) )
   },
   {
     id: 3, label: "Завершенные предметы", icon: faCheckSquare,
-    component:  React.lazy(() => import("../containers/TasksCompleteContainer" ) )
+    component:  React.lazy(() => import("./TasksCompleteContainer" ) )
   },
   {
     id: 4, label: "Доступные предмет", icon: faPenSquare,

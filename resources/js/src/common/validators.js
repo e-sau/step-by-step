@@ -2,44 +2,43 @@
  * Простой класс, который будет результатом валидации
  **/
 export class ValidateResult {
-    /**
-     * Результат валидации
-     * @type boolean
-     **/
-    _valid;
-    /**
-     * Название валидатора
-     * @type string
-     **/
-    _validator
-    /**
-     * Ошибка валидации
-     * @type string
-     **/
-    _message;
+  /**
+  * Результат валидации
+  * @type boolean
+  **/
+  _valid;
+  /**
+  * Название валидатора
+  * @type string
+  **/
+  _validator
+  /**
+  * Ошибка валидации
+  * @type string
+  **/
+  _message;
 
-    constructor( valid, validator, message ) {
-      this._valid = valid;
-      this._validator = validator;
-      this._message = message;
-    }
+  constructor( valid, validator, message ) {
+    this._valid = valid;
+    this._validator = validator;
+    this._message = message;
+  }
 
-    getValidator() {
-      return this._validator;
-    }
+  getValidator() {
+    return this._validator;
+  }
 
-    isValid() {
-      return this._valid;
-    }
+  isValid() {
+    return this._valid;
+  }
 
-    setMessage( message ) {
-      this._message = message;
-    }
+  setMessage( message ) {
+    this._message = message;
+  }
 
-    getMessage () {
-      return this._message;
-    }
-
+  getMessage () {
+    return this._message;
+  }
 }
 
 /**
