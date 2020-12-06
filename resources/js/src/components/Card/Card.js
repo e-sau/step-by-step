@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 
 import { StyledCard } from "./styled.sc";
@@ -20,8 +20,8 @@ export function Card( props ) {
 
 Card.propTypes = {
   review: PropTypes.shape({
-      author: PropTypes.string.isRequired,
-      text: PropTypes.string,
-      image: PropTypes.string,
+    author: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    image: PropTypes.string,
   }
-)}
+  )};

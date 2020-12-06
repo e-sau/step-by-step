@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 import { Preview } from "./blockPreview";
 import { Features } from "./blockFeatures";
 import { BlockAdvert } from "./BlockAdvert";
@@ -21,25 +21,28 @@ const SubjectsContainer = styled( "div" )`
     }
 `;
 
-export default function ( props ) {
-    return (
-        <React.Fragment>
-            <Preview/>
-            <SubjectsContainer>
-                <SubjectsSelectContainer/>
-            </SubjectsContainer>
+export default function IndexPage() {
+  return (
+    <React.Fragment>
+      <Preview/>
+      <SubjectsContainer>
+        <SubjectsSelectContainer/>
+      </SubjectsContainer>
 
-            <Spacer size={ 100 } />
-            <Features/>
-            <Spacer size={ 100 } />
+      <Spacer size={ 100 } />
+      <Features/>
+      <Spacer size={ 100 } />
 
-            <ExampleTasks/>
-            <BlockAdvert/>
+      <ExampleTasks/>
+      <BlockAdvert/>
 
-            <HorizontalScroll>
-                <BlockReviews/>
-            </HorizontalScroll>
-            <Spacer size={ 120 } />
-        </React.Fragment>
-    );
+      <div className={ "reviews" }>
+        <HorizontalScroll>
+          <BlockReviews/>
+        </HorizontalScroll>
+      </div>
+
+      <Spacer size={ 120 } />
+    </React.Fragment>
+  );
 }

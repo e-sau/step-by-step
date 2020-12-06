@@ -1,4 +1,5 @@
 import React, { Suspense, useEffect } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -13,19 +14,25 @@ import { Loader } from "../components/ui/loader/Loader";
  * @return { JSX.Element }
  **/
 function SiteWrapper( props ) {
-    const { authByToken, children } = props;
-    useEffect( () => {
-        authByToken()
-    }, []);
+  const { authByToken, children } = props;
+  useEffect( () => {
+    authByToken();
+  }, []);
 
-    return (
-        <Layout>
-            <Suspense fallback={ <Loader/> }>
-                { children }
-            </Suspense>
-        </Layout>
-    );
+  return (
+    <Layout>
+      <Suspense fallback={ <Loader/> }>
+        { children }
+      </Suspense>
+    </Layout>
+  );
 }
+
+SiteWrapper.propTypes = {
+  authByToken: PropTypes.func.isRequired,
+  children: PropTypes.any
+};
+
 
 const mapStateToProps = () => ({});
 

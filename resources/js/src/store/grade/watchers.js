@@ -7,7 +7,7 @@ import { fetchWorker } from "./workers";
  * @yield
  **/
 function* watchForFetchGrades() {
-    yield takeEvery( FETCH_REQUEST, fetchWorker );
+  yield takeEvery( FETCH_REQUEST, fetchWorker );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForFetchGrades() {
  * @yield
  **/
 export default function* gradeWatchers() {
-    yield all([
-        watchForFetchGrades(),
-    ]);
+  yield all([
+    watchForFetchGrades(),
+  ]);
 }

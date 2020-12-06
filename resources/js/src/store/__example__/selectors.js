@@ -4,5 +4,5 @@
  * @return { Number }
  **/
 export function getTestCount( state ){
-    return state.test;
+  return state.test;
 }

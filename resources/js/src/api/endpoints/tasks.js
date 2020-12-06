@@ -3,9 +3,9 @@
  * @return { Object }
  **/
 export function getAll() {
-    return {
-        uri: "tasks",
-    };
+  return {
+    uri: "tasks",
+  };
 }
 
 /**
@@ -15,13 +15,13 @@ export function getAll() {
  * @throws Error|TypeError
  **/
 export function getBySubject( subjectId ) {
-    if ( !subjectId ) {
-        throw new Error("Missing argument error");
-    }
-    if ( typeof subjectId !== "number" ) {
-        throw new TypeError();
-    }
-    return {
-        uri: `tasks/getBySubject/${ subjectId }`,
-    };
+  if ( !subjectId ) {
+    throw new Error("Missing argument error");
+  }
+  if ( typeof subjectId !== "number" ) {
+    throw new TypeError();
+  }
+  return {
+    uri: `tasks/getBySubject/${ subjectId }`,
+  };
 }

@@ -3,7 +3,7 @@
  * @return { Object }
  **/
 export function getAll() {
-    return {
-        uri: "grades"
-    };
+  return {
+    uri: "grades"
+  };
 }

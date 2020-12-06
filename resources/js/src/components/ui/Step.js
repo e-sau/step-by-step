@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { colorsMap } from "./colors";
 
@@ -33,20 +33,21 @@ const StyledDiv = styled( "div" )`
 `;
 
 export function Step( props ) {
-    const { children, color } = props;
-    return (
-        <StyledDiv bg={ colorsMap[ color ] || colorsMap.gray }>
-            { children }
-        </StyledDiv>
-    );
+  const { children, color } = props;
+  return (
+    <StyledDiv bg={ colorsMap[ color ] || colorsMap.gray }>
+      { children }
+    </StyledDiv>
+  );
 }
 
 Step.defaultProps = {
-    variant: "contained",
+  variant: "contained",
 };
 
 Step.propTypes = {
-    color:  PropTypes.oneOf(
-        Object.keys( colorsMap )
-    ),
-}
+  children: PropTypes.any,
+  color:  PropTypes.oneOf(
+    Object.keys( colorsMap )
+  ),
+};

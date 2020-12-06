@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CardGrid = styled('div')`
+export const CardGrid = styled("div")`
     display: grid;
     grid-template-rows: 1fr auto auto auto;
     row-gap: 8px;
@@ -9,6 +9,7 @@ export const CardGrid = styled('div')`
 
     .photo_container {
         padding: 20px;
+        margin: 0 auto;
 
         .photo {
             height: 150px;

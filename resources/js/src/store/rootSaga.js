@@ -9,10 +9,10 @@ import taskWatchers from "./task/watchers";
  * @yield
  **/
 export default function* () {
-    yield all([
-        authWatchers(),
-        gradeWatchers(),
-        subjectWatchers(),
-        taskWatchers(),
-    ]);
+  yield all([
+    authWatchers(),
+    gradeWatchers(),
+    subjectWatchers(),
+    taskWatchers(),
+  ]);
 }

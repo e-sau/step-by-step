@@ -7,7 +7,7 @@ import { testWorker } from "./workers";
  * @yield
  **/
 function* watchForTest() {
-    yield takeEvery( TEST_TYPE, testWorker );
+  yield takeEvery( TEST_TYPE, testWorker );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForTest() {
  * @yield
  **/
 export default function* exampleWatchers() {
-    yield all([
-        watchForTest()
-    ]);
+  yield all([
+    watchForTest()
+  ]);
 }

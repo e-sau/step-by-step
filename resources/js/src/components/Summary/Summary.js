@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 
 import { StyledSummary } from "./styled.sc";
 
 export function Summary( props ) {
-  const { summary: { heading, text }} = props
+  const { summary: { heading, text }} = props;
 
   return (
     <StyledSummary>
@@ -19,7 +19,7 @@ export function Summary( props ) {
 
 Summary.propTypes = {
   summary: PropTypes.shape({
-      heading: PropTypes.string.isRequired,
-      text: PropTypes.string,
+    heading: PropTypes.string.isRequired,
+    text: PropTypes.string,
   }
-)}
+  )};

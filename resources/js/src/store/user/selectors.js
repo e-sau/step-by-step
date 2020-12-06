@@ -4,5 +4,5 @@
  * @return { User }
  **/
 export function getModel( state ) {
-    return state.user.model;
+  return state.user.model;
 }

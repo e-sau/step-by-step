@@ -11,8 +11,8 @@ const composeEnhancers = (typeof window !== "undefined" && window.__REDUX_DEVTOO
 
 /** Логгер в консоль для разработки **/
 if ( process.env.NODE_ENV === "development" ) {
-    const { logger } = require( "redux-logger" );
-    middlewaresList.push( logger );
+  const { logger } = require( "redux-logger" );
+  middlewaresList.push( logger );
 }
 
 /** Отдаем готовый Store  **/

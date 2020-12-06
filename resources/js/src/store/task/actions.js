@@ -5,7 +5,7 @@ import * as TYPE from "./types";
  * @return { Object }
  **/
 export function fetchRequest() {
-    return { type: TYPE.FETCH_REQUEST };
+  return { type: TYPE.FETCH_REQUEST };
 }
 /**
  * Задания получены успешно
@@ -13,7 +13,7 @@ export function fetchRequest() {
  * @return { Object }
  **/
 export function fetchSuccess( data ) {
-    return { type: TYPE.FETCH_SUCCESS, payload: data };
+  return { type: TYPE.FETCH_SUCCESS, payload: data };
 }
 /**
  * Ошибка при получении данных
@@ -21,6 +21,6 @@ export function fetchSuccess( data ) {
  * @return { Object }
  **/
 export function fetchError( error ) {
-    return { type: TYPE.FETCH_ERROR, payload: error };
+  return { type: TYPE.FETCH_ERROR, payload: error };
 }
 

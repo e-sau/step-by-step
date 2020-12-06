@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { LoginForm } from "../components/LoginForm";
@@ -14,13 +15,18 @@ import { changeModelAttribute } from "../store/user/actions";
  * @todo повторяет логику SignupPage, пересмотреть кому редирект можно делегировать
  **/
 function PageWrapper( props ) {
-    const { isAuthorized, user, ...rest } = props;
+  const { isAuthorized, user, ...rest } = props;
 
-    if ( isAuthorized ) {
-        return null;
-    }
-    return <LoginForm user={ user } { ...rest } />;
+  if ( isAuthorized ) {
+    return null;
+  }
+  return <LoginForm user={ user } { ...rest } />;
 }
+
+PageWrapper.propTypes = {
+  isAuthorized: PropTypes.bool.isRequired,
+  user: PropTypes.object
+};
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -28,12 +34,12 @@ function PageWrapper( props ) {
  * @return { Object }
  **/
 function mapStateToProps( state ) {
-    const { auth: { isAuthorized, errors }, user: { model } } = state;
-    return {
-        errors,
-        user: model,
-        isAuthorized,
-    };
+  const { auth: { isAuthorized, errors }, user: { model } } = state;
+  return {
+    errors,
+    user: model,
+    isAuthorized,
+  };
 }
 
 /**
@@ -42,10 +48,10 @@ function mapStateToProps( state ) {
  * @return { Object }
  **/
 const mapDispatchToProps = ( dispatch ) =>
-    bindActionCreators({
-        onChange: changeModelAttribute,
-        onLogin: login,
-    }, dispatch);
+  bindActionCreators({
+    onChange: changeModelAttribute,
+    onLogin: login,
+  }, dispatch);
 
 
 /** Отдаем на использование подготовленный контейнер */

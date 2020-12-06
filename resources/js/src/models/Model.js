@@ -10,8 +10,8 @@ export class Model {
 
     /** Ошибки валидации с бека, и их перевод для пользователя */
     _errorTranslates = {
-        "Error text from backend": "Текс ошибки с бекенда",
-        default: "Произошла неизвестная ошика"
+      "Error text from backend": "Текс ошибки с бекенда",
+      default: "Произошла неизвестная ошика"
     }
 
     /**
@@ -19,7 +19,7 @@ export class Model {
      * @return { String }
      **/
     getErrorTranslate( error ) {
-        return this._errorTranslates[ error ] || this._errorTranslates.default
+      return this._errorTranslates[ error ] || this._errorTranslates.default;
     }
 
     /**
@@ -28,13 +28,13 @@ export class Model {
      * @return { Boolean }
      **/
     validate( scenario ) {
-        this._errors = [];
-        const rulesList = this._rules[ scenario ] || [];
-        rulesList.forEach( ( record ) => {
-            const [ field, validators ] = record;
-            this.validateAttribute( field, validators );
-        });
-        return ( this._errors.length === 0 );
+      this._errors = [];
+      const rulesList = this._rules[ scenario ] || [];
+      rulesList.forEach( ( record ) => {
+        const [ field, validators ] = record;
+        this.validateAttribute( field, validators );
+      });
+      return ( this._errors.length === 0 );
     }
 
     /**
@@ -45,20 +45,20 @@ export class Model {
      * @return { void }
      **/
     validateAttribute( field, validators ) {
-        let result = null;
-        /** обратить внимание, все функции валидаторы могут обратится к this обьекта DTO */
-        const isValid = validators.every( func => {
-           /** @type ValidateResult */
-           const validateResult = func.call( this, this[ field ]);
-           result = validateResult.isValid() ? null : validateResult;
-           return validateResult.isValid();
-        });
+      let result = null;
+      /** обратить внимание, все функции валидаторы могут обратится к this обьекта DTO */
+      const isValid = validators.every( func => {
+        /** @type ValidateResult */
+        const validateResult = func.call( this, this[ field ]);
+        result = validateResult.isValid() ? null : validateResult;
+        return validateResult.isValid();
+      });
 
-        if ( !isValid ) {
-            this._errors.push([ field, result ]);
-        } else {
-            this._errors = this._errors.filter( ([ attribute ]) => attribute !== field );
-        }
+      if ( !isValid ) {
+        this._errors.push([ field, result ]);
+      } else {
+        this._errors = this._errors.filter( ([ attribute ]) => attribute !== field );
+      }
     }
 
     /**
@@ -66,7 +66,7 @@ export class Model {
      * @return { Array }
      **/
     getErrors() {
-        return this._errors;
+      return this._errors;
     }
 
     /**
@@ -74,9 +74,9 @@ export class Model {
      * @return { void }
      **/
     setErrors( errors ) {
-        this._errors = Object.entries(errors).map( ([ key, error ]) => {
-            return [ key, new ValidateResult( false, 'required', this.getErrorTranslate( error ) )]
-        });
+      this._errors = Object.entries(errors).map( ([ key, error ]) => {
+        return [ key, new ValidateResult( false, "required", this.getErrorTranslate( error ) )];
+      });
     }
 
     /**
@@ -84,7 +84,7 @@ export class Model {
      * @return { Array }
      **/
     getAttributes() {
-        return Object.entries( this );
+      return Object.entries( this );
     }
 
     /**
@@ -92,7 +92,7 @@ export class Model {
      * @return { Object }
      **/
     attributeLabels() {
-        return {};
+      return {};
     }
 
     /**
@@ -100,7 +100,7 @@ export class Model {
      * @return { String }
      **/
     getLabel( attribute ) {
-        return ( this.attributeLabels()[ attribute ] || "Не указанно");
+      return ( this.attributeLabels()[ attribute ] || "Не указанно");
     }
 
     /**
@@ -108,6 +108,6 @@ export class Model {
      * @return { Object }
      **/
     getData() {
-        return {};
+      return {};
     }
 }
