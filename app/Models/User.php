@@ -119,4 +119,14 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', 'admin')->first();
     }
+
+    public function avatar()
+    {
+        return $this->hasOne(UserPhoto::class, 'id', 'avatar_id');
+    }
+
+    public function photo()
+    {
+        return $this->hasOne(UserPhoto::class, 'id', 'photo_id');
+    }
 }

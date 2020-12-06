@@ -26,6 +26,8 @@ class User extends JsonResource
             'roles' => Role::collection($this->whenLoaded('roles')),
             'grade' => Grade::collection($this->whenLoaded('grade')),
             'tasks' => Task::collection($this->whenLoaded('tasks')),
+            'avatar' => $this->avatar,
+            'photo' => $this->photo,
             'achievements' => Achievement::collection($this->whenLoaded('achievements')),
         ];
     }
