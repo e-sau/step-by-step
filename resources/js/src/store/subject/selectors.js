@@ -4,5 +4,5 @@
  * @return { Number }
  **/
 export function getSelectedId( state ) {
-    return state.grade.selectedId;
+  return state.grade.selectedId;
 }

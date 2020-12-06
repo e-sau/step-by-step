@@ -14,23 +14,23 @@ import { Loader } from "../components/ui/loader/Loader";
  * @return { JSX.Element }
  **/
 function SiteWrapper( props ) {
-    const { authByToken, children } = props;
-    useEffect( () => {
-        authByToken();
-    }, []);
+  const { authByToken, children } = props;
+  useEffect( () => {
+    authByToken();
+  }, []);
 
-    return (
-        <Layout>
-            <Suspense fallback={ <Loader/> }>
-                { children }
-            </Suspense>
-        </Layout>
-    );
+  return (
+    <Layout>
+      <Suspense fallback={ <Loader/> }>
+        { children }
+      </Suspense>
+    </Layout>
+  );
 }
 
 SiteWrapper.propTypes = {
-    authByToken: PropTypes.func.isRequired,
-    children: PropTypes.any
+  authByToken: PropTypes.func.isRequired,
+  children: PropTypes.any
 };
 
 

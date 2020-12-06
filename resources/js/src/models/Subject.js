@@ -7,8 +7,8 @@ export class Subject extends Model {
     tasks = [];
 
     constructor(id, title) {
-        super();
-        this.id = id;
-        this.title = title;
+      super();
+      this.id = id;
+      this.title = title;
     }
 }

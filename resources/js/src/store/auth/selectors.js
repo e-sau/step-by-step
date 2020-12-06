@@ -4,5 +4,5 @@
  * @return { String }
  **/
 export function getToken( state ) {
-    return state.auth.authToken;
+  return state.auth.authToken;
 }

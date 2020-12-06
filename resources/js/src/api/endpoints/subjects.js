@@ -3,9 +3,9 @@
  * @return { Object }
  **/
 export function getAll() {
-    return {
-        uri: "subjects",
-    };
+  return {
+    uri: "subjects",
+  };
 }
 
 /**
@@ -14,13 +14,13 @@ export function getAll() {
  * @return { Object }
  **/
 export function getByGrade( gradeId ) {
-    if ( !gradeId ) {
-        throw new Error("Missing argument error");
-    }
-    if ( typeof gradeId !== "number" ) {
-        throw new TypeError();
-    }
-    return {
-        uri: `subjects/getByGrade/${ gradeId }`,
-    };
+  if ( !gradeId ) {
+    throw new Error("Missing argument error");
+  }
+  if ( typeof gradeId !== "number" ) {
+    throw new TypeError();
+  }
+  return {
+    uri: `subjects/getByGrade/${ gradeId }`,
+  };
 }

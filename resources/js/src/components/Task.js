@@ -4,17 +4,17 @@ import { Header } from "../layout/Header";
 import { Footer } from "../layout/Footer";
 
 Task.propTypes = {
-    name: PropTypes.string
+  name: PropTypes.string
 };
 
 export function Task( props ) {
-    const { name } = props;
+  const { name } = props;
 
-    return (
-        <>
-            <Header />
-            <h1>Hello world! { name }</h1>
-            <Footer />
-        </>
-    );
+  return (
+    <>
+      <Header />
+      <h1>Hello world! { name }</h1>
+      <Footer />
+    </>
+  );
 }

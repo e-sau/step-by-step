@@ -12,15 +12,15 @@ const StyledLink = styled( RouterLink )`
 `;
 
 export function Link( props ) {
-    const { uri, text } = props;
-    return (
-        <StyledLink className="link" to={ uri }>
-            <Typography align="center">{ text }</Typography>
-        </StyledLink>
-    );
+  const { uri, text } = props;
+  return (
+    <StyledLink className="link" to={ uri }>
+      <Typography align="center">{ text }</Typography>
+    </StyledLink>
+  );
 }
 
 Link.propTypes = {
-    uri: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+  uri: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };

@@ -9,14 +9,14 @@ import { fetchRequest, fetchError, fetchSuccess } from "./actions";
  * @yield
  **/
 export function* fetchWorker() {
-    yield put( fetchRequest() );
+  yield put( fetchRequest() );
 
-    const selectedGrade = yield select( getSelectedId );
-    const { status, data } = yield call( makeRequest, getByGrade( selectedGrade ) );
+  const selectedGrade = yield select( getSelectedId );
+  const { status, data } = yield call( makeRequest, getByGrade( selectedGrade ) );
 
-    if ( status === 200 ) {
-        yield put( fetchSuccess( data ) );
-    } else {
-        yield put( fetchError( data ) );
-    }
+  if ( status === 200 ) {
+    yield put( fetchSuccess( data ) );
+  } else {
+    yield put( fetchError( data ) );
+  }
 }

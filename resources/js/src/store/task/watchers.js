@@ -8,7 +8,7 @@ import { fetchWorker } from "./workers";
  * @yield
  **/
 function* watchForSubjectSelect() {
-    yield takeEvery( SELECT, fetchWorker );
+  yield takeEvery( SELECT, fetchWorker );
 }
 
 /**
@@ -16,7 +16,7 @@ function* watchForSubjectSelect() {
  * @yield
  **/
 export default function* taskWatchers() {
-    yield all([
-        watchForSubjectSelect()
-    ]);
+  yield all([
+    watchForSubjectSelect()
+  ]);
 }

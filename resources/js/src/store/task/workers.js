@@ -9,13 +9,13 @@ import { getBySubject } from "../../api/endpoints/tasks";
  * @yield
  **/
 export function* fetchWorker() {
-    yield put( fetchRequest() );
-    const subjectId = yield select( getSelectedId );
-    const { status, data } = yield call( makeRequest, getBySubject( subjectId ) );
+  yield put( fetchRequest() );
+  const subjectId = yield select( getSelectedId );
+  const { status, data } = yield call( makeRequest, getBySubject( subjectId ) );
 
-    if ( status === 200 ) {
-        yield put( fetchSuccess( data ) );
-    } else {
-        yield put( fetchError( data ) );
-    }
+  if ( status === 200 ) {
+    yield put( fetchSuccess( data ) );
+  } else {
+    yield put( fetchError( data ) );
+  }
 }

@@ -8,10 +8,10 @@ import { getAll } from "../../api/endpoints/grades";
  * @yield
  **/
 export function* fetchWorker() {
-    const { status, data } = yield call( makeRequest, getAll() );
-    if ( status === 200 ) {
-        yield put( fetchSuccess( data ) );
-    } else {
-        yield put( fetchError( data ) );
-    }
+  const { status, data } = yield call( makeRequest, getAll() );
+  if ( status === 200 ) {
+    yield put( fetchSuccess( data ) );
+  } else {
+    yield put( fetchError( data ) );
+  }
 }
