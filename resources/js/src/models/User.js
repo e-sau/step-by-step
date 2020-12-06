@@ -33,10 +33,16 @@ export class User extends Model {
     surname;
 
     /**
+     * Логин пользователя
+     * @type string
+     **/
+    login;
+
+    /**
      * Дата рождения пользователя
      * @type string
      **/
-    birthDate;
+    birthday;
 
     /**
      * Пароль
@@ -102,9 +108,10 @@ export class User extends Model {
      **/
     attributeLabels() {
       return {
+        login: "Логин",
         name: "Имя",
         surname: "Фамилия",
-        birthDate: "Дата рождения",
+        birthday: "Дата рождения",
         password: "Пароль",
         rePassword: "Повтор пароля",
         email: "E-mail",
@@ -120,9 +127,10 @@ export class User extends Model {
      **/
     getData() {
       return {
+        login: this.login,
         name: this.name,
         surname: this.surname,
-        birthDate: this.birthDate,
+        birthday: this.birthday,
         password: this.password,
         password_confirmation: this.rePassword,
         email: this.email,
@@ -135,9 +143,9 @@ export class User extends Model {
      * @return { String }
      **/
     getAge() {
-      if ( !this.birthDate ) {
+      if ( !this.birthday ) {
         return null;
       }
-      return momemt( this.birthDate ).locale("ru").toNow(true);
+      return momemt( this.birthday ).locale("ru").toNow(true);
     }
 }
