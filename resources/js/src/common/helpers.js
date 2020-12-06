@@ -5,13 +5,13 @@
  **/
 export const object = {
   /**
-     * Обновление ссылки на обьект
-     * @param { Object } object
-     * @param { Array } properties
-     * @return { User }
-     *
-     * @throws TypeError
-     **/
+  * Обновление ссылки на обьект
+  * @param { Object } object
+  * @param { Array } properties
+  * @return { User }
+  *
+  * @throws TypeError
+  **/
   update( object, properties= [] ) {
 
     if ( !object || typeof object !== "object" ) {
@@ -23,10 +23,10 @@ export const object = {
     }
 
     /**
-         * Установка дескрипторов атрибуду обьекта
-         * @param { any } value
-         * @return { Object }
-         **/
+     * Установка дескрипторов атрибуду обьекта
+     * @param { any } value
+     * @return { Object }
+    **/
     function setPropertyDescriptors( value ) {
       return { value, enumerable: true, configurable: true, writable: true };
     }
@@ -39,16 +39,16 @@ export const object = {
   },
 
   /**
-     * Слишком узконаправленная функция.
-     * Суть в том, чтоб все обьекты которые приходят с бека в snake_case нам удобнее трансформировать в camelCase
-     *
-     * Функция трансформации ключей обьекта, по правилам функции которая переданна вторым аргументом
-     * @param { Object } input
-     * @param { Function } transformFunc
-     *
-     * @return { Object }
-     * @throws Error|TypeError
-     **/
+  * Слишком узконаправленная функция.
+  * Суть в том, чтоб все обьекты которые приходят с бека в snake_case нам удобнее трансформировать в camelCase
+  *
+  * Функция трансформации ключей обьекта, по правилам функции которая переданна вторым аргументом
+  * @param { Object } input
+  * @param { Function } transformFunc
+  *
+  * @return { Object }
+  * @throws Error|TypeError
+  **/
   keysTransform( input, transformFunc ) {
     if ( arguments.length < 2 ) {
       throw new Error("Missing argument error");
@@ -77,11 +77,11 @@ export const object = {
  **/
 export const string = {
   /**
-     * Простой алгоритм конвертации snakeCase нотации в camelCase
-     * @param { String } string
-     *
-     * @throws Error|TypeError
-     **/
+  * Простой алгоритм конвертации snakeCase нотации в camelCase
+  * @param { String } string
+  *
+  * @throws Error|TypeError
+  **/
   snakeCaseToCamelCase( string ) {
     if ( !string ) {
       throw new Error( "Missing argument error ");
@@ -110,16 +110,16 @@ export const string = {
  **/
 export const func = {
   /**
-     * Функция мемоизации ( кеширование на стороне клиента, кешируется до перезагрузки страници )
-     *
-     * @param { Function } fn
-     * @return { Function }
-     *
-     * @example Пример вызова функции, создаем переменную, и замыкаем то что хотим вызвать
-     *          const someMemo = memo( ( params ) => userApi.get( params ) );
-     *
-     * @throws Error|TypeError
-     **/
+  * Функция мемоизации ( кеширование на стороне клиента, кешируется до перезагрузки страници )
+  *
+  * @param { Function } fn
+  * @return { Function }
+  *
+  * @example Пример вызова функции, создаем переменную, и замыкаем то что хотим вызвать
+  *          const someMemo = memo( ( params ) => userApi.get( params ) );
+  *
+  * @throws Error|TypeError
+  **/
   memo( fn ) {
     if ( !fn ) {
       throw Error();
