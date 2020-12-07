@@ -62,7 +62,7 @@ class UserPhotoController extends Controller
         $this->validate($request, UserPhoto::createRules());
 
         $key = $request->route()->getName();
-        $path = $request->file('photo')->store("public/users/$key");
+        $path = $request->file('photo')->store("images/users/$key");
 
         if (!$path) return response()->json(null, Response::HTTP_INTERNAL_SERVER_ERROR);
 
@@ -73,7 +73,7 @@ class UserPhotoController extends Controller
             $this->delete($user, $userPhoto, $key);
         }
 
-        $photo = UserPhoto::create(['photo' => $path]);
+        $photo = UserPhoto::create(['url' => Storage::url($path)]);
 
         $property = "{$key}_id";
         $user->$property = $photo->id;
@@ -146,7 +146,7 @@ class UserPhotoController extends Controller
         $user->$property = null;
         $user->save();
 
-        $path = $photo->photo;
+        $path = str_replace('/storage', '', $photo->photo);
         $photo->delete();
         Storage::delete($path);
     }
