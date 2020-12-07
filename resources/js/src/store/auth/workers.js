@@ -65,6 +65,7 @@ export function* loginWorker() {
     const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
     if ( status === 200 ) {
+      localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, data.token );
       yield put( loginSuccess( data.token ) );
     } else {
       yield put( responseError([ "Wrong username or password" ]) );
@@ -72,7 +73,6 @@ export function* loginWorker() {
   } else {
     yield put( loginError() );
   }
-
   yield put( updateUserRef() );
 }
 
@@ -92,7 +92,6 @@ export function* tokenAuthWorker() {
     };
     yield put( setUserData( preparedUserData ));
 
-    /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
     localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, token );
   } else {
     yield put( loginError() );

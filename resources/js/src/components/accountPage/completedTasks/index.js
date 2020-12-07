@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { CompletedTaskPreview } from "../../completedTaskPreview";
@@ -15,12 +15,16 @@ const GridContainer = styled("div")`
  * Отрисовка грида с выполненными задачами
  **/
 export function CompletedTasks( props ) {
-  const { completedTaskList } = props;
+  const { isFetching, completedTaskList, onLoad } = props;
+
+  useEffect(() => {
+    onLoad();
+  }, [onLoad]);
 
   /**
-     * Отрисовка списка выполенных зазач
-     * @return { JSX[] }
-     **/
+   * Отрисовка списка выполенных зазач
+   * @return { JSX[] }
+   **/
   function renderTasks() {
     /** @todo выкосить idx когда будем работать с нормальными данными */
     return completedTaskList.map(( task, idx ) => (
@@ -36,6 +40,8 @@ export function CompletedTasks( props ) {
 }
 
 CompletedTasks.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  onLoad: PropTypes.func.isRequired,
   completedTaskList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

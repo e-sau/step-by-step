@@ -39,7 +39,7 @@ export function ProfileEditForm( props ) {
     <GridContainer>
       <div className="photo_container">
         <label className="content">
-          <img src={ user.getPhoto() } className="content_item" alt="photo" />
+          <img src={ user.photo } className="content_item" alt="photo" />
           <Wrapper className="content_wrapper">
             <ListItemIcon className={ "item_icon" }>
               <FontAwesomeIcon icon={ faPlus } />

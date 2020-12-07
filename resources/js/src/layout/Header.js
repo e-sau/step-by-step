@@ -17,19 +17,34 @@ export function Header( props ) {
     text: isAuthorized ? "Личный кабинет" : "Войти"
   };
 
+  function renderButton() {
+    if ( isAuthorized ) {
+      return (
+        <Button className="login" color="primary">
+          <Link className="link_login" to={ buttonConfig.to }>
+            { buttonConfig.text }
+          </Link>
+        </Button>
+      );
+    }
+    return (
+      <Button className="login link_login" color="primary" onClick={onClick}>
+        { buttonConfig.text }
+      </Button>
+    );
+  }
+
   return (
     <StyledHeader>
       <Link to="/" className="site_name">Step by step</Link>
-      {authFormShown && (
+      { authFormShown && (
         <PopupContainer>
           <div>Войти</div>
           <br />
           <LoginFormContainer />
         </PopupContainer>
       )}
-      <Button className="login link_login" color="primary" onClick={onClick}>
-        { buttonConfig.text }
-      </Button>
+      { renderButton() }
     </StyledHeader>
   );
 }
