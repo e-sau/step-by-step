@@ -1,6 +1,6 @@
 import { Model } from "./Model";
 import { EMAIL_REGEXP } from "../common/regexp";
-import { required, getCompareValidator, getLengthValidator, getMatchValidator, getFileValidator } from "../common/validators";
+import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
 import momemt from "moment";
 
 /**

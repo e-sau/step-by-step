@@ -15,7 +15,7 @@ const GridContainer = styled("div")`
  * Отрисовка грида с выполненными задачами
  **/
 export function CompletedTasks( props ) {
-  const { isFetching, completedTaskList, onLoad } = props;
+  const { completedTaskList, onLoad } = props;
 
   useEffect(() => {
     onLoad();

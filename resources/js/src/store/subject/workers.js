@@ -1,7 +1,7 @@
 import { select, call, put } from "redux-saga/effects";
 import makeRequest from "../../api/makeRequest";
-import { getCompleted, getAvailable } from "../../api/endpoints/subjects";
-import { fetchCompletedSuccess, fetchCompletedError, fetchAvailableSuccess, fetchAvailableError } from "./actions";
+import { getAvailable } from "../../api/endpoints/subjects";
+import { fetchCompletedSuccess, fetchAvailableSuccess, fetchAvailableError } from "./actions";
 import { getUserID } from "../user/selectors";
 
 /**
