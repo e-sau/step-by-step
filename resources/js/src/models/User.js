@@ -33,6 +33,12 @@ export class User extends Model {
   surname;
 
   /**
+   * Логин пользователя
+   * @type string
+   **/
+  login;
+
+  /**
    * Дата рождения пользователя
    * @type string
    **/
@@ -109,6 +115,7 @@ export class User extends Model {
    **/
   attributeLabels() {
     return {
+      login: "Логин",
       name: "Имя",
       surname: "Фамилия",
       birthday: "Дата рождения",
@@ -127,6 +134,7 @@ export class User extends Model {
    **/
   getData() {
     return {
+      login: this.login,
       name: this.name,
       surname: this.surname,
       birthday: this.birthday,
