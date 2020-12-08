@@ -20,7 +20,7 @@ export const FormLeftSide = styled("div")`
     border-right: 1px solid #ddd;
     border-radius: 6px 0 0 6px;
     background: linear-gradient(309deg, rgba(70,43,3,1) 0%, rgba(255,183,77,1) 57%, rgba(221,221,221,1) 100%);
-
+    height: 700px;
     display: grid;
     grid-template-rows: 90% 10%;
 `;

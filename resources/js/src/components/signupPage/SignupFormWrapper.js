@@ -11,10 +11,14 @@ export function SignupFormWrapper( props ) {
   const { user, onChange, onSubmit, errors } = props;
 
   const fieldsList = [
-    { attribute: "name", required: true, },
+    { attribute: "login", required: true },
+    { attribute: "name", required: true },
+    { attribute: "surname", required: true },
+    { attribute: "birthday", required: true, type: "date", placeholder: ""},
     { attribute: "password", required: true, type: "password"  },
     { attribute: "rePassword", required: true, type: "password" },
-    { attribute: "email", required: true, type: "email", placeholder: "example@mai.com" },
+    { attribute: "email", required: true, type: "email", placeholder: "example@mail.com" },
+    { attribute: "photo", required: true, value:"https://cdn1.iconfinder.com/data/icons/robots-avatars-set/354/Robot_avatar___robot_robo_help_customer_messenger-512.png"},
   ];
 
   return (
