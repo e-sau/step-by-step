@@ -1,5 +1,5 @@
 import { all, takeEvery } from "redux-saga/effects";
-import { fetchCompletedWorker, fetchAvailableWorker } from "./workers";
+import * as worker from "./workers";
 import * as ACTION from "./types";
 
 /**
@@ -7,7 +7,7 @@ import * as ACTION from "./types";
  * @yield
  **/
 function* watchForFetchCompleted() {
-  yield takeEvery( ACTION.FETCH_COMPLETED, fetchCompletedWorker );
+  yield takeEvery( ACTION.FETCH_COMPLETED, worker.fetchCompleted );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForFetchCompleted() {
  * @yield
  **/
 function* watchForFetchAvailable() {
-  yield takeEvery( ACTION.FETCH_AVAILABLE, fetchAvailableWorker );
+  yield takeEvery( ACTION.FETCH_AVAILABLE, worker.fetchAvailable );
 }
 
 /**

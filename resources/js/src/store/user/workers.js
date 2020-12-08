@@ -5,7 +5,11 @@ import { getModel } from "./selectors";
 import { User } from "../../models/User";
 import { updateError, updateRef, updateSuccess } from "./actions";
 
-export function* updateWorker() {
+/**
+ * Обновить данные пользователя
+ * @yield
+ **/
+export function* userUpdate() {
   const user = yield select( getModel );
 
   if ( user.validate( User.UPDATE_SCENARIO ) ) {
@@ -19,7 +23,11 @@ export function* updateWorker() {
   yield put( updateError("save error") );
 }
 
-export function* savePhotoWorker( action ) {
+/**
+ * Сохранение фотографии
+ * @yield
+ **/
+export function* saveUserPhoto( action ) {
   const { payload } = action;
   const user = yield select( getModel );
 

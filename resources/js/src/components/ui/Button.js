@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Button as MaterialButton } from "@material-ui/core";
 import { colorsMap } from "./colors";
+import Typography from "@material-ui/core/Typography";
 
 const StyledButton = styled( MaterialButton )`
   &.button {
@@ -11,6 +12,7 @@ const StyledButton = styled( MaterialButton )`
     padding: 0;
 
     .children {
+      width: 100%;
       &>:first-child {
         color: #ffffff;
         background: ${ props => props.bg };
@@ -36,6 +38,13 @@ const StyledButton = styled( MaterialButton )`
 export function Button( props ) {
   const { color, children, onClick, variant, className } = props;
 
+  function renderChildren() {
+    if ( typeof children === "string" ) {
+      return <Typography>{ children }</Typography>;
+    }
+    return children;
+  }
+
   return (
     <StyledButton
       className={ `button ${ className }`}
@@ -44,7 +53,7 @@ export function Button( props ) {
       bg={ colorsMap[ color ] || colorsMap.default }
     >
       <span className="children" >
-        { children }
+        { renderChildren() }
       </span>
     </StyledButton>
   );

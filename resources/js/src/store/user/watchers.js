@@ -1,13 +1,21 @@
 import { all, takeEvery } from "redux-saga/effects";
-import {SELECT_PHOTO, UPDATE_PROFILE} from "./types";
-import { updateWorker, savePhotoWorker } from "./workers";
+import * as TYPE from "./types";
+import * as worker from "./workers";
 
+/**
+ * Отслеживание события @user-UPDATE_PROFILE
+ * @yield
+ **/
 function* watchForProfileChange() {
-  yield takeEvery( UPDATE_PROFILE, updateWorker );
+  yield takeEvery( TYPE.UPDATE_PROFILE, worker.userUpdate );
 }
 
+/**
+ * Отслеживание события @user-SELECT_PHOTO
+ * @yield
+ **/
 function* watchForPhotoSelect() {
-  yield takeEvery( SELECT_PHOTO, savePhotoWorker );
+  yield takeEvery( TYPE.SELECT_PHOTO, worker.saveUserPhoto );
 }
 
 export default function* userWatchers() {

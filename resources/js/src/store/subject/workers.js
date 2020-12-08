@@ -8,7 +8,7 @@ import { getUserID } from "../user/selectors";
  * Обработка запроса на апи, при выборе класса
  * @yield
  **/
-export function* fetchCompletedWorker() {
+export function* fetchCompleted() {
   // const userId = yield select( getUserID );
   // const { status, data } = yield call( makeRequest, getCompleted( userId ) );
 
@@ -26,7 +26,7 @@ export function* fetchCompletedWorker() {
  * Обработка запроса на апи, при выборе класса
  * @yield
  **/
-export function* fetchAvailableWorker() {
+export function* fetchAvailable() {
   const userId = yield select( getUserID );
   const { status, data } = yield call( makeRequest, getAvailable( userId ) );
 
