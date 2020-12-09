@@ -1,7 +1,7 @@
 import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
-import makeRequest from "../../api/makeRequest";
+import makeRequest, { HTTP } from "../../api/makeRequest";
 import { login, signup } from "../../api/endpoints/auth";
 import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";
@@ -42,7 +42,7 @@ export function* submit() {
     }
     const { status, data } = yield call( makeRequest, signup( user ) );
 
-    if ( status !== 200 ) {
+    if ( status !== HTTP.OK ) {
       user.setErrors( data.errors );
       throw new Error("Validation error");
     }
@@ -67,7 +67,7 @@ export function* userLogin( action ) {
   if ( user.validate( User.LOGIN_SCENARIO ) ) {
     const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
-    if ( status === 200 ) {
+    if ( status === HTTP.OK ) {
       localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, data.token );
       yield put( loginSuccess( data.token ) );
 
@@ -85,7 +85,7 @@ export function* tokenAuth() {
   const token = yield select( getToken );
   const { status, data: responseBody } = yield call( makeRequest, getUser );
 
-  if ( status === 200 ) {
+  if ( status === HTTP.OK ) {
     const body = responseBody.data;
     const preparedUserData = {
       ...object.keysTransform( body, string.snakeCaseToCamelCase ),

@@ -8,6 +8,7 @@ import { object } from "../../common/helpers";
  **/
 const userInitialState = {
   model: new User(),
+  rating: null,
   errors: [],
 };
 
@@ -49,7 +50,7 @@ export default function userReducer( state = userInitialState, action ) {
         model: object.update( state.model ),
       };
     }
-    /** Успеное обновление данных пользователя */
+    /** Успешное обновление данных пользователя */
     case TYPE.UPDATE_SUCCESS: {
       return {
         ...state,
@@ -58,6 +59,18 @@ export default function userReducer( state = userInitialState, action ) {
     }
     /** Ошибка при обновление данных пользователя */
     case TYPE.UPDATE_ERROR: {
+      return {
+        ...state, errors: payload,
+      };
+    }
+    /** Успешное получение рейтинга  */
+    case TYPE.FETCH_RATING_SUCCESS: {
+      return {
+        ...state, rating: payload,
+      };
+    }
+    /** Ошибка при получение рейтинга  */
+    case TYPE.FETCH_RATING_ERROR: {
       return {
         ...state, errors: payload,
       };

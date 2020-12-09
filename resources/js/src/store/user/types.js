@@ -9,3 +9,6 @@ export const UPDATE_SUCCESS = `${ prefix }UPDATE_SUCCESS`;
 export const UPDATE_ERROR = `${ prefix }UPDATE_ERROR`;
 
 export const SELECT_PHOTO = `${ prefix }SELECT_PHOTO`;
+
+export const FETCH_RATING_SUCCESS = `${ prefix }FETCH_RATING_SUCCESS`;
+export const FETCH_RATING_ERROR = `${ prefix }FETCH_RATING_ERROR`;
