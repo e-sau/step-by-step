@@ -9,13 +9,13 @@ export function ProfileCard( props ) {
   return (
     <CardGrid>
       <div className="photo_container" >
-        <img src={ user.photo } className="photo" alt="photo" />
+        <img src={ user.avatar } className="photo" alt="photo" />
       </div>
       <div className="profile_fio">
         { user.name } { user.surname }
       </div>
       <div className="profile_age">
-        { user.getAge() }
+        { user.age }
       </div>
       <div>
         { /*  @todo https://igorskipper.atlassian.net/browse/IS100-40  */}

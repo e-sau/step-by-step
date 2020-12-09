@@ -34,7 +34,7 @@ export function* saveUserPhoto( action ) {
   const { status, data } = yield call( makeRequest, savePhoto( payload ) );
 
   if ( status === 201 ) {
-    user.photo = data.photo;
+    user.avatar = data.url;
     yield put( updateRef() );
   } else {
     yield put( updateError("save error") );

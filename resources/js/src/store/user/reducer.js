@@ -39,7 +39,6 @@ export default function userReducer( state = userInitialState, action ) {
     case TYPE.SET_MODEL_DATA: {
       return {
         ...state,
-        errors: payload,
         model: object.update( state.model, Object.entries( payload ) ),
       };
     }
@@ -47,7 +46,6 @@ export default function userReducer( state = userInitialState, action ) {
     case TYPE.UPDATE_REF: {
       return {
         ...state,
-        errors: payload,
         model: object.update( state.model ),
       };
     }

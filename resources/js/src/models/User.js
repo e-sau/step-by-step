@@ -69,14 +69,32 @@ export class User extends Model {
    * Ссылка на фото пользовтеля
    * @type String
    **/
-  _photo;
+  _avatar;
 
-  get photo() {
-    return `/${ this._photo || "images/no-avatar.png" }`;
+  /**
+   * Геттер для фотографии
+   * @return { String }
+   **/
+  get avatar() {
+    return `/${ this._avatar || "images/no-avatar.png" }`;
+  }
+  /**
+   * Сеттер для фотографии
+   * @return { void }
+   **/
+  set avatar( value ) {
+    this._avatar = value;
   }
 
-  set photo( value ) {
-    this._photo = value;
+  /**
+   * Получить количество лет, исходя из даты рождения
+   * @return { String }
+   **/
+  get age() {
+    if ( !this.birthday ) {
+      return null;
+    }
+    return momemt( this.birthday ).toNow(true);
   }
 
   /**
@@ -143,16 +161,5 @@ export class User extends Model {
       email: this.email,
       photo: this.photo
     };
-  }
-
-  /**
-   * Получить количество лет, исходя из даты рождения
-   * @return { String }
-   **/
-  getAge() {
-    if ( !this.birthday ) {
-      return null;
-    }
-    return momemt( this.birthday ).toNow(true);
   }
 }
