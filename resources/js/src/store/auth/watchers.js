@@ -1,13 +1,13 @@
 import { all, takeEvery } from "redux-saga/effects";
-import { SUBMIT, LOGIN, SIGNUP_SUCCESS, AUTH_BY_TOKEN, LOGIN_SUCCESS } from "./types";
-import { submitWorker, loginWorker, tokenAuthWorker, getTokenFromStorageWorker } from "./workers";
+import * as TYPE from "./types";
+import * as worker from "./workers";
 
 /**
  * Отслеживание события при инициализации приложения ( автологин по токену ), отслеживает действие с типом AUTH_BY_TOKEN
  * @yield
  **/
 function* watchForAuthByToken() {
-  yield takeEvery( AUTH_BY_TOKEN, getTokenFromStorageWorker );
+  yield takeEvery( TYPE.AUTH_BY_TOKEN, worker.getTokenFromStorage );
 }
 
 /**
@@ -15,7 +15,7 @@ function* watchForAuthByToken() {
  * @yield
  **/
 function* watchForSubmit() {
-  yield takeEvery( SUBMIT, submitWorker );
+  yield takeEvery( TYPE.SUBMIT, worker.submit );
 }
 
 /**
@@ -23,7 +23,7 @@ function* watchForSubmit() {
  * @yield
  **/
 function* watchForLoginRequest() {
-  yield takeEvery( LOGIN, loginWorker );
+  yield takeEvery( TYPE.LOGIN, worker.userLogin );
 }
 
 /**
@@ -31,16 +31,25 @@ function* watchForLoginRequest() {
  * @yield
  **/
 function* watchLoginSuccess() {
-  yield takeEvery( LOGIN_SUCCESS, tokenAuthWorker );
+  yield takeEvery( TYPE.LOGIN_SUCCESS, worker.tokenAuth );
 }
 
 /**
- * Отслеживание события успешной ретистрации, служит сигналом для сохранения токена, и попытки по нему авторизоватся
+ * Отслеживание события успешной регистрации, служит сигналом для сохранения токена, и попытки по нему авторизоватся
  * @yield
  **/
 function* watchForSignup() {
-  yield takeEvery( SIGNUP_SUCCESS, tokenAuthWorker );
+  yield takeEvery( TYPE.SIGNUP_SUCCESS, worker.tokenAuth );
 }
+
+/**
+ * Отслеживание события LOGOUT
+ * @yield
+ **/
+function* watchForLogout() {
+  yield takeEvery( TYPE.LOGOUT, worker.logout );
+}
+
 
 /**
  * Обьеденение всех слушателей, и экспорт функции на подключении в файле rootSaga
@@ -53,5 +62,6 @@ export default function* authWatchers() {
     watchForLoginRequest(),
     watchLoginSuccess(),
     watchForSignup(),
+    watchForLogout(),
   ]);
 }

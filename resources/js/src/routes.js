@@ -19,7 +19,7 @@ export default [
   {
     path: "/tasks",
     exact: true,
-    component: React.lazy(() => import("./containers/TasksPageContainer") ),
+    component: React.lazy(() => import("./components/notFoundPage") ),
   },
 
   /** @todo добавить новые маршруты */

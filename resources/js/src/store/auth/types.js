@@ -13,3 +13,4 @@ export const LOGIN_ERROR = `${ prefix }LOGIN_ERROR`;
 export const RESPONSE_ERROR = `${ prefix }RESPONSE_ERROR`;
 
 export const AUTH_FORM_TOGGLE = `${ prefix }AUTH_FORM_TOGGLE`;
+export const LOGOUT = `${ prefix }LOGOUT`;

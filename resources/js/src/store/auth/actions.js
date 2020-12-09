@@ -36,10 +36,13 @@ export function signupError() {
 
 /**
  * Действие отправки данных на авторизацию
+ * @param { string } email
+ * @param { string } password
+ *
  * @return { Object }
  **/
-export function login() {
-  return { type: TYPE.LOGIN };
+export function login( email, password ) {
+  return { type: TYPE.LOGIN, payload: { email, password } };
 }
 
 /**
@@ -74,4 +77,12 @@ export function responseError( errors ) {
  **/
 export function toggleAuthForm() {
   return { type: TYPE.AUTH_FORM_TOGGLE };
+}
+
+/**
+ * Действие отправки данных на авторизацию
+ * @return { Object }
+ **/
+export function logout() {
+  return { type: TYPE.LOGOUT };
 }

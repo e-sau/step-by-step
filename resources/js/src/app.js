@@ -6,6 +6,9 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import store from "./store";
 import routes from "./routes";
 import SiteContainer from "./containers/SiteContainer";
+import momemt from "moment";
+
+momemt.locale("ru");
 
 /** @type JSX.Element корень приложения */
 ReactDOM.render(

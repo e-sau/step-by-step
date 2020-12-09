@@ -32,6 +32,23 @@ export function updateProfile() {
 }
 
 /**
+ * Действие отправки измененных данных на сохранение
+ * @return { Object } }
+ **/
+export function updateSuccess() {
+  return { type: TYPE.UPDATE_SUCCESS };
+}
+
+/**
+ * Действие отправки измененных данных на сохранение
+ * @param { String } error
+ * @return { Object } }
+ **/
+export function updateError( error ) {
+  return { type: TYPE.UPDATE_ERROR, payload: error };
+}
+
+/**
  * Действие выбора новой фотографии
  * @return { Object } }
  **/

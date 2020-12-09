@@ -37,7 +37,6 @@ export function ProfileEditForm( props ) {
 
   return (
     <GridContainer>
-      {/* @todo выкинуть в отдельный компонент вместе с его логикой */}
       <div className="photo_container">
         <label className="content">
           <img src={ user.photo } className="content_item" alt="photo" />
@@ -47,7 +46,7 @@ export function ProfileEditForm( props ) {
             </ListItemIcon>
           </Wrapper>
           <input type="file"
-            accept="image/jpeg,image/gif,image/png"
+            accept={ User.PHOTO_TYPES.join(",") }
             className="hidden" onChange={ handleSelectPhoto }
           />
         </label>

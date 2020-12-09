@@ -21,7 +21,7 @@ const NAV_ITEMS = [
   },
   {
     id: 3, label: "Завершенные предметы", icon: faCheckSquare,
-    component:  React.lazy(() => import("./TasksCompleteContainer" ) )
+    component:  React.lazy(() => import("./TasksCompleteContainer" ) ),
   },
   {
     id: 4, label: "Доступные предмет", icon: faPenSquare,

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { Model } from "../models/Model";
 import { Link } from "./ui/Link";
 import { Button } from "./ui/Button";
 import { Form } from "./ui/form";
+import { User } from "../models/User";
+import { object } from "../common/helpers";
 
 export const FormContainer = styled("div")`
     display: grid;
@@ -23,32 +24,54 @@ export const ControlsContainer = styled("div")`
     }
 `;
 
-
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
  * @param { Object } props
- * @return { JSX.Element }
+ * @return { JSX.Element|null }
  **/
 export function LoginForm( props ) {
-  const { user, onChange, onLogin, errors } = props;
+  const [ model, setModel ] = useState(new User);
+  const { isAuthorized, onLogin, errors } = props;
+
+  if ( isAuthorized ) {
+    return null;
+  }
 
   const fieldsList = [
     { attribute: "email", required: true, type: "email", placeholder: "E-mail" },
     { attribute: "password", required: true, type: "password", placeholder: "Пароль"  },
   ];
 
+  /**
+   * Обработчик авторизации
+   * @return { void }
+   **/
+  function handleLogin() {
+    onLogin( model.email, model.password );
+  }
+
+  /**
+   * Обработчик изменения данных авторизации
+   * @return { void }
+   **/
+  function handleChange( name, value ) {
+    console.log({ name, value });
+    model[ name ] = value;
+    setModel( object.update( model ) );
+  }
+
   return (
     <FormContainer>
       <Form
-        model={ user }
-        onChange={ onChange }
+        model={ model }
+        onChange={ handleChange }
         fieldsList={ fieldsList }
         errors={ errors }
         useLabel={ false }
         inputError={ false }
       />
       <ControlsContainer>
-        <Button onClick={ onLogin } text={ "Войти" } color="primary">
+        <Button onClick={ handleLogin } text={ "Войти" } color="primary">
           Войти
         </Button>
         <Link className="link" uri={ "/signup" } text={ "Регистрация" }/>
@@ -58,8 +81,8 @@ export function LoginForm( props ) {
 }
 
 LoginForm.propTypes = {
-  user: PropTypes.instanceOf( Model ),
   onChange: PropTypes.func.isRequired,
   onLogin: PropTypes.func.isRequired,
   errors: PropTypes.array,
+  isAuthorized: PropTypes.bool.isRequired,
 };
