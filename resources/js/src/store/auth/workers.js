@@ -89,7 +89,8 @@ export function* tokenAuth() {
     const body = responseBody.data;
     const preparedUserData = {
       ...object.keysTransform( body, string.snakeCaseToCamelCase ),
-      photo: body.avatar?.photo
+      photo: body.avatar?.photo,
+      _id: body.id
     };
     yield put( setUserData( preparedUserData ));
 

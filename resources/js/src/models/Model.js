@@ -5,6 +5,20 @@ import { ValidateResult } from "../common/validators";
  * @class Model
  **/
 export class Model {
+  /**
+   * ID записи
+   * @type int
+   **/
+  _id;
+
+  get id() {
+    return this._id;
+  }
+
+  set id( id ) {
+    this._id = id;
+  }
+
     _rules = [];
     _errors = [];
 

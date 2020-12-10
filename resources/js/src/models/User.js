@@ -2,6 +2,7 @@ import { Model } from "./Model";
 import { EMAIL_REGEXP } from "../common/regexp";
 import { required, getCompareValidator, getLengthValidator, getMatchValidator } from "../common/validators";
 import momemt from "moment";
+import {object, string} from "../common/helpers";
 
 /**
  * Класс отражающий сущьность пользователя
@@ -154,5 +155,17 @@ export class User extends Model {
       return null;
     }
     return momemt( this.birthday ).toNow(true);
+  }
+
+  /**
+   * Статический фабричный метод, создания пользователя
+   * @return { User }
+   **/
+  static buildUser( data ) {
+    const { id: _id, ...rest } = object.keysTransform( data, string.snakeCaseToCamelCase );
+    return object.update(
+      new User(),
+      Object.entries( { ...rest, _id } )
+    );
   }
 }

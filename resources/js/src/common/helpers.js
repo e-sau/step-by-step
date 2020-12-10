@@ -8,7 +8,7 @@ export const object = {
   * Обновление ссылки на обьект
   * @param { Object } object
   * @param { Array } properties
-  * @return { User }
+  * @return { Object }
   *
   * @throws TypeError
   **/
