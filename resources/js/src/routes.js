@@ -4,7 +4,7 @@ export default [
   {
     path: "/",
     exact: true,
-    component: React.lazy(() => import("./components/indexPage" )),
+    component: React.lazy(() => import("./containers/indexPageContainer" )),
   },
   {
     path: "/signup",

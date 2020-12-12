@@ -14,25 +14,28 @@ export function SidePanel( props ) {
   const { user, navItems, selectedId, onSelect } = props;
 
   /**
-     * Обработчик выбора элемента
-     * @param { Number } id
-     * @return { Function }
-     **/
-  function handleItemSelect( id ) {
-    return () => onSelect( id );
+  * Обработчик выбора элемента
+  * @param { Number } id
+  * @param { Boolean } canSelect
+  * @return { Function }
+  **/
+  function handleItemSelect( id, canSelect = true ) {
+    return () => canSelect && onSelect( id );
   }
 
   /**
-     * Отрисовка списка элементов
-     * @return { JSX[] }
-     **/
-  const renderNavItems = () => navItems.map( ({ id, icon, label }) => {
+   * Отрисовка списка элементов
+   * @return { JSX[] }
+   **/
+  const renderNavItems = () => navItems.map( ( item ) => {
+    const { id, icon, label, disable } = item;
     return (
       <StyledListItem button
         className={ "nav_item" }
         key={ id }
+        disabled={ disable }
         selected={ selectedId === id }
-        onClick={ handleItemSelect( id ) }
+        onClick={ handleItemSelect( id, disable ) }
       >
         <ListItemIcon className={ "item_icon" }>
           <FontAwesomeIcon icon={ icon } />
@@ -65,6 +68,7 @@ SidePanel.propTypes = {
       id: PropTypes.number.isRequired,
       icon:  PropTypes.any.isRequired,
       label: PropTypes.string.isRequired,
+      disable: PropTypes.bool,
     })
   ).isRequired,
 };

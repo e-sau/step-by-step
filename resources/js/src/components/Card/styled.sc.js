@@ -14,6 +14,7 @@ export const StyledCard = styled("div")`
     width: 85px;
     height: 85px;
     margin-right: 20px;
+    border-radius: 50%;
   }
 
   div {

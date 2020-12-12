@@ -24,15 +24,15 @@ const NAV_ITEMS = [
     component:  React.lazy(() => import("./TasksCompleteContainer" ) ),
   },
   {
-    id: 4, label: "Доступные предмет", icon: faPenSquare,
+    id: 4, label: "Доступные предмет", icon: faPenSquare, disable: true,
     component:  React.lazy(() => import("../components/notFoundPage" ) )
   },
   {
-    id: 5, label: "Достижения", icon: faMedal,
+    id: 5, label: "Достижения", icon: faMedal, disable: true,
     component:  React.lazy(() => import("../components/notFoundPage" ) )
   },
   {
-    id: 6, label: "Оповещения", icon: faBullhorn,
+    id: 6, label: "Оповещения", icon: faBullhorn, disable: true,
     component:  React.lazy(() => import("../components/notFoundPage" ) )
   },
 ];
