@@ -2,7 +2,7 @@ import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
 import makeRequest from "../../api/makeRequest";
-import { login, signup } from "../../api/endpoints/auth";
+import { login, signup, logout } from "../../api/endpoints/auth";
 import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";
 
@@ -104,7 +104,8 @@ export function* tokenAuth() {
  * Разлогинить пользователя
  * @yield
  **/
-export function* logout() {
+export function* userLogout() {
+  yield call( makeRequest, logout );
   yield localStorage.removeItem( process.env.MIX_APP_TOKEN_KEY );
 }
 

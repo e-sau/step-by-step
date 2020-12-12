@@ -1,6 +1,6 @@
 const { getAll, getBySubject } = require("../../../src/api/endpoints/tasks");
 
-describe("Testing 'getAll()' from 'tasks' endpoints", () => {
+describe( getAll.name, () => {
   it("should return Object", function () {
     const requestBody = getAll();
     expect( requestBody ).toBeInstanceOf( Object );
@@ -8,7 +8,7 @@ describe("Testing 'getAll()' from 'tasks' endpoints", () => {
   });
 });
 
-describe("Testing 'getBySubject()' from 'tasks' endpoints", () => {
+describe( getBySubject.name, () => {
   it("should return Object", function () {
     const subjectID = 1;
     const requestBody = getBySubject( subjectID );

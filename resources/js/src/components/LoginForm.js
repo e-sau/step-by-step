@@ -55,7 +55,6 @@ export function LoginForm( props ) {
    * @return { void }
    **/
   function handleChange( name, value ) {
-    console.log({ name, value });
     model[ name ] = value;
     setModel( object.update( model ) );
   }

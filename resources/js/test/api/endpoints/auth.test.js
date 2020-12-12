@@ -1,7 +1,7 @@
 import { User } from "../../../src/models/User";
-import { signup, login } from "../../../src/api/endpoints/auth";
+import { signup, login, logout } from "../../../src/api/endpoints/auth";
 
-describe("Testing 'signup()' from 'users' endpoints", () => {
+describe( signup.name, () => {
   it("should return Object", function () {
     const requestBody = signup( new User() );
 
@@ -19,7 +19,7 @@ describe("Testing 'signup()' from 'users' endpoints", () => {
   });
 });
 
-describe("Testing 'login()' from 'users' endpoints", () => {
+describe( login.name, () => {
   it("should return Object", function () {
     const email = "123@test.tt";
     const password = "1234";
@@ -38,5 +38,14 @@ describe("Testing 'login()' from 'users' endpoints", () => {
   it("should throw Error", function () {
     expect( () => signup( "123@test.tt" ) ).toThrow( Error );
     expect( () => signup( null, "1234" ) ).toThrow( Error );
+  });
+});
+
+describe( logout.name, () => {
+  it("should return Object", function () {
+    const requestBody = logout();
+    expect( requestBody ).toBeInstanceOf( Object );
+    expect( requestBody.uri ).toBe("logout");
+    expect( requestBody.method ).toBe( "POST" );
   });
 });

@@ -1,6 +1,6 @@
 const { getAll } = require("../../../src/api/endpoints/grades");
 
-describe("Testing 'getAll()' from 'grades' endpoints", () => {
+describe( getAll.name , () => {
   it("should return Object", function () {
     const requestBody = getAll();
     expect( requestBody ).toBeInstanceOf( Object );

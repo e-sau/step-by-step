@@ -1,7 +1,7 @@
 import { Model } from "../../models/Model";
 
 /**
- * Чистая функция, гет запроса, передавать ее вызов в makeRequest
+ * Функция отдающая тело запроса для регистрации
  * @param { Model } user
  * @return { Object<{ uri: String }> }
  *
@@ -19,7 +19,7 @@ export function signup( user ) {
 }
 
 /**
- * Чистая функция, POST запроса, передавать ее вызов в makeRequest
+ * Функция отдающая тело запроса для авторизации
  * @param { String } email
  * @param { String } password
  * @return { Object<{ uri: String }> }
@@ -35,5 +35,16 @@ export function login( email, password ) {
     uri: "login",
     method: "POST",
     body: { email, password }
+  };
+}
+
+/**
+ * Функция отдающая тело запроса выхода из системы
+ * @return { Object }
+ **/
+export function logout() {
+  return {
+    uri: "logout",
+    method: "POST",
   };
 }
