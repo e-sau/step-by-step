@@ -1,6 +1,5 @@
 import { Model } from "./Model";
 import { User } from "./User";
-import { object, string } from "../common/helpers";
 
 /**
  * Класс отражающий сущьность отзыва
@@ -55,11 +54,9 @@ export class Review extends Model {
    * @return { Review }
    **/
   static buildReview( data ) {
-    const { id: _id, message, user: plainUser, createdAt } = object.keysTransform( data, string.snakeCaseToCamelCase );
+    const { id: _id, message, user: plainUser, createdAt } = Model.transform( data );
+    const review = new Review( User.buildUser( plainUser ), message, createdAt );
 
-    return object.update(
-      new Review( User.buildUser( plainUser ), message, createdAt ),
-      Object.entries( { _id })
-    );
+    return Model.load( review, { _id });
   }
 }
