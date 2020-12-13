@@ -1,5 +1,14 @@
 import axios from "axios";
 
+/**
+ * Имитация ENUM для статусов ответа
+ * @type { Object }
+ **/
+export const HTTP = {
+  OK: 200,
+  CREATED: 201,
+};
+
 export const BASE_HEADERS = {
   "X-Requested-With": "XMLHttpRequest",
   "Content-type": "application/json"
