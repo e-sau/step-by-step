@@ -2,7 +2,7 @@ import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
 
-import makeRequest from "../../api/makeRequest";
+import makeRequest, { HTTP } from "../../api/makeRequest";
 import { login, signup, logout } from "../../api/endpoints/auth";
 import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";

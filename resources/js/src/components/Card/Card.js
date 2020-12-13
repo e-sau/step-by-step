@@ -10,7 +10,7 @@ export function Card( props ) {
 
   return (
     <StyledCard>
-      <img src={ author.photo } alt={`${ author.name } picture`} />
+      <img src={ author.avatar } alt={`${ author.name } picture`} />
       <div>
         <h6>{ author.name } { author.surname }</h6>
         <p>{ review.message }</p>
