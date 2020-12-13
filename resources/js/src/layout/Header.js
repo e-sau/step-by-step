@@ -48,7 +48,7 @@ export function Header( props ) {
     return (
       <ControlsContainer>
         <Link className="account_link" to={ "/account" }>
-          <img className="avatar" src={ model.photo } alt="avatar"/>
+          <img className="avatar" src={ model.avatar } alt="avatar"/>
         </Link>
         <FontAwesomeIcon className="logout_link"  icon={ faSignOutAlt } onClick={ onLogout }/>
       </ControlsContainer>

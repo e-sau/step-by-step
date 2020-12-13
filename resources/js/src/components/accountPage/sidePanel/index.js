@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { User } from "../../../models/User";
 import { GridContainer, StyledListItem } from "./styled.sc";
 import { ProfileCard } from "../profileCard";
-import { Spacer } from "../../ui/Spacer";
 
 export function SidePanel( props ) {
   const { user, navItems, selectedId, onSelect } = props;
@@ -44,11 +43,7 @@ export function SidePanel( props ) {
 
   return (
     <GridContainer>
-      <div className="profile_card">
-        <ProfileCard user={ user }/>
-        <Spacer size={ 48 }/>
-      </div>
-
+      <ProfileCard user={ user }/>
       <List className={"nav"} component="nav">
         { renderNavItems() }
       </List>

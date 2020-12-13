@@ -1,9 +1,12 @@
 import { call, select, put } from "redux-saga/effects";
-import makeRequest from "../../api/makeRequest";
+
+import makeRequest, { HTTP } from "../../api/makeRequest";
 import { update, savePhoto } from "../../api/endpoints/user";
-import { getModel } from "./selectors";
+import { getByGrade } from "../../api/endpoints/ratings";
+
 import { User } from "../../models/User";
-import { updateError, updateRef, updateSuccess } from "./actions";
+import { getModel } from "./selectors";
+import { fetchRatingError, fetchRatingSuccess, updateError, updateRef, updateSuccess } from "./actions";
 
 /**
  * Обновить данные пользователя
@@ -15,7 +18,7 @@ export function* userUpdate() {
   if ( user.validate( User.UPDATE_SCENARIO ) ) {
     const { status } = yield call( makeRequest, update( user ) );
 
-    if ( status === 200 ) {
+    if ( status === HTTP.OK ) {
       yield put( updateSuccess() );
       return;
     }
@@ -33,10 +36,24 @@ export function* saveUserPhoto( action ) {
 
   const { status, data } = yield call( makeRequest, savePhoto( payload ) );
 
-  if ( status === 201 ) {
-    user.photo = data.photo;
+  if ( status === HTTP.CREATED ) {
+    user.avatar = data.url;
     yield put( updateRef() );
   } else {
     yield put( updateError("save error") );
+  }
+}
+
+/**
+ * Получение рейтинга пользователя в классе
+ * @yield
+ **/
+export function* getRatingByGrade() {
+  const { status, data } = yield call( makeRequest, getByGrade );
+
+  if ( status === HTTP.OK ) {
+    yield put( fetchRatingSuccess( data ) );
+  } else {
+    yield put( fetchRatingError( data ) );
   }
 }

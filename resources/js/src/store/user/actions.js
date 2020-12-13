@@ -55,3 +55,19 @@ export function updateError( error ) {
 export function photoSelect( file ) {
   return { type: TYPE.SELECT_PHOTO, payload: file };
 }
+
+/**
+ * Действие сигнализирующее успешное получение рейтинга
+ * @return { Object } }
+ **/
+export function fetchRatingSuccess( data ) {
+  return { type: TYPE.FETCH_RATING_SUCCESS, payload: data };
+}
+
+/**
+ * Действие сигнализирующее что была ошибка при получении рейтинга
+ * @return { Object } }
+ **/
+export function fetchRatingError( error ) {
+  return { type: TYPE.FETCH_RATING_ERROR, payload: error };
+}
