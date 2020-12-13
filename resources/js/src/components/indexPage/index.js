@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Preview } from "./blockPreview";
 import { Features } from "./blockFeatures";
@@ -9,6 +10,7 @@ import { ExampleTasks } from "./blockExample";
 import { HorizontalScroll } from "../ui/HorizontalScroll";
 
 import { Spacer } from "../ui/Spacer";
+import { Review } from "../../models/Review";
 
 const SubjectsContainer = styled( "div" )`
     max-width: 820px;
@@ -21,7 +23,9 @@ const SubjectsContainer = styled( "div" )`
     }
 `;
 
-export default function IndexPage() {
+export function IndexPage( props ) {
+  const { reviews } = props;
+
   return (
     <React.Fragment>
       <Preview/>
@@ -38,7 +42,7 @@ export default function IndexPage() {
 
       <div className={ "reviews" }>
         <HorizontalScroll>
-          <BlockReviews/>
+          <BlockReviews list={ reviews } />
         </HorizontalScroll>
       </div>
 
@@ -46,3 +50,9 @@ export default function IndexPage() {
     </React.Fragment>
   );
 }
+
+IndexPage.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.instanceOf( Review )
+  ),
+};

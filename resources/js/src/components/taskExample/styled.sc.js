@@ -1,40 +1,48 @@
 import styled from "styled-components";
 
 export const TaskItem = styled( "div" )`
-    display: grid;
-    grid-template-rows: 1fr auto;
-    user-select: none;
-    padding: 40px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  user-select: none;
+  padding: 40px;
+  text-align: left;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 10px 10px 20px rgba(71, 145, 219, 0.2);
+  border-radius: 4px;
+  width: 505px;
+  height: 292px;
+  margin: 0 10px;
 
-    background: #FFFFFF;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 10px 10px 20px rgba(71, 145, 219, 0.2);
-    border-radius: 4px;
-    width: 425px;
-    height: 292px;
-    margin: 0 10px;
+  &:first-of-type {
+    margin-left: 100px;
+  }
 
+  .description {
+    margin: 0;
+    text-align: left;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 20px;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  .inputs {
+    align-self: center;
+    
+    img {
+     width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
     &:first-of-type {
-        margin-left: 100px;
+      margin-left: 50px;
     }
-
-    .title {
-        text-align: left;
-        font-weight: 500;
-        font-size: 17px;
-        line-height: 20px;
-        letter-spacing: 0.04em;
-        color: #000000;
-    }
-
-    @media (max-width: 420px) {
-      &:first-of-type {
-        margin-left: 50px;
-      }
-    }
-
+  }
 `;
 
 export const StepsGrid = styled( "div" )`
-    display: grid;
-    grid-template-columns: auto auto;
+  display: grid;
+  grid-template-columns: auto auto;
 `;

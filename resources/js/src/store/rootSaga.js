@@ -3,6 +3,8 @@ import authWatchers from "./auth/watchers";
 import gradeWatchers from "./grade/watchers";
 import subjectWatchers from "./subject/watchers";
 import userWatchers from "./user/watchers";
+import siteWatchers from "./site/watchers";
+import reviewWatchers from "./review/watchers";
 
 /**
  * Корневая сага, в ней подключаются все "watchers:
@@ -10,9 +12,11 @@ import userWatchers from "./user/watchers";
  **/
 export default function* () {
   yield all([
+    siteWatchers(),
     authWatchers(),
     gradeWatchers(),
     subjectWatchers(),
     userWatchers(),
+    reviewWatchers(),
   ]);
 }

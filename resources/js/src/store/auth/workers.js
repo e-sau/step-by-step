@@ -1,8 +1,9 @@
 import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
+
 import makeRequest, { HTTP } from "../../api/makeRequest";
-import { login, signup } from "../../api/endpoints/auth";
+import { login, signup, logout } from "../../api/endpoints/auth";
 import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";
 
@@ -89,7 +90,8 @@ export function* tokenAuth() {
     const body = responseBody.data;
     const preparedUserData = {
       ...object.keysTransform( body, string.snakeCaseToCamelCase ),
-      photo: body.avatar?.photo
+      photo: body.avatar?.photo,
+      _id: body.id
     };
     yield put( setUserData( preparedUserData ));
 
@@ -103,7 +105,8 @@ export function* tokenAuth() {
  * Разлогинить пользователя
  * @yield
  **/
-export function* logout() {
+export function* userLogout() {
+  yield call( makeRequest, logout );
   yield localStorage.removeItem( process.env.MIX_APP_TOKEN_KEY );
 }
 

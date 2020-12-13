@@ -162,4 +162,23 @@ export class User extends Model {
       photo: this.photo
     };
   }
+
+  /**
+   * Получить количество лет, исходя из даты рождения
+   * @return { String }
+   **/
+  getAge() {
+    if ( !this.birthday ) {
+      return null;
+    }
+    return momemt( this.birthday ).toNow(true);
+  }
+
+  /**
+  * Статический фабричный метод, создания пользователя
+  * @return { User }
+  **/
+  static buildUser( data ) {
+    return Model.build( new User(), data );
+  }
 }

@@ -47,7 +47,7 @@ function* watchForSignup() {
  * @yield
  **/
 function* watchForLogout() {
-  yield takeEvery( TYPE.LOGOUT, worker.logout );
+  yield takeEvery( TYPE.LOGOUT, worker.userLogout );
 }
 
 

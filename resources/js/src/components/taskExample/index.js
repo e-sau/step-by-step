@@ -4,20 +4,27 @@ import { TaskItem, StepsGrid } from "./styled.sc";
 import { Step } from "../ui/Step";
 
 export function TaskExample( props ) {
-  const { title, shortAnswer, shortQuestion } = props;
+  const { description, firstStep, secondStep, taskComponent } = props;
+
+  const Component = taskComponent;
+
   return (
     <TaskItem>
-      <h3 className="title">{ title }</h3>
+      <p className="description">{ description }</p>
+      <div className="inputs">
+        <Component />
+      </div>
       <StepsGrid>
-        <Step color="primary">{ shortQuestion }</Step>
-        <Step>{ shortAnswer }</Step>
+        <Step color="primary">{ firstStep }</Step>
+        <Step>{ secondStep }</Step>
       </StepsGrid>
     </TaskItem>
   );
 }
 
 TaskExample.propTypes = {
-  title: PropTypes.string.isRequired,
-  shortQuestion: PropTypes.string.isRequired,
-  shortAnswer: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  firstStep: PropTypes.string.isRequired,
+  secondStep: PropTypes.string.isRequired,
+  taskComponent: PropTypes.instanceOf( Function )
 };

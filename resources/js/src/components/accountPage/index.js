@@ -55,6 +55,7 @@ AccountPage.propTypes = {
       id: PropTypes.number.isRequired,
       icon:  PropTypes.any.isRequired,
       label: PropTypes.string.isRequired,
+      disable: PropTypes.bool,
     })
   ).isRequired,
 };

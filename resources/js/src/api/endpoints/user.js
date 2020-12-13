@@ -10,8 +10,10 @@ export function get() {
 
 /**
  * Обновление данных о пользователе
+ * @param { User } user
+ * @return { Object }
+ *
  * @throws TypeError
- * @todo добавить тесты
  **/
 export function update( user ) {
   if ( !(user instanceof User) ) {
@@ -25,9 +27,11 @@ export function update( user ) {
   };
 }
 /**
-
+ * Тела запроса на сохранение фотографии
+ * @return { File } file
+ * @return { Object }
+ *
  * @throws TypeError
- * @todo добавить тесты
  **/
 export function savePhoto( file ) {
   if ( !(file instanceof File ) ) {
