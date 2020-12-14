@@ -32,9 +32,42 @@ export function updateProfile() {
 }
 
 /**
+ * Действие отправки измененных данных на сохранение
+ * @return { Object } }
+ **/
+export function updateSuccess() {
+  return { type: TYPE.UPDATE_SUCCESS };
+}
+
+/**
+ * Действие отправки измененных данных на сохранение
+ * @param { String } error
+ * @return { Object } }
+ **/
+export function updateError( error ) {
+  return { type: TYPE.UPDATE_ERROR, payload: error };
+}
+
+/**
  * Действие выбора новой фотографии
  * @return { Object } }
  **/
 export function photoSelect( file ) {
   return { type: TYPE.SELECT_PHOTO, payload: file };
+}
+
+/**
+ * Действие сигнализирующее успешное получение рейтинга
+ * @return { Object } }
+ **/
+export function fetchRatingSuccess( data ) {
+  return { type: TYPE.FETCH_RATING_SUCCESS, payload: data };
+}
+
+/**
+ * Действие сигнализирующее что была ошибка при получении рейтинга
+ * @return { Object } }
+ **/
+export function fetchRatingError( error ) {
+  return { type: TYPE.FETCH_RATING_ERROR, payload: error };
 }

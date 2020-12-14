@@ -1,8 +1,10 @@
 import { put, select, call } from "redux-saga/effects";
 
 import { User } from "../../models/User";
-import makeRequest from "../../api/makeRequest";
-import { login, signup, getUser } from "../../api/endpoints/users";
+
+import makeRequest, { HTTP } from "../../api/makeRequest";
+import { login, signup, logout } from "../../api/endpoints/auth";
+import { get as getUser } from "../../api/endpoints/user";
 import { object, string } from "../../common/helpers";
 
 import { getModel } from "../user/selectors";
@@ -14,7 +16,7 @@ import { responseError, loginError, loginSuccess, signupError, signupSuccess } f
  * Получение токена, и вызов цепочки действия при успешном логине ( костыльно, возможно потом переработаем )
  * @yield
  **/
-export function* getTokenFromStorageWorker() {
+export function* getTokenFromStorage() {
   /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
   const token = localStorage.getItem( process.env.MIX_APP_TOKEN_KEY );
 
@@ -32,7 +34,7 @@ export function* getTokenFromStorageWorker() {
  *
  * @yield
  **/
-export function* submitWorker() {
+export function* submit() {
   const user = yield select( getModel );
 
   try {
@@ -41,7 +43,7 @@ export function* submitWorker() {
     }
     const { status, data } = yield call( makeRequest, signup( user ) );
 
-    if ( status !== 200 ) {
+    if ( status !== HTTP.OK ) {
       user.setErrors( data.errors );
       throw new Error("Validation error");
     }
@@ -57,39 +59,54 @@ export function* submitWorker() {
  * Обработчик потока авторизации
  * @yield
  **/
-export function* loginWorker() {
-  const user = yield select( getModel );
+export function* userLogin( action ) {
+  const { email, password } = action.payload;
+  const user = new User();
+  user.email = email;
+  user.password = password;
 
   if ( user.validate( User.LOGIN_SCENARIO ) ) {
     const { status, data } = yield call( makeRequest, login( user.email, user.password ) );
 
-    if ( status === 200 ) {
+    if ( status === HTTP.OK ) {
+      localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, data.token );
       yield put( loginSuccess( data.token ) );
-    } else {
-      yield put( responseError([ "Wrong username or password" ]) );
-    }
-  } else {
-    yield put( loginError() );
-  }
 
-  yield put( updateUserRef() );
+      return;
+    }
+  }
+  yield put( responseError([ "Wrong username or password" ]) );
 }
 
 /**
  * Обработчик успешной авторизации и регистрации, сохраняем токен и выполняем авторизацию по нему на бекенде
  * @yield
  **/
-export function* tokenAuthWorker() {
+export function* tokenAuth() {
   const token = yield select( getToken );
-  const { status, data: responseBody } = yield call( makeRequest, getUser( token ) );
+  const { status, data: responseBody } = yield call( makeRequest, getUser );
 
-  if ( status === 200 ) {
-    const preparedUserData = object.keysTransform( responseBody.data, string.snakeCaseToCamelCase );
-    yield put( setUserData( preparedUserData ) );
+  if ( status === HTTP.OK ) {
+    const body = responseBody.data;
+    const preparedUserData = {
+      ...object.keysTransform( body, string.snakeCaseToCamelCase ),
+      photo: body.avatar?.photo,
+      _id: body.id
+    };
+    yield put( setUserData( preparedUserData ));
 
-    /** @todo плохо завязыватся на конкретную реализацию, подумать как отвязатся от такого вызова */
     localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, token );
   } else {
     yield put( loginError() );
   }
 }
+
+/**
+ * Разлогинить пользователя
+ * @yield
+ **/
+export function* userLogout() {
+  yield call( makeRequest, logout );
+  yield localStorage.removeItem( process.env.MIX_APP_TOKEN_KEY );
+}
+

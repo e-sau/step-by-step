@@ -1,7 +1,7 @@
 import { User } from "../../../src/models/User";
-import { signup, login, getUser } from "../../../src/api/endpoints/users";
+import { signup, login, logout } from "../../../src/api/endpoints/auth";
 
-describe("Testing 'signup()' from 'users' endpoints", () => {
+describe( signup.name, () => {
   it("should return Object", function () {
     const requestBody = signup( new User() );
 
@@ -19,7 +19,7 @@ describe("Testing 'signup()' from 'users' endpoints", () => {
   });
 });
 
-describe("Testing 'login()' from 'users' endpoints", () => {
+describe( login.name, () => {
   it("should return Object", function () {
     const email = "123@test.tt";
     const password = "1234";
@@ -41,21 +41,11 @@ describe("Testing 'login()' from 'users' endpoints", () => {
   });
 });
 
-describe("Testing 'getUser( token )' from 'users' endpoints", () => {
-
+describe( logout.name, () => {
   it("should return Object", function () {
-    const mockToken =  btoa("asdsdasdad");
-    const requestBody = getUser( mockToken );
-
+    const requestBody = logout();
     expect( requestBody ).toBeInstanceOf( Object );
-    expect( requestBody.uri ).toBe("user");
-    expect( requestBody.headers ).toBeInstanceOf( Object );
-    expect( requestBody.headers ).toStrictEqual({
-      "Authorization": `Bearer ${ mockToken }`
-    });
-  });
-
-  it("should throw Error", function () {
-    expect( signup ).toThrow( Error );
+    expect( requestBody.uri ).toBe("logout");
+    expect( requestBody.method ).toBe( "POST" );
   });
 });

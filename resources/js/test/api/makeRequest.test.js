@@ -1,7 +1,7 @@
 import makeRequest, { BASE_HEADERS }  from "../../src/api/makeRequest";
 import { processRequestData } from "../../src/api/makeRequest";
 
-describe("Testing processRequestData()", () => {
+describe( processRequestData.name, () => {
   const testCases = [
     () => true, { a: 1 }, true, 1, "string"
   ];
@@ -14,7 +14,7 @@ describe("Testing processRequestData()", () => {
   });
 });
 
-describe("Testing makeRequest()", () => {
+describe( makeRequest.name, () => {
   const mockApiCall = ( data ) => data;
 
   it("should throw Error in wrong requestBody", () => {

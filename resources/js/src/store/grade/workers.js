@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { fetchError, fetchSuccess } from "./actions";
-import makeRequest from "../../api/makeRequest";
+import makeRequest, { HTTP } from "../../api/makeRequest";
 import { getAll } from "../../api/endpoints/grades";
 
 /**
@@ -9,7 +9,7 @@ import { getAll } from "../../api/endpoints/grades";
  **/
 export function* fetchWorker() {
   const { status, data } = yield call( makeRequest, getAll() );
-  if ( status === 200 ) {
+  if ( status === HTTP.OK ) {
     yield put( fetchSuccess( data ) );
   } else {
     yield put( fetchError( data ) );

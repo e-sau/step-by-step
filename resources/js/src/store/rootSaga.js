@@ -2,7 +2,9 @@ import { all } from "redux-saga/effects";
 import authWatchers from "./auth/watchers";
 import gradeWatchers from "./grade/watchers";
 import subjectWatchers from "./subject/watchers";
-import taskWatchers from "./task/watchers";
+import userWatchers from "./user/watchers";
+import siteWatchers from "./site/watchers";
+import reviewWatchers from "./review/watchers";
 
 /**
  * Корневая сага, в ней подключаются все "watchers:
@@ -10,9 +12,11 @@ import taskWatchers from "./task/watchers";
  **/
 export default function* () {
   yield all([
+    siteWatchers(),
     authWatchers(),
     gradeWatchers(),
     subjectWatchers(),
-    taskWatchers(),
+    userWatchers(),
+    reviewWatchers(),
   ]);
 }

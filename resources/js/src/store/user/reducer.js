@@ -6,8 +6,9 @@ import { object } from "../../common/helpers";
  * Начальное состояние редьюсера
  * @type { Object<{ model: User, errors: Array  }> }
  **/
-const authInitialState = {
+const userInitialState = {
   model: new User(),
+  rating: null,
   errors: [],
 };
 
@@ -19,7 +20,7 @@ const authInitialState = {
  *
  * @return { Object }
  **/
-export default function userReducer( state = authInitialState, action ) {
+export default function userReducer( state = userInitialState, action ) {
   const { type, payload } = action;
 
   switch ( type ) {
@@ -39,20 +40,41 @@ export default function userReducer( state = authInitialState, action ) {
     case TYPE.SET_MODEL_DATA: {
       return {
         ...state,
-        errors: payload,
         model: object.update( state.model, Object.entries( payload ) ),
       };
     }
-
+    /** Обновить ссылку на обьект */
     case TYPE.UPDATE_REF: {
       return {
         ...state,
-        errors: payload,
         model: object.update( state.model ),
       };
     }
-
-    /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
+    /** Успешное обновление данных пользователя */
+    case TYPE.UPDATE_SUCCESS: {
+      return {
+        ...state,
+        errors: userInitialState.errors,
+      };
+    }
+    /** Ошибка при обновление данных пользователя */
+    case TYPE.UPDATE_ERROR: {
+      return {
+        ...state, errors: payload,
+      };
+    }
+    /** Успешное получение рейтинга  */
+    case TYPE.FETCH_RATING_SUCCESS: {
+      return {
+        ...state, rating: payload,
+      };
+    }
+    /** Ошибка при получение рейтинга  */
+    case TYPE.FETCH_RATING_ERROR: {
+      return {
+        ...state, errors: payload,
+      };
+    }
     default: {
       return state;
     }

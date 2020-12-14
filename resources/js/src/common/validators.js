@@ -119,6 +119,11 @@ export function getCompareValidator( compareWith ) {
  **/
 export function getFileValidator( typesList, maxSize ) {
   return function file( value ) {
+
+    if ( !value ) {
+      return new ValidateResult(true, "file");
+    }
+
     const isFile = ( value instanceof File );
     const isValidSize = ( maxSize ? value.size <= maxSize : true );
     const isValidType = typesList.some( type => value.type === type );

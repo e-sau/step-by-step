@@ -73,6 +73,10 @@ export default function authReducer( state = authInitialState, action ) {
         authFormShown: !state.authFormShown,
       };
     }
+    /** Сигнал о том что пользователь вышел из учетной записи */
+    case TYPE.LOGOUT: {
+      return { ...authInitialState };
+    }
     /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
     default: {
       return state;

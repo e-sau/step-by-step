@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import Layout from "../layout";
-import { authByToken } from "../store/auth/actions";
 import { Loader } from "../components/ui/loader/Loader";
+import { initialize } from "../store/site/actions";
 
 /**
  * Компонент обертка, над всем приложением, кидает сигнал инициализации отдельных элементов
@@ -14,9 +14,9 @@ import { Loader } from "../components/ui/loader/Loader";
  * @return { JSX.Element }
  **/
 function SiteWrapper( props ) {
-  const { authByToken, children } = props;
+  const { initialize, children } = props;
   useEffect( () => {
-    authByToken();
+    initialize();
   }, []);
 
   return (
@@ -29,14 +29,13 @@ function SiteWrapper( props ) {
 }
 
 SiteWrapper.propTypes = {
-  authByToken: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
   children: PropTypes.any
 };
 
 
 const mapStateToProps = () => ({});
-
 /** Мапим и оборачиваем функцией dispatch, все actionCreators **/
-const mapDispatchToProps = ( dispatch ) => bindActionCreators({ authByToken }, dispatch);
+const mapDispatchToProps = ( dispatch ) => bindActionCreators({ initialize }, dispatch);
 
 export default connect( mapStateToProps, mapDispatchToProps )( SiteWrapper );

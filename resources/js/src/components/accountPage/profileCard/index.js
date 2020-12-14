@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { User } from "../../../models/User";
+import { RatingStars } from "../../ratingStars";
 import { CardGrid } from "./styled.sc";
+import { Spacer } from "../../ui/Spacer";
 
 export function ProfileCard( props ) {
   const { user } = props;
@@ -9,16 +11,20 @@ export function ProfileCard( props ) {
   return (
     <CardGrid>
       <div className="photo_container" >
-        <img src={ user.photo } className="photo" alt="photo" />
+        <img src={ user.avatar } className="photo" alt="photo" />
       </div>
+
       <div className="profile_fio">
         { user.name } { user.surname }
       </div>
+
       <div className="profile_age">
-        { user.getAge() }
+        { user.age }
       </div>
-      <div>
-        { /*  @todo https://igorskipper.atlassian.net/browse/IS100-40  */}
+
+      <div className="profile_rating">
+        <Spacer size={ 16 }/>
+        <RatingStars/>
       </div>
     </CardGrid>
   );

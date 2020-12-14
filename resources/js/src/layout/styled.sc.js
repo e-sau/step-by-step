@@ -11,7 +11,8 @@ export const StyledContainer = styled("div")`
     }
 
     .page-body {
-         min-width: 100%;
+      min-width: 100%;
+      min-height: 100vh;
     }
 `;
 
@@ -95,5 +96,35 @@ export const StyledFooter = styled("footer")`
   }
   @media (max-width: 420px) {
     padding: 30px 20px;
+  }
+`;
+
+export const ControlsContainer = styled("div")`
+  user-select: none;
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 20%;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+  justify-self: end;
+
+  .account_link {
+    .avatar {
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  .logout_link {
+    transition: color 0.4s;
+    cursor: pointer;
+    font-size: 2em;
+    color: #dddddd;
+    
+    &:hover {
+      color: #E33371;
+    }
   }
 `;

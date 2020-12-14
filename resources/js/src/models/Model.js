@@ -1,10 +1,25 @@
 import { ValidateResult } from "../common/validators";
+import { object, string } from "../common/helpers";
 
 /**
  * Родительский класс для всех обьектов работы с данными
  * @class Model
  **/
 export class Model {
+  /**
+   * ID записи
+   * @type int
+   **/
+  _id;
+
+  get id() {
+    return this._id;
+  }
+
+  set id( id ) {
+    this._id = id;
+  }
+
     _rules = [];
     _errors = [];
 
@@ -12,6 +27,39 @@ export class Model {
     _errorTranslates = {
       "Error text from backend": "Текс ошибки с бекенда",
       default: "Произошла неизвестная ошика"
+    }
+
+    /**
+     * Статический фабричный метод, создания задачи
+     * @param { Object } model  -  обьект класса
+     * @param { Object } data
+     *
+     * @return { Object }
+     **/
+    static build( model, data ) {
+      const { id: _id, ...rest } = Model.transform( data );
+      return Model.load( model, { _id, ...rest });
+    }
+
+    /**
+    * Подготовка обьекта, для использования( меняем snake_case ключи на camelCase )
+    * @return { String }
+    **/
+    static transform( data ) {
+      return object.keysTransform( data, string.snakeCaseToCamelCase );
+    }
+
+    /**
+     * Загрузка параметров в модель
+     * @param { Object } model  -  обьект класса
+     * @param { Object } params
+     *
+     * @return { Object }
+     **/
+    static load( model, params = {} ) {
+      return object.update(
+        model, Object.entries( params )
+      );
     }
 
     /**

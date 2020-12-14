@@ -10,7 +10,7 @@ class UserPhoto extends Model
     use HasFactory;
 
     protected $fillable = [
-        'photo'
+        'url'
     ];
 
     public static function createRules()

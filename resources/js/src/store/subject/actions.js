@@ -1,34 +1,51 @@
 import * as TYPE from "./types";
 
 /**
- * Получить все предметы
+ * Получить все пройденные предметы
  * @return { Object }
  **/
-export function fetchRequest() {
-  return { type: TYPE.FETCH_REQUEST };
+export function fetchCompletedRequest() {
+  return { type: TYPE.FETCH_COMPLETED };
 }
+
 /**
- * Предметы получены успешно
+ * Получить все доступные предметы
+ * @return { Object }
+ **/
+export function fetchAvailableRequest() {
+  return { type: TYPE.FETCH_AVAILABLE };
+}
+
+/**
+ * Пройденные предметы получены успешно
  * @param { Array } data
  * @return { Object }
  **/
-export function fetchSuccess( data ) {
-  return { type: TYPE.FETCH_SUCCESS, payload: data };
+export function fetchCompletedSuccess( data ) {
+  return { type: TYPE.FETCH_COMPLETED_SUCCESS, payload: data };
 }
 /**
  * Ошибка при получении данных
  * @param { any } error
  * @return { Object }
  **/
-export function fetchError( error ) {
-  return { type: TYPE.FETCH_ERROR, payload: error };
+export function fetchCompletedError( error ) {
+  return { type: TYPE.FETCH_COMPLETED_ERROR, payload: error };
 }
 
 /**
- * Выбор предмета
- * @param { Number } id
+ * Доступные предметы получены успешно
+ * @param { Array } data
  * @return { Object }
  **/
-export function click( id ) {
-  return { type: TYPE.SELECT, payload: id };
+export function fetchAvailableSuccess( data ) {
+  return { type: TYPE.FETCH_AVAILABLE_SUCCESS, payload: data };
+}
+/**
+ * Ошибка при получении данных
+ * @param { any } error
+ * @return { Object }
+ **/
+export function fetchAvailableError( error ) {
+  return { type: TYPE.FETCH_AVAILABLE_ERROR, payload: error };
 }

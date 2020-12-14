@@ -15,6 +15,7 @@ export function AccountPage( props ) {
   if ( !isAuthorized ) {
     return <Redirect to={ "/" } />;
   }
+
   const navItemBody = navList.find( item => item.id === activeItem );
   const Component = navItemBody?.component;
 
@@ -54,6 +55,7 @@ AccountPage.propTypes = {
       id: PropTypes.number.isRequired,
       icon:  PropTypes.any.isRequired,
       label: PropTypes.string.isRequired,
+      disable: PropTypes.bool,
     })
   ).isRequired,
 };

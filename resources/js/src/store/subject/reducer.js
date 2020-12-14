@@ -7,16 +7,17 @@ import {Subject} from "../../models/Subject";
  **/
 const subjectInitialState = {
   isFetching: false,
-  selectedId: null,
-
   /** @todo получать это с бека, с переводом, написать задачу на бек( чтоб позволили получать список предметом без авторизации ) */
   previewList: [
     new Subject( 1,"Русский язык" ),
     new Subject(2,"Математика" ),
     new Subject(3,"Окружающий мир" ),
   ],
-  list: [],
-  error: null
+  available: [],
+  completed: [],
+  completedIsFetching: false,
+  availableIsFetching: false,
+  error: null,
 };
 
 /**
@@ -30,21 +31,28 @@ export default function subjectReducer( state = subjectInitialState, action ) {
   const { type, payload } = action;
 
   switch ( type ) {
-    /** сигнал что предмет был выбран, и сохранение его id */
-    case TYPE.SELECT: {
-      return { ...state, selectedId: payload };
-    }
     /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
-    case TYPE.FETCH_REQUEST: {
-      return { ...state, isFetching: true };
+    case TYPE.FETCH_COMPLETED: {
+      return { ...state, completedIsFetching: true };
+    }
+    case TYPE.FETCH_AVAILABLE: {
+      return { ...state, availableIsFetching: true };
     }
     /** обработка успешного запроса к апи */
-    case TYPE.FETCH_SUCCESS: {
-      return { ...state, isFetching: false, list: payload };
+    case TYPE.FETCH_COMPLETED_SUCCESS: {
+      return { ...state, completedIsFetching: false, completed: payload };
     }
     /** обработка ошибки при запросе к апи */
-    case TYPE.FETCH_ERROR: {
-      return { ...state, isFetching: false, error: payload };
+    case TYPE.FETCH_COMPLETED_ERROR: {
+      return { ...state, completedIsFetching: false, error: payload };
+    }
+    /** обработка успешного запроса к апи */
+    case TYPE.FETCH_AVAILABLE_SUCCESS: {
+      return { ...state, availableIsFetching: false, available: payload };
+    }
+    /** обработка ошибки при запросе к апи */
+    case TYPE.FETCH_AVAILABLE_ERROR: {
+      return { ...state, availableIsFetching: false, error: payload };
     }
     /** такого действия нет, отдаем state без изменений */
     default: {

@@ -5,9 +5,12 @@ import styled from "styled-components";
 const StyledPopup= styled("div")`
   &.popup__wrapper {
     z-index: 100;
-    position: absolute;
-    width: 90%;
+    position: fixed;
+    width: 100%;
     height: 100vh;
+    top: 0;
+    left: 0;
+    background: #0000006e;
   }
 
   .icon__close {

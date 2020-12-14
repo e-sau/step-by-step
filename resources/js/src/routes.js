@@ -4,7 +4,7 @@ export default [
   {
     path: "/",
     exact: true,
-    component: React.lazy(() => import("./components/indexPage" )),
+    component: React.lazy(() => import("./containers/indexPageContainer" )),
   },
   {
     path: "/signup",
@@ -19,7 +19,7 @@ export default [
   {
     path: "/tasks",
     exact: true,
-    component: React.lazy(() => import("./containers/TasksPageContainer") ),
+    component: React.lazy(() => import("./components/notFoundPage") ),
   },
 
   /** @todo добавить новые маршруты */

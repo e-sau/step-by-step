@@ -1,13 +1,21 @@
 import { all, takeEvery } from "redux-saga/effects";
-import { fetchWorker } from "./workers";
-import { SELECT as GRADE_SELECT } from "../grade/types";
+import * as worker from "./workers";
+import * as ACTION from "./types";
 
 /**
- * Отслеживание события @grade-SELECT
+ * Отслеживание события @subject-FETCH_COMPLETED
  * @yield
  **/
-function* watchForSelect() {
-  yield takeEvery( GRADE_SELECT, fetchWorker );
+function* watchForFetchCompleted() {
+  yield takeEvery( ACTION.FETCH_COMPLETED, worker.fetchCompleted );
+}
+
+/**
+ * Отслеживание события @subject-FETCH_AVAILABLE
+ * @yield
+ **/
+function* watchForFetchAvailable() {
+  yield takeEvery( ACTION.FETCH_AVAILABLE, worker.fetchAvailable );
 }
 
 /**
@@ -16,6 +24,7 @@ function* watchForSelect() {
  **/
 export default function* subjectWatchers() {
   yield all([
-    watchForSelect(),
+    watchForFetchCompleted(),
+    watchForFetchAvailable(),
   ]);
 }
