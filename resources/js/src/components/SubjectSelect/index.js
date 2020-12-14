@@ -5,20 +5,26 @@ import { Spacer } from "../ui/Spacer";
 import { Container, Message, Link, SubjectsGrid } from "./styled.sc";
 import { Subject } from "../../models/Subject";
 
+/**
+ * Выбор предмета в виде кнопок
+ * @param { Object } props
+ * @return { JSX.Element }
+ **/
 export function SubjectSelect( props ) {
   const { subjects } = props;
 
+  /**
+   * Отрисовка отдельного предмета как кнопку
+   * @return { JSX[] }
+   **/
   function renderSubjects() {
-    return subjects.map( (subject) => {
-
-      return (
-        <Button key={ subject.id } color="primary">
-          <Link to={ `/subjects/${ subject.id }` }>
-            { subject.title }
-          </Link>
-        </Button>
-      );
-    });
+    return subjects.map( (subject) => (
+      <Button key={ subject.slug } color="primary">
+        <Link to={ `/subjects/${ subject.slug }` }>
+          { subject.title }
+        </Link>
+      </Button>
+    ));
   }
 
   return (
@@ -31,7 +37,7 @@ export function SubjectSelect( props ) {
       <SubjectsGrid className="subjects">
         { renderSubjects() }
       </SubjectsGrid>
-      <Link to={ "/tasks" }>Все предметы</Link>
+      <Link to={ "/subjects" }>Все предметы</Link>
     </Container>
   );
 }

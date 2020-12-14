@@ -1,5 +1,6 @@
 import * as TYPE from "./types";
-import {Subject} from "../../models/Subject";
+import { Subject } from "../../models/Subject";
+import { snakeCaseKebabCase } from "../../common/helpers";
 
 /**
  * Начальное состояние
@@ -9,9 +10,9 @@ const subjectInitialState = {
   isFetching: false,
   /** @todo получать это с бека, с переводом, написать задачу на бек( чтоб позволили получать список предметом без авторизации ) */
   previewList: [
-    new Subject( 1,"Русский язык" ),
-    new Subject(2,"Математика" ),
-    new Subject(3,"Окружающий мир" ),
+    new Subject( snakeCaseKebabCase("russian_language") ,"Русский язык"),
+    new Subject("maths","Математика", ),
+    new Subject( snakeCaseKebabCase("world_around"),"Окружающий мир" ),
   ],
   available: [],
   completed: [],

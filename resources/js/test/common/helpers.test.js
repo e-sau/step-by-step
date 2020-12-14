@@ -2,7 +2,8 @@ import {
   memo,
   objectClone,
   objectTransformKeys,
-  snakeCaseToLowerCamelCase
+  snakeCaseToLowerCamelCase,
+  snakeCaseKebabCase
 } from "../../src/common/helpers";
 
 describe( objectClone.name, () => {
@@ -90,10 +91,26 @@ describe( snakeCaseToLowerCamelCase.name, function () {
     expect( snakeCaseToLowerCamelCase("long_test_string_") ).toBe( "longTestString" );
     expect( snakeCaseToLowerCamelCase("_a") ).toBe( "a" );
     expect( snakeCaseToLowerCamelCase("b_a") ).toBe( "bA" );
+    expect( snakeCaseToLowerCamelCase("____") ).toBe( "" );
   });
 });
 
+describe( snakeCaseKebabCase.name, function () {
+  it("should to throw Error", function () {
+    expect( snakeCaseKebabCase ).toThrow( Error );
+  });
 
+  it("should to return kebab-case string", function () {
+    expect( snakeCaseKebabCase("AA") ).toBe( "AA" );
+    expect( snakeCaseKebabCase("Aa") ).toBe( "Aa" );
+    expect( snakeCaseKebabCase("a") ).toBe( "a" );
+    expect( snakeCaseKebabCase("test_string") ).toBe( "test-string" );
+    expect( snakeCaseKebabCase("long_test_string_") ).toBe( "long-test-string" );
+    expect( snakeCaseKebabCase("_a") ).toBe( "a" );
+    expect( snakeCaseKebabCase("b_a") ).toBe( "b-a" );
+    expect( snakeCaseKebabCase("____") ).toBe( "" );
+  });
+});
 
 describe( memo.name, function () {
   it("should to throw Error", function () {

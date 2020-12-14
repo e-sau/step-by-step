@@ -61,7 +61,6 @@ export function objectTransformKeys( input, transformFunc ) {
   }, {});
 }
 
-
 /**
 * Простой алгоритм конвертации snakeCase нотации в lowerCamelCase
 * @param { String } string
@@ -86,6 +85,25 @@ export function snakeCaseToLowerCamelCase( string ) {
       item[0], item[0]?.toUpperCase()
     );
     return `${ acc }${ preparedPart }`;
+  }, "");
+}
+
+/**
+ * Простой алгоритм конвертации snake_case в kebab-case
+ * @param { String } string
+ *
+ * @throws Error|TypeError
+ **/
+export function snakeCaseKebabCase( string ) {
+  if ( !string ) {
+    throw new Error( "Missing argument error ");
+  }
+  return String( string ).split( "_" ).reduce( (acc, part) => {
+    const _tmp = part.trim();
+    if ( acc && _tmp ) {
+      return `${ acc }-${ _tmp }`;
+    }
+    return acc || _tmp;
   }, "");
 }
 
