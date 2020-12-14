@@ -13,7 +13,7 @@ import LoginFormContainer from "../containers/LoginFormContainer";
 import { User } from "../models/User";
 
 export function Header( props ) {
-  const { isAuthorized, authFormShown, onClick, model, onLogout } = props;
+  const { isAuthorized, authFormShown, model, toggleAuthForm, logout } = props;
 
   /**
    * Монтируем всплывающее окно в портал
@@ -40,7 +40,7 @@ export function Header( props ) {
   function renderRightSide() {
     if ( !isAuthorized ) {
       return (
-        <Button className="login link_login" color="primary" onClick={ onClick }>
+        <Button className="login link_login" color="primary" onClick={ toggleAuthForm }>
           Войти
         </Button>
       );
@@ -50,7 +50,7 @@ export function Header( props ) {
         <Link className="account_link" to={ "/account" }>
           <img className="avatar" src={ model.avatar } alt="avatar"/>
         </Link>
-        <FontAwesomeIcon className="logout_link"  icon={ faSignOutAlt } onClick={ onLogout }/>
+        <FontAwesomeIcon className="logout_link"  icon={ faSignOutAlt } onClick={ logout }/>
       </ControlsContainer>
     );
   }
@@ -66,8 +66,8 @@ export function Header( props ) {
 
 Header.propTypes = {
   isAuthorized: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  toggleAuthForm: PropTypes.func.isRequired,
   authFormShown: PropTypes.bool.isRequired,
   model: PropTypes.instanceOf( User ).isRequired,
-  onLogout: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 };

@@ -47,11 +47,11 @@ const StyledPopup= styled("div")`
 `;
 
 export function Popup( props ) {
-  const { children, onClick } = props;
+  const { children, toggleAuthForm } = props;
 
   return (
     <StyledPopup className="popup__wrapper">
-      <div className="icon__close" onClick={onClick}>
+      <div className="icon__close" onClick={ toggleAuthForm }>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 511.76 511.76" xmlSpace="preserve">
           <g>
             <path d="M436.896,74.869c-99.84-99.819-262.208-99.819-362.048,0c-99.797,99.819-99.797,262.229,0,362.048
@@ -75,5 +75,5 @@ export function Popup( props ) {
 
 Popup.propTypes = {
   children: PropTypes.any,
-  onClick: PropTypes.func.isRequired,
+  toggleAuthForm: PropTypes.func.isRequired,
 };

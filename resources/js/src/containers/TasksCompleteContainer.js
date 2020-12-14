@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { changeModelAttribute, photoSelect, updateProfile } from "../store/user/actions";
-import { CompletedTasks } from "../components/accountPage/completedTasks";
+import { CompletedTasks } from "../components/CompletedTasks";
 import { fetchCompletedRequest } from "../store/subject/actions";
 
 /**
@@ -20,13 +19,9 @@ function mapStateToProps( state ) {
   };
 }
 
-const mapDispatchToProps = ( dispatch ) =>
-  bindActionCreators({
-    onChange: changeModelAttribute,
-    onSubmit: updateProfile,
-    onPhotoSelect: photoSelect,
-    onLoad: fetchCompletedRequest
-  }, dispatch );
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators({ fetchCompletedRequest }, dispatch );
+}
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( CompletedTasks );

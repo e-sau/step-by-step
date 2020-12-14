@@ -19,9 +19,9 @@ export default [
   {
     path: "/tasks",
     exact: true,
-    component: React.lazy(() => import("./components/notFoundPage") ),
+    component: React.lazy(() => import("./pages/NotFoundPage") ),
   },
 
   /** @todo добавить новые маршруты */
-  { component: React.lazy(() => import("./components/notFoundPage")) } /// этот роут всегда должен быть в конце
+  { component: React.lazy(() => import("./pages/NotFoundPage")) } /// этот роут всегда должен быть в конце
 ];
