@@ -10,9 +10,10 @@ function mapStateToProps( state ) {
   return { authFormShown };
 }
 
-const mapDispatchToProps = ( dispatch ) =>
-  bindActionCreators({
-    onClick: toggleAuthForm,
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators({
+    toggleAuthForm,
   }, dispatch);
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( Popup );

@@ -14,10 +14,8 @@ function mapStateToProps( state ) {
   };
 }
 
-const mapDispatchToProps = ( dispatch ) =>
-  bindActionCreators({
-    onClick: toggleAuthForm,
-    onLogout: logout
-  }, dispatch );
+function mapDispatchToProps ( dispatch ) {
+  return bindActionCreators({ toggleAuthForm, logout }, dispatch );
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( Header );

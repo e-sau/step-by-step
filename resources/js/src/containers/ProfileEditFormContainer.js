@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { ProfileEditForm } from "../components/accountPage/profileEditForm";
+import { ProfileEditForm } from "../components/ProfileEditForm";
 import { bindActionCreators } from "redux";
 import { changeModelAttribute, photoSelect, updateProfile } from "../store/user/actions";
 
@@ -16,12 +16,11 @@ function mapStateToProps( state ) {
   };
 }
 
-const mapDispatchToProps = ( dispatch ) =>
-  bindActionCreators({
-    onChange: changeModelAttribute,
-    onSubmit: updateProfile,
-    onPhotoSelect: photoSelect
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators({
+    changeModelAttribute, updateProfile, photoSelect
   }, dispatch );
+}
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( ProfileEditForm );

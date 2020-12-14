@@ -6,7 +6,7 @@ import { Link } from "./ui/Link";
 import { Button } from "./ui/Button";
 import { Form } from "./ui/form";
 import { User } from "../models/User";
-import { object } from "../common/helpers";
+import { objectClone } from "../common/helpers";
 
 export const FormContainer = styled("div")`
     display: grid;
@@ -56,7 +56,7 @@ export function LoginForm( props ) {
    **/
   function handleChange( name, value ) {
     model[ name ] = value;
-    setModel( object.update( model ) );
+    setModel( objectClone( model ) );
   }
 
   return (

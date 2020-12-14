@@ -1,6 +1,6 @@
 import * as TYPE from "./types";
 import { User } from "../../models/User";
-import { object } from "../../common/helpers";
+import { objectClone } from "../../common/helpers";
 
 /**
  * Начальное состояние редьюсера
@@ -33,21 +33,21 @@ export default function userReducer( state = userInitialState, action ) {
         [ key, value ],
         [ "_errors", model._errors.filter( ([ attr ]) => attr !== key ) ],
       ];
-      return { ...state, model: object.update( model, newPropertyValue ) };
+      return { ...state, model: objectClone( model, newPropertyValue ) };
     }
 
     /** Установка параметров в модель */
     case TYPE.SET_MODEL_DATA: {
       return {
         ...state,
-        model: object.update( state.model, Object.entries( payload ) ),
+        model: objectClone( state.model, Object.entries( payload ) ),
       };
     }
     /** Обновить ссылку на обьект */
     case TYPE.UPDATE_REF: {
       return {
         ...state,
-        model: object.update( state.model ),
+        model: objectClone( state.model ),
       };
     }
     /** Успешное обновление данных пользователя */

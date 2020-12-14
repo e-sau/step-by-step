@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { IndexPage } from "../components/indexPage";
+import IndexPage from "../pages/IndexPage";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
