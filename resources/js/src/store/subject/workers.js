@@ -1,8 +1,25 @@
 import { select, call, put } from "redux-saga/effects";
 import makeRequest, { HTTP } from "../../api/makeRequest";
-import { getAvailable } from "../../api/endpoints/subjects";
-import { fetchCompletedSuccess, fetchAvailableSuccess, fetchAvailableError } from "./actions";
+import { getAvailable, getSubjectWithTasks } from "../../api/endpoints/subjects";
+import {
+  fetchCompletedSuccess,
+  fetchAvailableSuccess,
+  fetchAvailableError,
+  fetchSubjectWithTasksError,
+  fetchSubjectWithTasksSuccess
+} from "./actions";
 import { getUserID } from "../user/selectors";
+import { Subject } from "../../models/Subject";
+import { prepareTasks } from "../task/actions";
+
+
+/**
+ * Обработка запроса на апи, на получение всех предметов
+ * @yield
+ **/
+export function* fetchAll() {
+  /** @todo прокинуть цепочку на получение всех задач */
+}
 
 /**
  * Обработка запроса на апи, при выборе класса
@@ -37,5 +54,24 @@ export function* fetchAvailable() {
     yield put( fetchAvailableSuccess( Array(12).fill( mockSubject )  ) );
   } else {
     yield put( fetchAvailableError( data ) );
+  }
+}
+
+/**
+ * Получение предмета с заданиями
+ * @param { Object } action;
+ *
+ * @yield
+ **/
+export function* fetchSubjectWithTasks( action ) {
+  const { status, data: { data } } = yield call( makeRequest, getSubjectWithTasks( action.payload ) );
+  if ( status === HTTP.OK ) {
+    const { tasks, ...subjectProps } = data;
+    yield put(
+      fetchSubjectWithTasksSuccess( Subject.buildSubject( subjectProps ) )
+    );
+    yield put( prepareTasks( tasks ) );
+  } else {
+    yield put( fetchSubjectWithTasksError( data ));
   }
 }

@@ -1,4 +1,4 @@
-const { getAll, getBySubject } = require("../../../src/api/endpoints/tasks");
+const { getAll } = require("../../../src/api/endpoints/tasks");
 
 describe( getAll.name, () => {
   it("should return Object", function () {
@@ -7,23 +7,3 @@ describe( getAll.name, () => {
     expect( requestBody.uri ).toBe("tasks");
   });
 });
-
-describe( getBySubject.name, () => {
-  it("should return Object", function () {
-    const subjectID = 1;
-    const requestBody = getBySubject( subjectID );
-    expect( requestBody ).toBeInstanceOf( Object );
-    expect( requestBody.uri ).toBe(`tasks/getBySubject/${ subjectID }`);
-  });
-
-  it("should to throw Error", function () {
-    expect( getBySubject ).toThrow( Error );
-  });
-
-  it("should to throw TypeError", function () {
-    [ {}, () => 1, "string" ].forEach( payload => {
-      expect( () => getBySubject(payload) ).toThrow( TypeError );
-    });
-  });
-});
-

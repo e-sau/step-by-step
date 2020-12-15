@@ -32,6 +32,14 @@ export class Task extends Model {
    **/
   updatedAt;
 
+  /**
+   * @param { Number } difficult
+   * @param { String } title
+   * @param { String } description
+   * @param { Number|String } solution
+   *
+   * @return { void }
+   **/
   constructor( difficult, title, description, solution ) {
     super();
 
@@ -43,9 +51,10 @@ export class Task extends Model {
 
   /**
    * Статический фабричный метод, создания отзыва
+   * @param { Object } data
    * @return { Review }
    **/
-  static buildReview( data ) {
+  static buildTask( data ) {
     const { id: _id, difficult, title, description, solution } = Model.transform( data );
     const task = new Task( difficult, title, description, solution );
 

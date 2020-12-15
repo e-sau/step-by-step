@@ -51,6 +51,7 @@ export class Review extends Model {
 
   /**
    * Статический фабричный метод, создания отзыва
+   * @param { Object } data
    * @return { Review }
    **/
   static buildReview( data ) {
