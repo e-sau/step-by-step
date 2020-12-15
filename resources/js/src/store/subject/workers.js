@@ -64,7 +64,9 @@ export function* fetchAvailable() {
  * @yield
  **/
 export function* fetchSubjectWithTasks( action ) {
-  const { status, data: { data } } = yield call( makeRequest, getSubjectWithTasks( action.payload ) );
+  const slug = action.payload.replace( "-", "_" );
+
+  const { status, data: { data } } = yield call( makeRequest, getSubjectWithTasks( slug ) );
   if ( status === HTTP.OK ) {
     const { tasks, ...subjectProps } = data;
     yield put(

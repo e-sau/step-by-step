@@ -7,13 +7,16 @@ import { fetchSubjectWithTasks } from "../store/subject/actions";
  * Мапим параметры из стора, которые нужны нашей странице
  * @param { Object } state
  * @param { Object } ownProps
+ *
  * @return { Object }
  **/
 function mapStateToProps( state, ownProps ) {
-  const { subject: { list, selected } } = state;
+  const { subject: { list: subjectsList, selected, isFetching }, task: { list: tasksList } } = state;
 
   return {
-    subjectsList: list,
+    tasksList,
+    subjectsList,
+    isFetching,
     selectedSubject: selected,
     slug: ownProps?.match?.params?.slug
   };

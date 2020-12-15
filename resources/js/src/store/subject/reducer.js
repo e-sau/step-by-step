@@ -91,8 +91,8 @@ export default function subjectReducer( state = subjectInitialState, action ) {
     case TYPE.FETCH_SUBJECT_WITH_TASKS_SUCCESS: {
       return {
         ...state,
+        selected: payload,
         isFetching: false,
-        selected: payload
       };
     }
     /** Ошибка при получении выбранного предмета с задачами */
