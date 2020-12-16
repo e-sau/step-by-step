@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 
 import { User } from "../models/User";
 import { SignupFormWrapper } from "../components/SignupFormWrapper";
-import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styles/SignupPageStyles.sc";
+import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styles/signupPageStyles.sc";
 
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде

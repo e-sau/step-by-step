@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const TaskItemLink = styled( Link )`
-  text-decoration: unset;
+export const TaskItemLink = styled( "div" )`
   display: grid;
   grid-template-rows: auto 1fr auto;
   

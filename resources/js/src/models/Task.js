@@ -33,6 +33,12 @@ export class Task extends Model {
   updatedAt;
 
   /**
+   * Флаг указывающий выполена ли задача
+   * @type Boolean
+   **/
+  completed;
+
+  /**
    * @param { Number } difficult
    * @param { String } title
    * @param { String } description
@@ -55,9 +61,9 @@ export class Task extends Model {
    * @return { Review }
    **/
   static buildTask( data ) {
-    const { id: _id, difficult, title, description, solution } = Model.transform( data );
+    const { id: _id, difficult, title, description, solution, updatedAt } = Model.transform( data );
     const task = new Task( difficult, title, description, solution );
 
-    return Model.load( task, { _id });
+    return Model.load( task, { _id, completed: Boolean(updatedAt) });
   }
 }

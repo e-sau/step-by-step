@@ -14,10 +14,11 @@ export const examples = [
       return (
         <div style={{
           display: "grid",
-          gridTemplateColumns: "80% 20%",
+          gridTemplateColumns: "70% 20%",
           alignItems: "center",
+          gap: 50
         }}>
-          <img src={ "/images/tasks/example/example-1.png" } alt="example-1"/>
+          <img src={ "/images/tasks/icecream.png" } alt="icecream"/>
           <TextField disabled style={{ background: "#dddddd" }} variant={ "outlined" } />
         </div>
       );
@@ -58,7 +59,7 @@ export const examples = [
               labelPlacement="end"
             />
           </div>
-          <img src={ "/images/tasks/example/example-2.png" } alt="example-1"/>
+          <img src={ "/images/tasks/rope.png" } alt="rope"/>
         </div>
       );
     }

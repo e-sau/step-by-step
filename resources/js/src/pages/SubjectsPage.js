@@ -6,19 +6,18 @@ import { Subject } from "../models/Subject";
 import { Task } from "../models/Task";
 import { SubjectSelect } from "../components/SubjectSelect";
 
-import { TaskPreview } from "../components/TaskPreview";
-import { examples } from "../components/ExampleTasks/examples";
+import { TaskView } from "../components/Task";
+import { BodyContainer } from "./styles/subjectsPageStyles.sc";
 
-
-//
 export default function SubjectsPage( props ) {
   const { slug, fetchSubjectWithTasks, selectedSubject, isFetching, tasksList, subjectsList } = props;
   // const isNeedFetchSubject = slug && ( !subjectsList || subjectsList.slug !== slug );
 
   useEffect(() => {
-    console.log("==============================="+ slug +"===============================================")
+    window.scroll({ top: 0, behavior: "smooth" });
     fetchSubjectWithTasks( slug );
   }, []);
+
 
   // if ( isNeedFetchSubject ) {
   //   fetchSubjectWithTasks( slug );
@@ -33,12 +32,12 @@ export default function SubjectsPage( props ) {
       return <SubjectSelect subjects={ subjectsList }/>;
     }
     return (
-      <div>
+      <BodyContainer>
         <h1>{ selectedSubject.title }</h1>
-        { examples.map( (item) => (
-          <TaskPreview key={ item.id } { ...item }/>
+        { tasksList.map( (item) => (
+          <TaskView key={ item.id } task={ item }/>
         )) }
-      </div>
+      </BodyContainer>
     );
   }
 
@@ -47,9 +46,7 @@ export default function SubjectsPage( props ) {
       <GoBackLink to={ "/" }>
         На главную
       </GoBackLink>
-      <div>
-        { renderPageBody() }
-      </div>
+      { renderPageBody() }
     </div>
   );
 }

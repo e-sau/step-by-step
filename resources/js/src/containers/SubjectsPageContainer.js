@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import SubjectsPage from "../pages/SubjectsPage";
 import { fetchSubjectWithTasks } from "../store/subject/actions";
+import {sortByObjectKey} from "../common/helpers";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -14,7 +15,7 @@ function mapStateToProps( state, ownProps ) {
   const { subject: { list: subjectsList, selected, isFetching }, task: { list: tasksList } } = state;
 
   return {
-    tasksList,
+    tasksList: sortByObjectKey( "difficult", tasksList ),
     subjectsList,
     isFetching,
     selectedSubject: selected,

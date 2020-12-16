@@ -62,6 +62,22 @@ export function objectTransformKeys( input, transformFunc ) {
 }
 
 /**
+ * Отсортировать массив обьектов по ключу
+ * @param { String|Number } key
+ * @param { Array } array
+ *
+ * @throws Error|TypeError
+ **/
+export function sortByObjectKey( key, array ) {
+  return array.sort( ( curr, next ) => {
+    if ( curr[ key ] > next[ key ] ) {
+      return 1;
+    }
+    return ( curr[ key ] === next[ key ] ) ? 0 : -1;
+  });
+}
+
+/**
 * Простой алгоритм конвертации snakeCase нотации в lowerCamelCase
 * @param { String } string
 *

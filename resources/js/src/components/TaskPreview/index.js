@@ -4,12 +4,11 @@ import { TaskItemLink, StepsGrid } from "./styled.sc";
 import { Step } from "../ui/Step";
 
 export function TaskPreview( props ) {
-  const { id, description, firstStep, secondStep, taskComponent } = props;
-
+  const { description, firstStep, secondStep, taskComponent } = props;
   const Component = taskComponent;
 
   return (
-    <TaskItemLink to={ `/tasks/${ id }` }>
+    <TaskItemLink>
       <p className="description">{ description }</p>
       <div className="inputs">
         <Component />

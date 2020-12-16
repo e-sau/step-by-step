@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Spacer } from "../components/ui/Spacer";
 import { SidePanel } from "../components/AccountSidePanel";
 import { User } from "../models/User";
-import { ContentContainer } from "./styles/AccountPageStyles.sc";
+import { ContentContainer } from "./styles/accountPageStyles.sc";
 import { GoBackLink } from "../components/ui/GoBackLink";
 
 export default function AccountPage( props ) {
