@@ -84,7 +84,8 @@ export default function subjectReducer( state = subjectInitialState, action ) {
       return {
         ...state,
         isFetching: true,
-        selected: subjectInitialState.selected
+        selected: subjectInitialState.selected,
+        error: subjectInitialState.error
       };
     }
     /** Успешно получен выбранный предмет с задачами */
@@ -101,6 +102,13 @@ export default function subjectReducer( state = subjectInitialState, action ) {
         ...state,
         isFetching: false,
         error: payload
+      };
+    }
+    /** Сигнал что запросили все задания */
+    case TYPE.FETCH_ALL: {
+      return {
+        ...state,
+        error: subjectInitialState.error
       };
     }
     /** Успешно получены все предметы */

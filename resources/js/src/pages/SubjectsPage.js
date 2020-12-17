@@ -6,12 +6,12 @@ import { Subject } from "../models/Subject";
 import { Task } from "../models/Task";
 import { TaskView } from "../components/Task";
 import { BodyContainer, LinkContainer } from "./styles/subjectsPageStyles.sc";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 export default function SubjectsPage( props ) {
   const {
     slug, fetchSubjectWithTasks, selectedSubject, isFetching,
-    tasksList, subjectsList, solveTask, fetchSubjects
+    tasksList, subjectsList, solveTask, fetchSubjects, error
   } = props;
 
   useEffect(() => {
@@ -22,6 +22,11 @@ export default function SubjectsPage( props ) {
       fetchSubjects();
     }
   }, [slug]);
+
+  if ( slug && error ) {
+    setTimeout( fetchSubjects, 0 );
+    return <Redirect to={"/subjects"}/>;
+  }
 
   if ( isFetching || ( slug && !selectedSubject ) ) {
     return <Loader/>;
@@ -70,4 +75,5 @@ SubjectsPage.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   solveTask: PropTypes.func.isRequired,
   fetchSubjects: PropTypes.func.isRequired,
+  error: PropTypes.any,
 };

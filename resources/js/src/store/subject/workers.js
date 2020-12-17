@@ -80,6 +80,6 @@ export function* fetchSubjectWithTasks( action ) {
     );
     yield put( prepareTasks( tasks ) );
   } else {
-    yield put( fetchSubjectWithTasksError( data ));
+    yield put( fetchSubjectWithTasksError( "failed to fetch" ));
   }
 }

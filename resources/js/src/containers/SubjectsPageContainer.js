@@ -13,14 +13,15 @@ import { sortByObjectKey } from "../common/helpers";
  * @return { Object }
  **/
 function mapStateToProps( state, ownProps ) {
-  const { subject: { list: subjectsList, selected, isFetching }, task: { list: tasksList } } = state;
+  const { subject: { list: subjectsList, selected, isFetching, error }, task: { list: tasksList } } = state;
 
   return {
-    tasksList: sortByObjectKey( "difficult", tasksList ),
+    error,
     subjectsList,
     isFetching,
     selectedSubject: selected,
-    slug: ownProps?.match?.params?.slug
+    slug: ownProps?.match?.params?.slug,
+    tasksList: sortByObjectKey( "difficult", tasksList ),
   };
 }
 
