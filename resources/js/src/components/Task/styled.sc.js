@@ -69,3 +69,19 @@ export const Wrapper = styled("div")`
   font-size: 5em;
   color: #02bb00;
 `;
+
+export const HelpMessage = styled( "div" )`
+  display: ${ props => props.show ? "grid" : "none" };
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: 1fr auto;
+  text-align: right;
+  gap: 10px;
+  font-size: 3em;
+  font-style: italic;
+  color: #116f00;
+  
+  img {
+    width: 50px;
+  }
+`;

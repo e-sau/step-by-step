@@ -4,24 +4,24 @@ import { Loader } from "../components/ui/Loader";
 import { GoBackLink } from "../components/ui/GoBackLink";
 import { Subject } from "../models/Subject";
 import { Task } from "../models/Task";
-import { SubjectSelect } from "../components/SubjectSelect";
-
 import { TaskView } from "../components/Task";
-import { BodyContainer } from "./styles/subjectsPageStyles.sc";
+import { BodyContainer, LinkContainer } from "./styles/subjectsPageStyles.sc";
+import {Link} from "react-router-dom";
 
 export default function SubjectsPage( props ) {
-  const { slug, fetchSubjectWithTasks, selectedSubject, isFetching, tasksList, subjectsList } = props;
-  // const isNeedFetchSubject = slug && ( !subjectsList || subjectsList.slug !== slug );
+  const {
+    slug, fetchSubjectWithTasks, selectedSubject, isFetching,
+    tasksList, subjectsList, solveTask, fetchSubjects
+  } = props;
 
   useEffect(() => {
     window.scroll({ top: 0, behavior: "smooth" });
-    fetchSubjectWithTasks( slug );
-  }, []);
-
-
-  // if ( isNeedFetchSubject ) {
-  //   fetchSubjectWithTasks( slug );
-  // }
+    if ( slug ) {
+      fetchSubjectWithTasks( slug );
+    } else {
+      fetchSubjects();
+    }
+  }, [slug]);
 
   if ( isFetching || ( slug && !selectedSubject ) ) {
     return <Loader/>;
@@ -29,13 +29,23 @@ export default function SubjectsPage( props ) {
 
   function renderPageBody() {
     if ( !slug ) {
-      return <SubjectSelect subjects={ subjectsList }/>;
+      return (
+        <LinkContainer>
+          {
+            subjectsList.map( subject => (
+              <Link key={ subject.id } className="link" to={ `/subjects/${ subject.slug }` }>
+                { subject.title }
+              </Link>
+            ))
+          }
+        </LinkContainer>
+      );
     }
     return (
       <BodyContainer>
         <h1>{ selectedSubject.title }</h1>
         { tasksList.map( (item) => (
-          <TaskView key={ item.id } task={ item }/>
+          <TaskView key={ item.id } task={ item } onSolve={ solveTask } />
         )) }
       </BodyContainer>
     );
@@ -58,4 +68,6 @@ SubjectsPage.propTypes = {
   selectedSubject: PropTypes.instanceOf( Subject ),
   fetchSubjectWithTasks: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  solveTask: PropTypes.func.isRequired,
+  fetchSubjects: PropTypes.func.isRequired,
 };

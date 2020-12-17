@@ -1,6 +1,31 @@
 import * as TYPE from "./types";
 
 /**
+ * Получить все предметы
+ * @return { Object }
+ **/
+export function fetchAll() {
+  return { type: TYPE.FETCH_ALL };
+}
+
+/**
+ * Успешно полученны все предметы
+ * @param { Array } data
+ * @return { Object }
+ **/
+export function fetchAllSuccess( data ) {
+  return { type: TYPE.FETCH_ALL_SUCCESS, payload: data };
+}
+
+/**
+ * Ошибка при получении всех предметов
+ * @return { Object }
+ **/
+export function fetchAllError() {
+  return { type: TYPE.FETCH_ALL_ERROR };
+}
+
+/**
  * Получить все пройденные предметы
  * @return { Object }
  **/
@@ -59,6 +84,7 @@ export function fetchAvailableError( error ) {
 export function fetchSubjectWithTasks( slug ) {
   return { type: TYPE.FETCH_SUBJECT_WITH_TASKS, payload: slug };
 }
+
 /**
  * Предмет с задааниями получены успешно
  * @param { Subject } data
@@ -67,6 +93,7 @@ export function fetchSubjectWithTasks( slug ) {
 export function fetchSubjectWithTasksSuccess( data ) {
   return { type: TYPE.FETCH_SUBJECT_WITH_TASKS_SUCCESS, payload: data };
 }
+
 /**
  * Ошибка при получении данных
  * @param { String } error

@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import SubjectsPage from "../pages/SubjectsPage";
-import { fetchSubjectWithTasks } from "../store/subject/actions";
-import {sortByObjectKey} from "../common/helpers";
+import { fetchSubjectWithTasks, fetchAll } from "../store/subject/actions";
+import { solveTask } from "../store/task/actions";
+import { sortByObjectKey } from "../common/helpers";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -25,7 +26,9 @@ function mapStateToProps( state, ownProps ) {
 
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators({
-    fetchSubjectWithTasks
+    fetchSubjectWithTasks,
+    solveTask,
+    fetchSubjects: fetchAll
   }, dispatch );
 }
 

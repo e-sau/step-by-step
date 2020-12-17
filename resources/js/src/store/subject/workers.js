@@ -1,24 +1,30 @@
 import { select, call, put } from "redux-saga/effects";
 import makeRequest, { HTTP } from "../../api/makeRequest";
-import { getAvailable, getSubjectWithTasks } from "../../api/endpoints/subjects";
+import { getAll, getAvailable, getSubjectWithTasks } from "../../api/endpoints/subjects";
 import {
   fetchCompletedSuccess,
   fetchAvailableSuccess,
   fetchAvailableError,
   fetchSubjectWithTasksError,
-  fetchSubjectWithTasksSuccess
+  fetchSubjectWithTasksSuccess, fetchAllSuccess, fetchAllError
 } from "./actions";
 import { getUserID } from "../user/selectors";
 import { Subject } from "../../models/Subject";
 import { prepareTasks } from "../task/actions";
-
 
 /**
  * Обработка запроса на апи, на получение всех предметов
  * @yield
  **/
 export function* fetchAll() {
-  /** @todo прокинуть цепочку на получение всех задач */
+  const { status, data: { data } } = yield call( makeRequest, getAll );
+  if ( status === HTTP.OK  ) {
+    yield put(
+      fetchAllSuccess( data.map( Subject.buildSubject ) )
+    );
+  } else {
+    yield put( fetchAllError( data ) );
+  }
 }
 
 /**

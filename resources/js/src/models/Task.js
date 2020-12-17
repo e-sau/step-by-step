@@ -55,6 +55,19 @@ export class Task extends Model {
     this.solution = solution;
   }
 
+  get help() {
+    return "Попробуй еще раз!)";
+  }
+
+  getData() {
+    return {
+      title: this.title,
+      description: this.description,
+      difficult: this.difficult,
+      solution: this.solution,
+    };
+  }
+
   /**
    * Статический фабричный метод, создания отзыва
    * @param { Object } data

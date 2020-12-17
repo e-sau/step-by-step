@@ -103,6 +103,21 @@ export default function subjectReducer( state = subjectInitialState, action ) {
         error: payload
       };
     }
+    /** Успешно получены все предметы */
+    case TYPE.FETCH_ALL_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        list: payload
+      };
+    }
+    /** Ошибка при получении всех предметов */
+    case TYPE.FETCH_ALL_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+      };
+    }
     /** такого действия нет, отдаем state без изменений */
     default: {
       return state;
