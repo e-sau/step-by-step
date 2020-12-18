@@ -12,7 +12,7 @@ export function Preview() {
 
       <Wrapper className="content">
         <div className="content_text">
-                    Дополнительные<br/> занятия для школьников
+            Дополнительные<br/> занятия для школьников
         </div>
         <div className="login_form">
           <LoginFormContainer/>

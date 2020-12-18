@@ -17,9 +17,9 @@ export default [
     component: React.lazy(() => import("./containers/AccountPageContainer") ),
   },
   {
-    path: "/tasks",
+    path: "/subjects/:slug?",
     exact: true,
-    component: React.lazy(() => import("./pages/NotFoundPage") ),
+    component: React.lazy(() => import("./containers/SubjectsPageContainer") ),
   },
 
   /** @todo добавить новые маршруты */

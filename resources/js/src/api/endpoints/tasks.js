@@ -1,3 +1,5 @@
+import { Model } from "../../models/Model";
+
 /**
  * Получить список задач
  * @return { Object }
@@ -9,19 +11,19 @@ export function getAll() {
 }
 
 /**
- * Получить список субьектов для класса
+ * Получить список задач
+ * @param { Model } task
  * @return { Object }
  *
- * @throws Error|TypeError
+ * @throws TypeError
  **/
-export function getBySubject( subjectId ) {
-  if ( !subjectId ) {
-    throw new Error("Missing argument error");
-  }
-  if ( typeof subjectId !== "number" ) {
+export function update( task ) {
+  if ( !(task instanceof Model) ) {
     throw new TypeError();
   }
   return {
-    uri: `tasks/getBySubject/${ subjectId }`,
+    uri: `tasks/${ task.id }`,
+    method: "PUT",
+    body: task.getData()
   };
 }

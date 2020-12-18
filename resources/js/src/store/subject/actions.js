@@ -1,6 +1,31 @@
 import * as TYPE from "./types";
 
 /**
+ * Получить все предметы
+ * @return { Object }
+ **/
+export function fetchAll() {
+  return { type: TYPE.FETCH_ALL };
+}
+
+/**
+ * Успешно полученны все предметы
+ * @param { Array } data
+ * @return { Object }
+ **/
+export function fetchAllSuccess( data ) {
+  return { type: TYPE.FETCH_ALL_SUCCESS, payload: data };
+}
+
+/**
+ * Ошибка при получении всех предметов
+ * @return { Object }
+ **/
+export function fetchAllError() {
+  return { type: TYPE.FETCH_ALL_ERROR };
+}
+
+/**
  * Получить все пройденные предметы
  * @return { Object }
  **/
@@ -41,6 +66,7 @@ export function fetchCompletedError( error ) {
 export function fetchAvailableSuccess( data ) {
   return { type: TYPE.FETCH_AVAILABLE_SUCCESS, payload: data };
 }
+
 /**
  * Ошибка при получении данных
  * @param { any } error
@@ -48,4 +74,31 @@ export function fetchAvailableSuccess( data ) {
  **/
 export function fetchAvailableError( error ) {
   return { type: TYPE.FETCH_AVAILABLE_ERROR, payload: error };
+}
+
+/**
+ * Получить предмет с задааниями
+ * @param { String } slug
+ * @return { Object }
+ **/
+export function fetchSubjectWithTasks( slug ) {
+  return { type: TYPE.FETCH_SUBJECT_WITH_TASKS, payload: slug };
+}
+
+/**
+ * Предмет с задааниями получены успешно
+ * @param { Subject } data
+ * @return { Object }
+ **/
+export function fetchSubjectWithTasksSuccess( data ) {
+  return { type: TYPE.FETCH_SUBJECT_WITH_TASKS_SUCCESS, payload: data };
+}
+
+/**
+ * Ошибка при получении данных
+ * @param { String } error
+ * @return { Object }
+ **/
+export function fetchSubjectWithTasksError( error ) {
+  return { type: TYPE.FETCH_SUBJECT_WITH_TASKS_ERROR, payload: error };
 }

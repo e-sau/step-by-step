@@ -5,6 +5,7 @@ import subjectWatchers from "./subject/watchers";
 import userWatchers from "./user/watchers";
 import siteWatchers from "./site/watchers";
 import reviewWatchers from "./review/watchers";
+import taskWatchers from "./task/watchers";
 
 /**
  * Корневая сага, в ней подключаются все "watchers:
@@ -18,5 +19,6 @@ export default function* () {
     subjectWatchers(),
     userWatchers(),
     reviewWatchers(),
+    taskWatchers(),
   ]);
 }

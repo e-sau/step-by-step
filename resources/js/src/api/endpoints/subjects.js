@@ -1,10 +1,25 @@
 /**
- * Получить список субьектов
+ * Получить список предметов
  * @return { Object }
  **/
 export function getAll() {
   return {
     uri: "subjects",
+  };
+}
+
+/**
+ * Получить предмет, с задачами
+ * @param { String|Number } slug
+ *
+ * @return { Object }
+ **/
+export function getSubjectWithTasks( slug ) {
+  if ( !(["string", "number"].includes( typeof slug )) ) {
+    throw TypeError();
+  }
+  return {
+    uri: `subjects/${ slug }?with=tasks`
   };
 }
 

@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { Link as RouterLink } from "react-router-dom";
 
-export const ContentContainer = styled("div")`
-  display: grid;
-  grid-template-columns: 400px auto;
-  gap: 20px; 
-`;
-
 export const Link = styled( RouterLink )`
   transition: 0.2s;
   color: #4791DB;

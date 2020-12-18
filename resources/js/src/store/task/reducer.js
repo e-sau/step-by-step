@@ -23,15 +23,33 @@ export default function taskReducer( state = taskInitialState, action ) {
   switch ( type ) {
     /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
     case TYPE.FETCH_REQUEST: {
-      return { ...state, isFetching: true };
+      return {
+        ...state,
+        isFetching: true,
+        list: taskInitialState.list
+      };
     }
     /** обработка успешного запроса к апи */
     case TYPE.FETCH_SUCCESS: {
-      return { ...state, isFetching: false, list: payload };
+      return {
+        ...state,
+        isFetching: false,
+        list: payload
+      };
     }
     /** обработка ошибки при запросе к апи */
     case TYPE.FETCH_ERROR: {
-      return { ...state, isFetching: false, error: payload };
+      return {
+        ...state,
+        isFetching: false,
+        error: payload
+      };
+    }
+    case TYPE.SET_TASKS_LIST: {
+      return {
+        ...state,
+        list: payload
+      };
     }
     /** такого действия нет, отдаем state без изменений */
     default: {

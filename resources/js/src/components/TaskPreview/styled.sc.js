@@ -1,8 +1,11 @@
 import styled from "styled-components";
 
-export const TaskItem = styled( "div" )`
+export const TaskItemLink = styled( "div" )`
   display: grid;
   grid-template-rows: auto 1fr auto;
+  
+  transition: 0.8s ease-out;
+  
   user-select: none;
   padding: 40px;
   text-align: left;
@@ -15,6 +18,11 @@ export const TaskItem = styled( "div" )`
 
   &:first-of-type {
     margin-left: 100px;
+  }
+  
+  &:hover {
+    filter: brightness(0.9);
+    transform: translate(0, 10px);
   }
 
   .description {

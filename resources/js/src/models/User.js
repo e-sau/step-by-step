@@ -176,6 +176,7 @@ export class User extends Model {
 
   /**
   * Статический фабричный метод, создания пользователя
+  * @param { Object } data
   * @return { User }
   **/
   static buildUser( data ) {
