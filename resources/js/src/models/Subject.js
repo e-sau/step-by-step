@@ -1,23 +1,78 @@
 import { Model } from "./Model";
+import moment from "moment";
 
 export class Subject extends Model {
-  /** @type string системное название предмета */
+  /** @type String системное название предмета */
   _slug;
-  /** @type string */
+  /** @type String */
   _title;
-
+  /** @type Number */
+  _score;
+  /** @type Number */
+  _grade;
+  /** @type String Дата выполнения предмета*/
+  _completeDate;
+  
   /**
    * @return string
    **/
-  get slug () {
+  get slug() {
     return this._slug;
   }
 
   /**
    * @return { String }
    **/
-  get title () {
+  get title() {
     return this._title;
+  }
+
+  /**
+   * @return { String }
+   **/
+  get completeDate() {
+    if ( !this._completeDate ) {
+      return null;
+    }
+    return moment( this._completeDate ).format("DD.MM.YYYY");
+  }
+
+  /**
+   * @return { void }
+   **/
+  set completeDate( value ) {
+    this._completeDate = value;
+  }
+
+  /**
+   * @return { Number }
+   **/
+  get grade() {
+    return this._grade;
+  }
+
+  /**
+   * @return { void }
+   **/
+  set grade( value ) {
+    this._grade = value;
+  }
+
+  /**
+   * @return { String }
+   **/
+  get score() {
+    if ( !this._completeDate ) {
+      return null;
+    }
+    return this._score.toFixed( 1 );
+  }
+
+  /**
+   * @return { String }
+   **/
+  set score( value ) {
+    this._score = value;
   }
 
   /**
@@ -38,7 +93,13 @@ export class Subject extends Model {
    * @return { Subject }
    **/
   static buildSubject( data ) {
-    const { id: _id, slug, title } = Model.transform( data );
-    return Model.load( new Subject( slug, title ), { _id });
+    const { id, slug, title, score, grade, completeDate } = Model.transform( data );
+    const subject = new Subject( slug, title );
+    subject.id = id;
+    subject.score = score;
+    subject.grade = grade;
+    subject.completeDate = completeDate;
+
+    return Model.load( subject );
   }
 }

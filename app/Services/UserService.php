@@ -62,9 +62,10 @@ class UserService
 
                 $data[] = [
                     'id' => $subject->id,
-                    'subject' => $subject->title,
-                    'grade' => '', // Пока заглушка (в текущей логике относится к пользователю, а не к предмету
-                    'middleScore' => $middleScore,
+                    'slug' => $subject->slug,
+                    'title' => $subject->title,
+                    'grade' => '1', // Пока заглушка (в текущей логике относится к пользователю, а не к предмету
+                    'score' => $middleScore,
                     'completeDate' => $userTasksSorted->last()->pivot->updated_at
                 ];
             }

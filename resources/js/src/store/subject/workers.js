@@ -1,16 +1,17 @@
 import { select, call, put } from "redux-saga/effects";
 import makeRequest, { HTTP } from "../../api/makeRequest";
-import { getAll, getAvailable, getSubjectWithTasks } from "../../api/endpoints/subjects";
+import { getAll, getSubjectWithTasks } from "../../api/endpoints/subjects";
 import {
   fetchCompletedSuccess,
   fetchAvailableSuccess,
   fetchAvailableError,
   fetchSubjectWithTasksError,
-  fetchSubjectWithTasksSuccess, fetchAllSuccess, fetchAllError
+  fetchSubjectWithTasksSuccess, fetchAllSuccess, fetchAllError, fetchCompletedError, fetchCompletedRequest
 } from "./actions";
-import { getUserID } from "../user/selectors";
 import { Subject } from "../../models/Subject";
 import { prepareTasks } from "../task/actions";
+import { getCompletedSubjects } from "../../api/endpoints/user";
+import { getCompletedList } from "./selectors";
 
 /**
  * Обработка запроса на апи, на получение всех предметов
@@ -32,17 +33,12 @@ export function* fetchAll() {
  * @yield
  **/
 export function* fetchCompleted() {
-  // const userId = yield select( getUserID );
-  // const { status, data } = yield call( makeRequest, getCompleted( userId ) );
-
-  /** @todo заменить на данные */
-  const mockSubject = { id: 1, subject: "Математика в картинках", grade: 1, middleScore: 5, completeDate: "28.10.2020" };
-
-  // if ( status === HTTP.OK  ) {
-  yield put( fetchCompletedSuccess(  Array(12).fill( mockSubject ) ) );
-  // } else {
-  //   yield put( fetchCompletedError( data ) );
-  // }
+  const { status, data: { data } } = yield call( makeRequest, getCompletedSubjects );
+  if ( status === HTTP.OK  ) {
+    yield put( fetchCompletedSuccess( data.map(Subject.buildSubject) ) );
+  } else {
+    yield put( fetchCompletedError( data ) );
+  }
 }
 
 /**
@@ -50,14 +46,17 @@ export function* fetchCompleted() {
  * @yield
  **/
 export function* fetchAvailable() {
-  const userId = yield select( getUserID );
-  const { status, data } = yield call( makeRequest, getAvailable( userId ) );
+  yield put( fetchCompletedRequest() );
+  const completed = yield select( getCompletedList );
+  const { status, data: { data } } = yield call( makeRequest, getAll );
 
-  /** @todo заменить на данные */
-  const mockSubject = { id: 1, subject: "Математика в картинках", grade: 1 };
 
   if ( status === HTTP.OK ) {
-    yield put( fetchAvailableSuccess( Array(12).fill( mockSubject )  ) );
+    const available = data.filter( _item => {
+      return !completed.find( _subj => _item.id === _subj.id );
+    });
+
+    yield put( fetchAvailableSuccess( available.map(Subject.buildSubject) ) );
   } else {
     yield put( fetchAvailableError( data ) );
   }

@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CardHeading, CardRow, TaskItemLink } from "./styled.sc";
+import { Subject } from "../../models/Subject";
 
-export function CompletedTaskPreview( props ) {
-  const { id, subject, grade, middleScore, completeDate } = props;
+export function CompletedSubjectPreview( props ) {
+  const { subject } = props;
 
   return (
-    <TaskItemLink to={ `/tasks/${ id }` }>
+    <TaskItemLink to={ `/subjects/${ subject.slug }` }>
       <CardHeading className="card_heading">
-        <h3 className="main">{ subject }</h3>
-        <span className="sub">Класс: { grade }</span>
+        <h3 className="main">{ subject.title }</h3>
+        <span className="sub">Класс: { subject.grade }</span>
       </CardHeading>
       <CardRow className="card_row">
         <div className="row_icon">
@@ -19,7 +20,7 @@ export function CompletedTaskPreview( props ) {
         </div>
         <div className="headers">
           <h5 className="main">Средняя оценка:</h5>
-          <span className="sub">Баллы: { middleScore }</span>
+          <span className="sub">{ subject.score }</span>
         </div>
       </CardRow>
       <CardRow className="card_row">
@@ -30,17 +31,13 @@ export function CompletedTaskPreview( props ) {
         </div>
         <div className="headers">
           <h5 className="main">Дата прохождения:</h5>
-          <span className="sub">{ completeDate }</span>
+          <span className="sub">{ subject.completeDate }</span>
         </div>
       </CardRow>
     </TaskItemLink>
   );
 }
 
-CompletedTaskPreview.propTypes = {
-  id: PropTypes.number.isRequired,
-  subject: PropTypes.string.isRequired,
-  grade: PropTypes.number.isRequired,
-  middleScore: PropTypes.number.isRequired,
-  completeDate: PropTypes.string.isRequired,
+CompletedSubjectPreview.propTypes = {
+  subject: PropTypes.instanceOf( Subject )
 };

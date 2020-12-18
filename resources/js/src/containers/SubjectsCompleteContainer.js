@@ -1,7 +1,8 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { CompletedTasks } from "../components/CompletedTasks";
+import { SubjectsList } from "../components/SubjectsList";
 import { fetchCompletedRequest } from "../store/subject/actions";
+import { CompletedSubjectPreview } from "../components/CompletedSubjectPreview";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице
@@ -14,14 +15,15 @@ function mapStateToProps( state ) {
   return {
     isAuthorized,
     user: model,
-    completedTaskList: completed,
+    list: completed,
     isFetching: completedIsFetching,
+    Component: CompletedSubjectPreview
   };
 }
 
 function mapDispatchToProps( dispatch ) {
-  return bindActionCreators({ fetchCompletedRequest }, dispatch );
+  return bindActionCreators({ fetchRequest: fetchCompletedRequest }, dispatch );
 }
 
 /** Отдаем на использование подготовленный контейнер */
-export default connect( mapStateToProps, mapDispatchToProps )( CompletedTasks );
+export default connect( mapStateToProps, mapDispatchToProps )( SubjectsList );
