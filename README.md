@@ -1,4 +1,5 @@
-# Step by Step
+# Step by Step 
+![tests](https://github.com/e-sau/step-by-step/workflows/node/badge.svg)
 ### A primary education project
 
 ***
