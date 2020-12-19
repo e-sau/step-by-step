@@ -1,4 +1,4 @@
-const { getAll, getByGrade, getAvailable, getCompleted } = require("../../../src/api/endpoints/subjects");
+const { getAll, getByGrade, getCompleted } = require("../../../src/api/endpoints/subjects");
 
 describe( getAll.name, () => {
   it("should return Object", function () {
@@ -45,23 +45,3 @@ describe( getCompleted.name, () => {
     expect( requestBody.uri ).toBe(`subjects/completed/${ ID }`);
   });
 });
-
-describe( getAvailable.name, () => {
-  it("should to throw Error", function () {
-    expect( getAvailable ).toThrow( Error );
-  });
-
-  it("should to throw TypeError", function () {
-    [ {}, () => 1, "string" ].forEach( payload => {
-      expect( () => getAvailable(payload) ).toThrow( TypeError );
-    });
-  });
-
-  it("should return Object", function () {
-    const ID = 1;
-    const requestBody = getAvailable( ID );
-    expect( requestBody ).toBeInstanceOf( Object );
-    expect( requestBody.uri ).toBe(`subjects/available/${ ID }`);
-  });
-});
-

@@ -58,28 +58,3 @@ export function getCompleted( id ) {
     uri: `subjects/completed/${ id }`,
   };
 }
-
-/**
- * Получить список доступных предметов
- * @return { Object }
- *
- * @throws Error|TypeError
- **/
-export function getAvailable( id ) {
-
-  if ( !id ) {
-    throw new Error("Missing argument error");
-  }
-
-  if ( typeof id !== "number" ) {
-    throw new TypeError();
-  }
-
-  return {
-    uri: `subjects/available/${ id }`,
-  };
-}
-
-
-
-
