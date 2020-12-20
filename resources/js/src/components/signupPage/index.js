@@ -6,6 +6,11 @@ import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer 
 import { User } from "../../models/User";
 import { SignupFormWrapper } from "./SignupFormWrapper";
 
+const QUESTIONS = [
+  "« Что находится между рекой и берегом? »",
+  "« Что можно увидеть с закрытыми глазами? »",
+  "« На каких полях трава не растёт? »"
+];
 /**
  * Думаю подробить, но когда дизайн будем навешивать везде
  * @param { Object } props
@@ -19,8 +24,7 @@ export function SignupPage( props ) {
   return (
     <PageContainer>
       <FormContainer>
-        <FormLeftSide>
-          <article>{/** some text */}</article>
+        <FormLeftSide>         
           <HelperLinks>
             <Link to={ "/restore/password" }>
               <Typography align="center">Забыли пароль?</Typography>
@@ -29,6 +33,9 @@ export function SignupPage( props ) {
               <Typography align="center">Авторизация</Typography>
             </Link>
           </HelperLinks>
+          <article>
+            {QUESTIONS.map((question, index) => <span key={index}>{question}</span>)}
+          </article>
         </FormLeftSide>
         <FormRightSide>
           <SignupFormWrapper
