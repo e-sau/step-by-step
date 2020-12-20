@@ -1,7 +1,7 @@
 # Step by Step 
 ### A primary education project
 
-[![Node.js CI Actions Status](https://github.com/e-sau/step-by-step/workflows/Node.js%20CI/badge.svg)](https://github.com/e-sau/step-by-step/actions)
+[![Node.js CI build](https://github.com/e-sau/step-by-step/workflows/Node.js%20CI/badge.svg)](https://github.com/e-sau/step-by-step/actions)
 
 ***
 To start the project locally for the first time:
