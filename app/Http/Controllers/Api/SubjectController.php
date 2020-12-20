@@ -79,7 +79,7 @@ class SubjectController extends Controller
      *      path="/subjects",
      *      summary="Create subject",
      *      description="Create a new subject",
-     *      operationId="createSabject",
+     *      operationId="createSubject",
      *      tags={"subjects"},
      *      @OA\RequestBody(
      *          required=true,
