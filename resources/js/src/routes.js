@@ -17,11 +17,11 @@ export default [
     component: React.lazy(() => import("./containers/AccountPageContainer") ),
   },
   {
-    path: "/tasks",
+    path: "/subjects/:slug?",
     exact: true,
-    component: React.lazy(() => import("./components/notFoundPage") ),
+    component: React.lazy(() => import("./containers/SubjectsPageContainer") ),
   },
 
   /** @todo добавить новые маршруты */
-  { component: React.lazy(() => import("./components/notFoundPage")) } /// этот роут всегда должен быть в конце
+  { component: React.lazy(() => import("./pages/NotFoundPage")) } /// этот роут всегда должен быть в конце
 ];

@@ -1,108 +1,131 @@
-import { object, string, func } from "../../src/common/helpers";
+import {
+  memo,
+  objectClone,
+  objectTransformKeys,
+  snakeCaseToLowerCamelCase,
+  snakeCaseKebabCase
+} from "../../src/common/helpers";
 
-describe("Testing objectHelpers", () => {
+describe( objectClone.name, () => {
+  it("should to throw TypeError", function () {
+    expect( objectClone ).toThrow( TypeError );
 
-  describe("testing update function", () => {
-    it("should to throw TypeError", function () {
-      expect( object.update ).toThrow( TypeError );
-      expect( () => {
-        object.update( null, []);
-      }).toThrow( TypeError );
-      expect( () => {
-        object.update( "string", []);
-      }).toThrow( TypeError );
+    expect( () => {
+      objectClone( null, []);
+    }).toThrow( TypeError );
 
-      expect( () => {
-        object.update({}, "string");
-      }).toThrow( TypeError );
-    });
+    expect( () => {
+      objectClone( "string", []);
+    }).toThrow( TypeError );
 
-    it("should to return new ref", function () {
-      const testProperties = ["t", "newValue"];
-      const testObject = { key: "test", t: "" };
-
-      const clone = object.update( testObject, [
-        testProperties
-      ]);
-
-      expect( clone ).not.toBe( testObject );
-      expect( clone ).toStrictEqual({
-        ...testObject, [ testProperties[0] ]: testProperties[1]
-      });
-    });
+    expect( () => {
+      objectClone({}, "string");
+    }).toThrow( TypeError );
   });
 
-  describe("testing keysTransform function", () => {
+  it("should to return new ref", function () {
+    const testProperties = ["t", "newValue"];
+    const testObject = { key: "test", t: "" };
 
-    it("should to throw Error", function () {
-      expect( object.keysTransform ).toThrow( Error );
-      expect(() => {
-        object.keysTransform( {} );
-      }).toThrow( Error );
-    });
+    const clone = objectClone( testObject, [
+      testProperties
+    ]);
 
-    it("should to throw TypeError", function () {
-      expect( () => {
-        object.keysTransform( null, () => 1 );
-      }).toThrow( TypeError );
-
-      expect( () => {
-        object.keysTransform({}, "string" );
-      }).toThrow( TypeError );
-    });
-
-    it("should to convertObject keys", function () {
-      const testObject = {
-        snake_case: "value",
-        another_snake_case: "anotherValue"
-      };
-      const transformedKeys = object.keysTransform( testObject, string.snakeCaseToCamelCase );
-
-      expect( transformedKeys ).not.toStrictEqual({
-        snakeCase: "value",
-        another_snake_case: "anotherValue"
-      });
-
-      expect( transformedKeys ).toStrictEqual({
-        snakeCase: "value",
-        anotherSnakeCase: "anotherValue"
-      });
+    expect( clone ).not.toBe( testObject );
+    expect( clone ).toStrictEqual({
+      ...testObject, [ testProperties[0] ]: testProperties[1]
     });
   });
 });
 
-describe("Testing stringHelpers", () => {
-  describe("testing snakeCaseToCamelCase function", function () {
-    it("should to throw Error", function () {
-      expect( string.snakeCaseToCamelCase ).toThrow( Error );
+describe( objectTransformKeys.name, () => {
+
+  it("should to throw Error", function () {
+    expect( objectTransformKeys ).toThrow( Error );
+    expect(() => {
+      objectTransformKeys( {} );
+    }).toThrow( Error );
+  });
+
+  it("should to throw TypeError", function () {
+    expect( () => {
+      objectTransformKeys( null, () => 1 );
+    }).toThrow( TypeError );
+
+    expect( () => {
+      objectTransformKeys({}, "string" );
+    }).toThrow( TypeError );
+  });
+
+  it("should to convertObject keys", function () {
+    const testObject = {
+      snake_case: "value",
+      another_snake_case: "anotherValue"
+    };
+    const transformedKeys = objectTransformKeys( testObject, snakeCaseToLowerCamelCase );
+
+    expect( transformedKeys ).not.toStrictEqual({
+      snakeCase: "value",
+      another_snake_case: "anotherValue"
     });
 
-    it("should to return camelCaseString", function () {
-      expect( string.snakeCaseToCamelCase("a") ).toBe( "a" );
-      expect( string.snakeCaseToCamelCase("test_string") ).toBe( "testString" );
-      expect( string.snakeCaseToCamelCase("long_test_string_") ).toBe( "longTestString" );
-      expect( string.snakeCaseToCamelCase("_a") ).toBe( "a" );
-      expect( string.snakeCaseToCamelCase("b_a") ).toBe( "bA" );
+    expect( transformedKeys ).toStrictEqual({
+      snakeCase: "value",
+      anotherSnakeCase: "anotherValue"
     });
   });
 });
 
-describe("Testing funcHelpers", () => {
-  describe("testing memo function", function () {
-    it("should to throw Error", function () {
-      expect( func.memo ).toThrow( Error );
-    });
 
-    it("should to throw TypeError", function () {
-      expect( () => func.memo("string") ).toThrow( TypeError );
-      expect( () => func.memo(1) ).toThrow( TypeError );
-      expect( () => func.memo({}) ).toThrow( TypeError );
-      expect( () => func.memo([]) ).toThrow( TypeError );
-    });
 
-    it("should to return function", function () {
-      const mockFunc = func.memo( () => 1 );
-      expect( () => mockFunc() ).toBeInstanceOf( Function );
-    });
+describe( snakeCaseToLowerCamelCase.name, function () {
+  it("should to throw Error", function () {
+    expect( snakeCaseToLowerCamelCase ).toThrow( Error );
+  });
+
+  it("should to return camelCaseString", function () {
+    expect( snakeCaseToLowerCamelCase("AA") ).toBe( "AA" );
+    expect( snakeCaseToLowerCamelCase("Aa") ).toBe( "Aa" );
+    expect( snakeCaseToLowerCamelCase("a") ).toBe( "a" );
+    expect( snakeCaseToLowerCamelCase("test_string") ).toBe( "testString" );
+    expect( snakeCaseToLowerCamelCase("long_test_string_") ).toBe( "longTestString" );
+    expect( snakeCaseToLowerCamelCase("_a") ).toBe( "a" );
+    expect( snakeCaseToLowerCamelCase("b_a") ).toBe( "bA" );
+    expect( snakeCaseToLowerCamelCase("____") ).toBe( "" );
+  });
+});
+
+describe( snakeCaseKebabCase.name, function () {
+  it("should to throw Error", function () {
+    expect( snakeCaseKebabCase ).toThrow( Error );
+  });
+
+  it("should to return kebab-case string", function () {
+    expect( snakeCaseKebabCase("AA") ).toBe( "AA" );
+    expect( snakeCaseKebabCase("Aa") ).toBe( "Aa" );
+    expect( snakeCaseKebabCase("a") ).toBe( "a" );
+    expect( snakeCaseKebabCase("test_string") ).toBe( "test-string" );
+    expect( snakeCaseKebabCase("long_test_string_") ).toBe( "long-test-string" );
+    expect( snakeCaseKebabCase("_a") ).toBe( "a" );
+    expect( snakeCaseKebabCase("b_a") ).toBe( "b-a" );
+    expect( snakeCaseKebabCase("____") ).toBe( "" );
+  });
+});
+
+describe( memo.name, function () {
+  it("should to throw Error", function () {
+    expect( memo ).toThrow( Error );
+  });
+
+  it("should to throw TypeError", function () {
+    expect( () => memo("string") ).toThrow( TypeError );
+    expect( () => memo(1) ).toThrow( TypeError );
+    expect( () => memo({}) ).toThrow( TypeError );
+    expect( () => memo([]) ).toThrow( TypeError );
+  });
+
+  it("should to return function", function () {
+    const mockFunc = memo( () => 1 );
+    expect( () => mockFunc() ).toBeInstanceOf( Function );
   });
 });

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { SubjectSelect } from "../components/indexPage/blockSubjects";
+import { SubjectSelect } from "../components/SubjectSelect";
 
 /**Маппинг стейта для компонента, и передача этих данных в виде props */
 function mapStateToProps( state ) {

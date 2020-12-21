@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Button as MaterialButton } from "@material-ui/core";
-import { colorsMap } from "./colors";
+import { colorsMap } from "../../common/colors";
 import Typography from "@material-ui/core/Typography";
 
 const StyledButton = styled( MaterialButton )`

@@ -1,8 +1,7 @@
 /**
- * Получить ID выбранного предмета
  * @property { Object } state
- * @return { Number }
+ * @return { Array }
  **/
-export function getSelectedId( state ) {
-  return state.grade.selectedId;
+export function getCompletedList( state ) {
+  return state.subject.completed;
 }

@@ -16,6 +16,49 @@ use App\Http\Resources\Grade as GradeResource;
 class GradeController extends Controller
 {
     /**
+     *  @OA\Get(
+     *      path="/grades",
+     *      summary="Get grades",
+     *      description="Return list of grades with relations",
+     *      operationId="getGrades",
+     *      tags={"subjects"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets grade relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      ref="#/components/schemas/Grade",
+     *                  ),
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -31,6 +74,35 @@ class GradeController extends Controller
         return GradeResource::collection($grades);
     }
 
+    /**
+     *  @OA\Post(
+     *      path="/grades",
+     *      summary="Create grade",
+     *      description="Create a new grade",
+     *      operationId="createGrade",
+     *      tags={"grades"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"level", "school_id"},
+     *              @OA\Property(property="level", type="string"),
+     *              @OA\Property(property="letter", type="string"),
+     *              @OA\Property(property="school_id", type="integer"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *      ),
+     *  )
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +123,57 @@ class GradeController extends Controller
     }
 
     /**
+     *  @OA\Get(
+     *      path="/grades/{id}",
+     *      summary="Get grade",
+     *      description="Return grade with relations",
+     *      operationId="showGrade",
+     *      tags={"grades"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Grade ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets grade relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string",
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Grade",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display the specified resource.
      *
      * @param Request $request
@@ -67,6 +190,43 @@ class GradeController extends Controller
         return $with ? new GradeResource($grade->load($with)) : new GradeResource($grade);
     }
 
+    /**
+     *  @OA\Put(
+     *      path="/grades/{id}",
+     *      summary="Update grade",
+     *      description="Update grade",
+     *      operationId="updateGrade",
+     *      tags={"grades"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Grade ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="level", type="string"),
+     *              @OA\Property(property="letter", type="string"),
+     *              @OA\Property(property="school_id", type="integer"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Update the specified resource in storage.
      *
@@ -87,6 +247,35 @@ class GradeController extends Controller
         return response()->json($grade, Response::HTTP_OK);
     }
 
+    /**
+     *  @OA\Delete(
+     *      path="/grades/{id}",
+     *      summary="Delete grade",
+     *      description="Delete grade",
+     *      operationId="deleteGrade",
+     *      tags={"grades"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Grade ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Remove the specified resource from storage.
      *

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { MessagesBlock } from "../components/accountPage/messagesBlock";
+import { MessagesBlock } from "../components/MessagesBlock";
 
 /**
  * Мапим параметры из стора, которые нужны нашей странице

@@ -17,6 +17,20 @@ function* watchForFetchCompleted() {
 function* watchForFetchAvailable() {
   yield takeEvery( ACTION.FETCH_AVAILABLE, worker.fetchAvailable );
 }
+/**
+ * Отслеживание события @subject-FETCH_SUBJECT_WITH_TASKS
+ * @yield
+ **/
+function* watchForFetchSubjectWithTasks() {
+  yield takeEvery( ACTION.FETCH_SUBJECT_WITH_TASKS, worker.fetchSubjectWithTasks );
+}
+/**
+ * Отслеживание события @subject-FETCH_ALL
+ * @yield
+ **/
+function* watchForFetchAll() {
+  yield takeEvery( ACTION.FETCH_ALL, worker.fetchAll );
+}
 
 /**
  * Обьеденение и прослушивание всех событий
@@ -24,7 +38,9 @@ function* watchForFetchAvailable() {
  **/
 export default function* subjectWatchers() {
   yield all([
+    watchForFetchAll(),
     watchForFetchCompleted(),
     watchForFetchAvailable(),
+    watchForFetchSubjectWithTasks(),
   ]);
 }

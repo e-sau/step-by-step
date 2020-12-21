@@ -32,6 +32,20 @@ export class Task extends Model {
    **/
   updatedAt;
 
+  /**
+   * Флаг указывающий выполена ли задача
+   * @type Boolean
+   **/
+  completed;
+
+  /**
+   * @param { Number } difficult
+   * @param { String } title
+   * @param { String } description
+   * @param { Number|String } solution
+   *
+   * @return { void }
+   **/
   constructor( difficult, title, description, solution ) {
     super();
 
@@ -41,14 +55,28 @@ export class Task extends Model {
     this.solution = solution;
   }
 
+  get help() {
+    return "Попробуй еще раз!)";
+  }
+
+  getData() {
+    return {
+      title: this.title,
+      description: this.description,
+      difficult: this.difficult,
+      solution: this.solution,
+    };
+  }
+
   /**
    * Статический фабричный метод, создания отзыва
+   * @param { Object } data
    * @return { Review }
    **/
-  static buildReview( data ) {
-    const { id: _id, difficult, title, description, solution } = Model.transform( data );
+  static buildTask( data ) {
+    const { id: _id, difficult, title, description, solution, updatedAt } = Model.transform( data );
     const task = new Task( difficult, title, description, solution );
 
-    return Model.load( task, { _id });
+    return Model.load( task, { _id, completed: Boolean(updatedAt) });
   }
 }

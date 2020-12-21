@@ -21,6 +21,15 @@ Route::middleware('auth:api')->group(function() {
 
     Route::get('/user', \App\Http\Controllers\Api\UserController::class.'@show')->middleware('addWithParams');
 
+    /* User Tasks */
+    Route::get('/user/tasks/available', \App\Http\Controllers\Api\UserController::class.'@getAvailableTasks');
+    Route::get('/user/tasks/completed', \App\Http\Controllers\Api\UserController::class.'@getCompletedTasks');
+    /* /User Tasks */
+
+    /* User Subjects */
+    Route::get('/user/subjects/completed', \App\Http\Controllers\Api\UserController::class.'@getCompletedSubjects');
+    /* User Subjects */
+
     Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);
         Route::apiResource('roles', \App\Http\Controllers\Api\RoleController::class);

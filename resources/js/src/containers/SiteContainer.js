@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import Layout from "../layout";
-import { Loader } from "../components/ui/loader/Loader";
+import { Loader } from "../components/ui/Loader";
 import { initialize } from "../store/site/actions";
 
 /**
@@ -33,9 +33,11 @@ SiteWrapper.propTypes = {
   children: PropTypes.any
 };
 
-
 const mapStateToProps = () => ({});
+
 /** Мапим и оборачиваем функцией dispatch, все actionCreators **/
-const mapDispatchToProps = ( dispatch ) => bindActionCreators({ initialize }, dispatch);
+function mapDispatchToProps( dispatch ) {
+  return bindActionCreators({ initialize }, dispatch);
+}
 
 export default connect( mapStateToProps, mapDispatchToProps )( SiteWrapper );

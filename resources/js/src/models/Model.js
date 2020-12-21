@@ -1,5 +1,5 @@
 import { ValidateResult } from "../common/validators";
-import { object, string } from "../common/helpers";
+import { objectClone, objectTransformKeys, snakeCaseToLowerCamelCase } from "../common/helpers";
 
 /**
  * Родительский класс для всех обьектов работы с данными
@@ -46,7 +46,7 @@ export class Model {
     * @return { String }
     **/
     static transform( data ) {
-      return object.keysTransform( data, string.snakeCaseToCamelCase );
+      return objectTransformKeys( data, snakeCaseToLowerCamelCase );
     }
 
     /**
@@ -57,7 +57,7 @@ export class Model {
      * @return { Object }
      **/
     static load( model, params = {} ) {
-      return object.update(
+      return objectClone(
         model, Object.entries( params )
       );
     }

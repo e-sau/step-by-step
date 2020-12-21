@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { SignupPage } from "../components/signupPage";
+import SignupPage from "../pages/SignupPage";
 import { submit } from "../store/auth/actions";
 import { changeModelAttribute } from "../store/user/actions";
 
@@ -41,11 +41,9 @@ function mapStateToProps( state ) {
 /**
  * Мапим и оборачиваем функцией dispatch, все actionCreators
  **/
-const mapDispatchToProps = ( dispatch ) =>
-  bindActionCreators({
-    onChange: changeModelAttribute,
-    onSubmit: submit,
-  }, dispatch );
+function mapDispatchToProps( dispatch ) {
+  return  bindActionCreators({ changeModelAttribute, submit }, dispatch );
+}
 
 /** Отдаем на использование подготовленный контейнер */
 export default connect( mapStateToProps, mapDispatchToProps )( PageWrapper );

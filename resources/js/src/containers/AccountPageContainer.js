@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { faBullhorn, faCheckSquare, faEnvelope, faMedal, faPenSquare, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import { AccountPage } from "../components/accountPage";
+import AccountPage from "../pages/AccountPage";
 import { bindActionCreators } from "redux";
 import { changeModelAttribute } from "../store/user/actions";
 
@@ -16,24 +16,24 @@ const NAV_ITEMS = [
     component: React.lazy(() => import("./ProfileEditFormContainer" ) )
   },
   {
-    id: 2, label: "Сообщения", icon: faEnvelope,
+    id: 2, label: "Сообщения", icon: faEnvelope, disable: true,
     component: React.lazy(() => import("./MessagesContainer" ) )
   },
   {
     id: 3, label: "Завершенные предметы", icon: faCheckSquare,
-    component:  React.lazy(() => import("./TasksCompleteContainer" ) ),
+    component:  React.lazy(() => import("./SubjectsCompleteContainer" ) ),
   },
   {
-    id: 4, label: "Доступные предмет", icon: faPenSquare, disable: true,
-    component:  React.lazy(() => import("../components/notFoundPage" ) )
+    id: 4, label: "Доступные предметы", icon: faPenSquare,
+    component:  React.lazy(() => import("./SubjectsAvailableContainer" ) )
   },
   {
     id: 5, label: "Достижения", icon: faMedal, disable: true,
-    component:  React.lazy(() => import("../components/notFoundPage" ) )
+    component:  React.lazy(() => import("../pages/NotFoundPage" ) )
   },
   {
     id: 6, label: "Оповещения", icon: faBullhorn, disable: true,
-    component:  React.lazy(() => import("../components/notFoundPage" ) )
+    component:  React.lazy(() => import("../pages/NotFoundPage" ) )
   },
 ];
 

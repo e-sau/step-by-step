@@ -1,5 +1,6 @@
 import * as TYPE from "./types";
-import {Subject} from "../../models/Subject";
+import { Subject } from "../../models/Subject";
+import { snakeCaseKebabCase } from "../../common/helpers";
 
 /**
  * Начальное состояние
@@ -9,12 +10,14 @@ const subjectInitialState = {
   isFetching: false,
   /** @todo получать это с бека, с переводом, написать задачу на бек( чтоб позволили получать список предметом без авторизации ) */
   previewList: [
-    new Subject( 1,"Русский язык" ),
-    new Subject(2,"Математика" ),
-    new Subject(3,"Окружающий мир" ),
+    new Subject( snakeCaseKebabCase("russian_language") ,"Русский язык"),
+    new Subject("maths","Математика", ),
+    new Subject( snakeCaseKebabCase("world_around"),"Окружающий мир" ),
   ],
-  available: [],
-  completed: [],
+  available: [], /** доступные предметы */
+  completed: [], /** пройденные предметы */
+  list: [], /** все предметы */
+  selected: null,
   completedIsFetching: false,
   availableIsFetching: false,
   error: null,
@@ -33,26 +36,95 @@ export default function subjectReducer( state = subjectInitialState, action ) {
   switch ( type ) {
     /** сигнал что послали запрос в апи, можно показывать индикатор загрузки */
     case TYPE.FETCH_COMPLETED: {
-      return { ...state, completedIsFetching: true };
+      return {
+        ...state,
+        completedIsFetching: true
+      };
     }
     case TYPE.FETCH_AVAILABLE: {
-      return { ...state, availableIsFetching: true };
+      return {
+        ...state,
+        availableIsFetching: true
+      };
     }
     /** обработка успешного запроса к апи */
     case TYPE.FETCH_COMPLETED_SUCCESS: {
-      return { ...state, completedIsFetching: false, completed: payload };
+      return {
+        ...state,
+        completedIsFetching: false,
+        completed: payload
+      };
     }
     /** обработка ошибки при запросе к апи */
     case TYPE.FETCH_COMPLETED_ERROR: {
-      return { ...state, completedIsFetching: false, error: payload };
+      return {
+        ...state,
+        completedIsFetching: false,
+        error: payload
+      };
     }
     /** обработка успешного запроса к апи */
     case TYPE.FETCH_AVAILABLE_SUCCESS: {
-      return { ...state, availableIsFetching: false, available: payload };
+      return {
+        ...state,
+        availableIsFetching: false,
+        available: payload
+      };
     }
     /** обработка ошибки при запросе к апи */
     case TYPE.FETCH_AVAILABLE_ERROR: {
-      return { ...state, availableIsFetching: false, error: payload };
+      return {
+        ...state,
+        availableIsFetching: false,
+        error: payload
+      };
+    }
+    /** Успешно получен выбранный предмет с задачами */
+    case TYPE.FETCH_SUBJECT_WITH_TASKS: {
+      return {
+        ...state,
+        isFetching: true,
+        selected: subjectInitialState.selected,
+        error: subjectInitialState.error
+      };
+    }
+    /** Успешно получен выбранный предмет с задачами */
+    case TYPE.FETCH_SUBJECT_WITH_TASKS_SUCCESS: {
+      return {
+        ...state,
+        selected: payload,
+        isFetching: false,
+      };
+    }
+    /** Ошибка при получении выбранного предмета с задачами */
+    case TYPE.FETCH_SUBJECT_WITH_TASKS_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+        error: payload
+      };
+    }
+    /** Сигнал что запросили все задания */
+    case TYPE.FETCH_ALL: {
+      return {
+        ...state,
+        error: subjectInitialState.error
+      };
+    }
+    /** Успешно получены все предметы */
+    case TYPE.FETCH_ALL_SUCCESS: {
+      return {
+        ...state,
+        isFetching: false,
+        list: payload
+      };
+    }
+    /** Ошибка при получении всех предметов */
+    case TYPE.FETCH_ALL_ERROR: {
+      return {
+        ...state,
+        isFetching: false,
+      };
     }
     /** такого действия нет, отдаем state без изменений */
     default: {

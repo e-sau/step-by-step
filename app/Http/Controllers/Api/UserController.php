@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
 use App\Models\User;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -411,5 +412,20 @@ class UserController extends Controller
                 'rating' => $rating
             ]
         ];
+    }
+
+    public function getAvailableTasks(Request $request): array
+    {
+        return UserService::getUserTasks($request->user());
+    }
+
+    public function getCompletedTasks(Request $request): array
+    {
+        return UserService::getUserTasks($request->user(), true);
+    }
+
+    public function getCompletedSubjects(Request $request): array
+    {
+        return UserService::getUserCompletedSubjects($request->user());
     }
 }

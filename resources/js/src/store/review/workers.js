@@ -7,12 +7,12 @@ import { getAll  } from "../../api/endpoints/reviews";
 import * as actionCreator from "./actions";
 
 export function* fetch() {
-  const { status, data: responseBody } = yield call( makeRequest, getAll );
+  const { status, data: { data } } = yield call( makeRequest, getAll );
 
-  if ( status === 200 ) {
-    const reviews = responseBody.data.map( Review.buildReview );
+  if ( status === 200 && Array.isArray( data )) {
+    const reviews = data.map( Review.buildReview );
     yield put( actionCreator.fetchSuccess( reviews ) );
   } else {
-    yield put( actionCreator.fetchError( responseBody.data ) );
+    yield put( actionCreator.fetchError( data ) );
   }
 }

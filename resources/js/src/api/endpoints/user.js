@@ -2,6 +2,7 @@ import { User } from "../../models/User";
 
 /**
  * Авторизация по токену и получение данных о пользователе
+ * @return { Object }
  * @throws Error
  **/
 export function get() {
@@ -45,4 +46,36 @@ export function savePhoto( file ) {
     method: "POST",
     body: formData
   };
+}
+
+/**
+ * Получить список доступных задач
+ * @return { Object }
+ **/
+export function getAvailableTasks() {
+  return { uri: "user/tasks/available" };
+}
+
+/**
+ * Авторизация по токену и получение данных о пользователе
+ * @return { Object }
+ **/
+export function getCompletedTasks() {
+  return { uri: "user/tasks/completed" };
+}
+
+/**
+ * Авторизация по токену и получение данных о пользователе
+ * @return { Object }
+ **/
+export function getAvailableSubjects() {
+  return { uri: "user/subjects/available" };
+}
+
+/**
+ * Авторизация по токену и получение данных о пользователе
+ * @return { Object }
+ **/
+export function getCompletedSubjects() {
+  return { uri: "user/subjects/completed" };
 }

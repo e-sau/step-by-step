@@ -5,7 +5,7 @@ import { User } from "../../models/User";
 import makeRequest, { HTTP } from "../../api/makeRequest";
 import { login, signup, logout } from "../../api/endpoints/auth";
 import { get as getUser } from "../../api/endpoints/user";
-import { object, string } from "../../common/helpers";
+import { objectTransformKeys, snakeCaseToLowerCamelCase } from "../../common/helpers";
 
 import { getModel } from "../user/selectors";
 import { getToken } from "./selectors";
@@ -47,6 +47,7 @@ export function* submit() {
       user.setErrors( data.errors );
       throw new Error("Validation error");
     }
+    localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, data.token );
     yield put( signupSuccess( data.token ) );
   } catch ( ex ) {
     yield put( signupError() );
@@ -71,7 +72,6 @@ export function* userLogin( action ) {
     if ( status === HTTP.OK ) {
       localStorage.setItem( process.env.MIX_APP_TOKEN_KEY, data.token );
       yield put( loginSuccess( data.token ) );
-
       return;
     }
   }
@@ -84,14 +84,14 @@ export function* userLogin( action ) {
  **/
 export function* tokenAuth() {
   const token = yield select( getToken );
-  const { status, data: responseBody } = yield call( makeRequest, getUser );
 
-  if ( status === HTTP.OK ) {
-    const body = responseBody.data;
+  const { status, data: { data } } = yield call( makeRequest, getUser );
+
+  if ( status === HTTP.OK && data instanceof Object ) {
     const preparedUserData = {
-      ...object.keysTransform( body, string.snakeCaseToCamelCase ),
-      photo: body.avatar?.photo,
-      _id: body.id
+      ...objectTransformKeys( data, snakeCaseToLowerCamelCase ),
+      photo: data.avatar?.photo,
+      _id: data.id
     };
     yield put( setUserData( preparedUserData ));
 
