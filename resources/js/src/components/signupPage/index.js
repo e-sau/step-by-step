@@ -2,10 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography } from "@material-ui/core";
-
-import { User } from "../models/User";
-import { SignupFormWrapper } from "../components/SignupFormWrapper";
-import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styles/signupPageStyles.sc";
+import { FormContainer, FormLeftSide, FormRightSide, HelperLinks, PageContainer } from "./styled.sc";
+import { User } from "../../models/User";
+import { SignupFormWrapper } from "./SignupFormWrapper";
 
 const QUESTIONS = [
   "« Что находится между рекой и берегом? »",
@@ -19,13 +18,13 @@ const QUESTIONS = [
  *
  * @todo отрефакторить когда будет готов макет
  **/
-export default function SignupPage( props ) {
+export function SignupPage( props ) {
   const { user, onChange, onSubmit, errors } = props;
 
   return (
     <PageContainer>
       <FormContainer>
-        <FormLeftSide>
+        <FormLeftSide>         
           <HelperLinks>
             <Link to={ "/restore/password" }>
               <Typography align="center">Забыли пароль?</Typography>
