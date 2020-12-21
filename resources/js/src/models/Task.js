@@ -39,6 +39,12 @@ export class Task extends Model {
   completed;
 
   /**
+   * Ссылка на картинку
+   * @type String
+   **/
+  image;
+
+  /**
    * @param { Number } difficult
    * @param { String } title
    * @param { String } description
@@ -65,6 +71,7 @@ export class Task extends Model {
       description: this.description,
       difficult: this.difficult,
       solution: this.solution,
+      image: this.image
     };
   }
 
@@ -74,9 +81,11 @@ export class Task extends Model {
    * @return { Review }
    **/
   static buildTask( data ) {
-    const { id: _id, difficult, title, description, solution, updatedAt } = Model.transform( data );
+    const { id, difficult, title, description, solution, image } = Model.transform( data );
     const task = new Task( difficult, title, description, solution );
+    task.id = id;
+    task.image = image;
 
-    return Model.load( task, { _id, completed: Boolean(updatedAt) });
+    return Model.load( task );
   }
 }

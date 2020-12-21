@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Subject;
 use App\Models\Task;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
@@ -20,16 +19,42 @@ class TasksTableSeeder extends Seeder
         Task::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $faker = \Faker\Factory::create();
+        $tasksList = [
+            [
+                'title' => 'Сложение',
+                'description' => 'Мама пошла за мороженым. Купила 3 пломбира для папы, 1 эскимо для себя и 3 рожка для Тани и Пети. Сколько мороженого купила мама?',
+                'difficult' => '1',
+                'solution' => '7',
+                'subject_id' => '1',
+                'image' => '/images/tasks/icecream.png'
+            ],
+            [
+                'title' => 'Вычитание',
+                'description' => 'Дане подарили книгу про приключения незнайки. Книга из 105 страниц. Даня прочитал уже 75 страниц. Сколько страниц осталось прочитать Дане?',
+                'difficult' => '3',
+                'solution' => '30',
+                'subject_id' => '1',
+                'image' => '/images/tasks/book.png'
+            ],
+            [
+                'title' => 'Вычитание',
+                'description' => 'У Саши было 5 яблок, два яблоко он отдал Насте, еще одно дал Пете, сколько яблок осталось у Саши ?',
+                'difficult' => '1',
+                'solution' => '2',
+                'subject_id' => '1',
+                'image' => '/images/tasks/rope.png'
+            ],
+        ];
 
-        for ($i = 0; $i < 10; $i++) {
+        foreach ( $tasksList as $task ) {
             Task::create([
-                'title' => $faker->sentence(3),
-                'description' => $faker->sentence(5),
-                'difficult' => $faker->numberBetween(0, 3),
-                'solution' => $faker->text(100),
-                'subject_id' => $faker->numberBetween(1, Subject::count()),
-                'type_id' => 1
+                'title' => $task['title'],
+                'description' => $task['description'],
+                'difficult' => $task['difficult'],
+                'solution' => $task['solution'],
+                'subject_id' => $task['subject_id'],
+                'type_id' => 1,
+                'image' => $task['image'],
             ]);
         }
     }

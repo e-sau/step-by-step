@@ -23,6 +23,10 @@ export const TaskContainer = styled( "div" )`
     line-height: 21px;
     letter-spacing: 0.04em;
   }
+  .image {
+    height: 100%;
+    justify-self: center;
+  }
 `;
 
 export const Controls = styled("div")`
@@ -77,11 +81,12 @@ export const HelpMessage = styled( "div" )`
   grid-template-columns: 1fr auto;
   text-align: right;
   gap: 10px;
-  font-size: 3em;
+  font-size: 2em;
   font-style: italic;
   color: #116f00;
+  height: 50px;
   
   img {
-    width: 50px;
+    width: 25px;
   }
 `;

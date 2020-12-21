@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  *      @OA\Property(property="solution", type="text"),
  *      @OA\Property(property="subject_id", type="integer"),
  *      @OA\Property(property="type_id", type="integer"),
+ *      @OA\Property(property="image", type="string"),
  *      @OA\Property(property="created_at", type="string"),
  *      @OA\Property(property="updated_at", type="string"),
  *      @OA\Property(
@@ -40,7 +41,7 @@ class Task extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'difficult', 'solution', 'subject_id', 'type_id'
+        'title', 'description', 'difficult', 'solution', 'subject_id', 'type_id', 'image'
     ];
 
     public static function createRules()
@@ -51,7 +52,8 @@ class Task extends Model
             'difficult' => 'required|integer',
             'solution' => 'required|min:10',
             'subject_id' => 'required|exists:'.Subject::class.',id',
-            'type_id' => 'required|exists:'.TaskType::class.',id'
+            'type_id' => 'required|exists:'.TaskType::class.',id',
+            'image' => 'required|min:5|max:255',
         ];
     }
 
@@ -63,7 +65,8 @@ class Task extends Model
             'difficult' => 'integer',
             'solution' => 'min:10',
             'subject_id' => 'exists:'.Subject::class.',id',
-            'type_id' => 'exists:'.TaskType::class.',id'
+            'type_id' => 'exists:'.TaskType::class.',id',
+            'image' => 'required|min:5|max:255',
         ];
     }
 
