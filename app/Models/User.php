@@ -128,4 +128,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserPhoto::class, 'id', 'photo_id');
     }
+
+    public function userTask()
+    {
+        return$this->hasMany(UserTask::class, 'user_id', 'id');
+    }
 }

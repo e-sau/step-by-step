@@ -17,17 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->group(function() {
     Route::post('/logout', \App\Http\Controllers\Api\Auth\AuthController::class.'@logout')->name('logout');
 
-    Route::get('/ratings/grade', \App\Http\Controllers\Api\UserController::class.'@getUserRatingByGrade');
+    Route::get('/ratings/grade', \App\Http\Controllers\Api\UserController::class.'@getRatingByGrade');
 
     Route::get('/user', \App\Http\Controllers\Api\UserController::class.'@show')->middleware('addWithParams');
 
     /* User Tasks */
     Route::get('/user/tasks/available', \App\Http\Controllers\Api\UserController::class.'@getAvailableTasks');
     Route::get('/user/tasks/completed', \App\Http\Controllers\Api\UserController::class.'@getCompletedTasks');
+
+    Route::put('/user/tasks/{task}/', \App\Http\Controllers\Api\UserTaskController::class.'@update');
     /* /User Tasks */
 
     /* User Subjects */
     Route::get('/user/subjects/completed', \App\Http\Controllers\Api\UserController::class.'@getCompletedSubjects');
+
+    Route::get('/user/subjects/{subject:slug}', \App\Http\Controllers\Api\UserController::class.'@getSubjectTasks');
     /* User Subjects */
 
     Route::group(['middleware' => ['cors', 'json.response']], function () {
