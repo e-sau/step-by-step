@@ -24,7 +24,7 @@ class UserTaskController extends Controller
     {
         $data = $this->validate($request, UserTask::updateRules());
 
-        UserTask::where('task_id', $task->id)->update($data);
+        UserTask::where(['task_id' => $task->id, 'user_id' => $request->user()->id])->update($data);
 
         return response()->json(null, Response::HTTP_OK);
     }
