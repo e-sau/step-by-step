@@ -17,12 +17,13 @@ import { GridContainer, Wrapper } from "./styled.sc";
 import { getFileValidator } from "../../common/validators";
 import { objectClone } from "../../common/helpers";
 import { Loader } from "../ui/Loader";
+import { Model } from "../../models/Model";
 
 export function ProfileEditForm( props ) {
   /** @type User **/
   const { user, updateProfile, photoSelect, errors, userIsFetching } = props;
-  if ( userIsFetching ) {
 
+  if ( userIsFetching ) {
     return <Loader/>;
   }
 
@@ -81,7 +82,7 @@ export function ProfileEditForm( props ) {
   function handleSave() {
     if ( userModel.validate( User.UPDATE_SCENARIO ) ) {
       console.log({ date });
-      userModel.birthday = date.format("YYYY-MM-DD HH:mm:ss");
+      userModel.birthday = date.format( Model.DATE_FORMAT );
       updateProfile( userModel );
     } else {
       updateModelView();
