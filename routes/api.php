@@ -31,7 +31,7 @@ Route::middleware('auth:api')->group(function() {
     /* User Subjects */
     Route::get('/user/subjects/completed', \App\Http\Controllers\Api\UserController::class.'@getCompletedSubjects');
 
-    Route::get('/user/subjects/{subject:slug}', \App\Http\Controllers\Api\UserController::class.'@getSubjectTasks');
+    Route::get('/user/subjects/{subject:slug}/tasks', \App\Http\Controllers\Api\UserController::class.'@getSubjectTasks');
     /* User Subjects */
 
     Route::group(['middleware' => ['cors', 'json.response']], function () {
