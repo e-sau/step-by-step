@@ -81,7 +81,12 @@ class UserService
     {
         $tasks = $user->tasks()->where(['subject_id' => $subject->id])->get()->all();
 
-        $data = $tasks ? array_map(function ($task) {
+        $data = $tasks ? array_map(function ($task) use ($user) {
+            $userTask = $task->userTask()->where([
+                'task_id' => $task->id,
+                'user_id' => $user->id,
+            ])->first();
+
             return [
                 'id' => $task->id,
                 'title' => $task->title,
@@ -89,7 +94,9 @@ class UserService
                 'difficult' => $task->difficult,
                 'solution' => $task->solution,
                 'type' => $task->type->name,
-                'isCompleted' => !!$task->userTask()->where(['task_id' => $task->id])->first()->isCompleted,
+                'isCompleted' => $userTask ? !!$userTask->isCompleted : null,
+                'created_at' => $userTask ? $userTask->created_at : null,
+                'updated_at' => $userTask ? $userTask->updated_at : null,
             ];
         }, $tasks) : [];
 
