@@ -3,19 +3,14 @@ import { ProfileEditForm } from "../components/ProfileEditForm";
 import { bindActionCreators } from "redux";
 import { changeModelAttribute, photoSelect, updateProfile } from "../store/user/actions";
 
-/**
- * Мапим параметры из стора, которые нужны нашей странице
- * @param { Object } state
- * @return { Object }
- **/
 function mapStateToProps( state ) {
-  const { auth: { isAuthorized }, user: { model } } = state;
+  const { auth: { isAuthorized }, user: { model, isFetching } } = state;
   return {
     isAuthorized,
+    userIsFetching: isFetching,
     user: model,
   };
 }
-
 function mapDispatchToProps( dispatch ) {
   return bindActionCreators({
     changeModelAttribute, updateProfile, photoSelect

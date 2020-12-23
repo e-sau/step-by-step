@@ -12,14 +12,17 @@ import { fetchRatingError, fetchRatingSuccess, updateError, updateRef, updateSuc
  * Обновить данные пользователя
  * @yield
  **/
-export function* userUpdate() {
-  const user = yield select( getModel );
+export function* userUpdate( action ) {
+  const userData = action.payload;
+  const userState = yield select( getModel );
 
-  if ( user.validate( User.UPDATE_SCENARIO ) ) {
-    const { status } = yield call( makeRequest, update( user ) );
+  userData.id = userState.id;
+
+  if ( userData.validate( User.UPDATE_SCENARIO ) ) {
+    const { status } = yield call( makeRequest, update( userData ) );
 
     if ( status === HTTP.OK ) {
-      yield put( updateSuccess() );
+      yield put( updateSuccess( userData ) );
       return;
     }
   }
