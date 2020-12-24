@@ -287,8 +287,7 @@ class UserController extends Controller
     public function update(Request $request, User  $user)
     {
         $this->authorize('update', $user);
-
-        // stub
+        $user->update( $request->all() );
         return response()->json(null, Response::HTTP_OK);
     }
 

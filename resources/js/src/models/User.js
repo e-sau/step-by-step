@@ -113,6 +113,9 @@ export class User extends Model {
       [ "password", [ required ] ],
     ],
     update: [
+      [ "name", [ required, getLengthValidator( 4, 60 ) ] ],
+      [ "surname", [ required, getLengthValidator( 6, 60 ) ] ],
+      [ "email", [ required, getLengthValidator( 5 ), getMatchValidator( EMAIL_REGEXP ) ] ],
     ]
   };
 

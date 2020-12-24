@@ -20,7 +20,7 @@ const QUESTIONS = [
  * @todo отрефакторить когда будет готов макет
  **/
 export default function SignupPage( props ) {
-  const { user, onChange, onSubmit, errors } = props;
+  const { user, changeModelAttribute, submit, errors } = props;
 
   return (
     <PageContainer>
@@ -29,9 +29,6 @@ export default function SignupPage( props ) {
           <HelperLinks>
             <Link to={ "/restore/password" }>
               <Typography align="center">Забыли пароль?</Typography>
-            </Link>
-            <Link to={ "/login" }>
-              <Typography align="center">Авторизация</Typography>
             </Link>
           </HelperLinks>
           <article>
@@ -42,8 +39,8 @@ export default function SignupPage( props ) {
           <SignupFormWrapper
             user={ user }
             errors={ errors }
-            onChange={ onChange }
-            onSubmit={ onSubmit }
+            onChange={ changeModelAttribute }
+            onSubmit={ submit }
           />
         </FormRightSide>
       </FormContainer>
@@ -53,7 +50,7 @@ export default function SignupPage( props ) {
 
 SignupPage.propTypes = {
   user: PropTypes.instanceOf( User ),
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  changeModelAttribute: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
   errors: PropTypes.array
 };

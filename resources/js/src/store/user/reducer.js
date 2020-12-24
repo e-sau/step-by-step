@@ -1,6 +1,7 @@
 import * as TYPE from "./types";
 import { User } from "../../models/User";
 import { objectClone } from "../../common/helpers";
+import { LOGIN_SUCCESS, LOGOUT } from "../auth/types";
 
 /**
  * Начальное состояние редьюсера
@@ -10,6 +11,7 @@ const userInitialState = {
   model: new User(),
   rating: null,
   errors: [],
+  isFetching: false,
 };
 
 /**
@@ -24,6 +26,19 @@ export default function userReducer( state = userInitialState, action ) {
   const { type, payload } = action;
 
   switch ( type ) {
+    /** Сигнал что авторизация успешна, и мы запрашиваем данные о пользователе */
+    case LOGIN_SUCCESS: {
+      return {
+        ...state,
+        isFetching: true,
+      };
+    }
+    /** Сигнал что пользователь вышел из системы */
+    case LOGOUT: {
+      return {
+        ...state, model: new User()
+      };
+    }
     /** Обновление данных о пользователе */
     case TYPE.CHANGE_MODEL_ATTRIBUTE: {
       const { key, value } = payload;
@@ -40,6 +55,7 @@ export default function userReducer( state = userInitialState, action ) {
     case TYPE.SET_MODEL_DATA: {
       return {
         ...state,
+        isFetching: false,
         model: objectClone( state.model, Object.entries( payload ) ),
       };
     }
@@ -54,6 +70,7 @@ export default function userReducer( state = userInitialState, action ) {
     case TYPE.UPDATE_SUCCESS: {
       return {
         ...state,
+        model: objectClone( state.model, Object.entries( payload.getData() ) ),
         errors: userInitialState.errors,
       };
     }
