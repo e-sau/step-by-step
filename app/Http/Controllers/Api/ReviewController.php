@@ -16,6 +16,49 @@ use Illuminate\Validation\ValidationException;
 class ReviewController extends Controller
 {
     /**
+     *  @OA\Get(
+     *      path="/reviews",
+     *      summary="Get reviews",
+     *      description="Return list of reviews with relations",
+     *      operationId="getReviews",
+     *      tags={"reviews"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets review relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      ref="#/components/schemas/Review",
+     *                  ),
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -30,6 +73,34 @@ class ReviewController extends Controller
         return ReviewResource::collection($reviews);
     }
 
+    /**
+     *  @OA\Post(
+     *      path="/reviews",
+     *      summary="Create review",
+     *      description="Create a new review",
+     *      operationId="createReview",
+     *      tags={"reviews"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"message", "user_id"},
+     *              @OA\Property(property="message", type="text"),
+     *              @OA\Property(property="user_id", type="integer"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *      ),
+     *  )
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -50,6 +121,57 @@ class ReviewController extends Controller
     }
 
     /**
+     *  @OA\Get(
+     *      path="/reviews/{id}",
+     *      summary="Get review",
+     *      description="Return review with relations",
+     *      operationId="showReview",
+     *      tags={"reviews"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Review ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets review relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string",
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Review",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display the specified resource.
      *
      * @param Request $request
@@ -65,6 +187,42 @@ class ReviewController extends Controller
         return $with ? new ReviewResource($review->load($with)) : new ReviewResource($review);
     }
 
+    /**
+     *  @OA\Put(
+     *      path="/reviews/{id}",
+     *      summary="Update review",
+     *      description="Update review",
+     *      operationId="updateReview",
+     *      tags={"reviews"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Review ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="text"),
+     *              @OA\Property(property="user_id", type="integer"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Update the specified resource in storage.
      *
@@ -85,6 +243,35 @@ class ReviewController extends Controller
         return response()->json($review, Response::HTTP_OK);
     }
 
+    /**
+     *  @OA\Delete(
+     *      path="/reviews/{id}",
+     *      summary="Delete review",
+     *      description="Delete review",
+     *      operationId="deleteReview",
+     *      tags={"reviews"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Review ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Remove the specified resource from storage.
      *
