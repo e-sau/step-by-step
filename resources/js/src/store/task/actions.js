@@ -28,11 +28,15 @@ export function fetchError( error ) {
 
 /**
  * Преобразование денных о задачах, в обекты задачи
+ * @param { String } slug
  * @param { Array } tasks
  * @return { Object }
  **/
-export function prepareTasks( tasks ) {
-  return { type: TYPE.PREPARE_TASKS, payload: tasks };
+export function prepareTasks( slug, tasks ) {
+  return {
+    type: TYPE.PREPARE_TASKS,
+    payload: { slug, tasks }
+  };
 }
 
 /**

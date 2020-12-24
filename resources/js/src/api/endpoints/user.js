@@ -79,3 +79,28 @@ export function getAvailableSubjects() {
 export function getCompletedSubjects() {
   return { uri: "user/subjects/completed" };
 }
+
+/**
+ * Сохранить\отменить выполнение задания для пользователя
+ * @param { Number } taskId
+ * @param { Number } isCompleted
+ * @return { Object }
+ **/
+export function completeTask( taskId, isCompleted = 1 ) {
+  return {
+    uri: `user/tasks/${ taskId }`,
+    method: "PUT",
+    body: { isCompleted }
+  };
+}
+
+/**
+ * Получить задачи для пользователя по предмету
+ * @param { String } slug
+ * @return { Object }
+ **/
+export function getUserTasksBySlug( slug ) {
+  return {
+    uri: `user/subjects/${ slug }/tasks`,
+  };
+}

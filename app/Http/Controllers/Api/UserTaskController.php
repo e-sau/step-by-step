@@ -22,9 +22,24 @@ class UserTaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $userId = $request->user()->id;
         $data = $this->validate($request, UserTask::updateRules());
+        $userTask = UserTask::query()
+            ->where([
+                ['user_id', '=',  $userId ],
+                ['task_id', '=', $task->id ]
+            ])->first();
 
-        UserTask::where(['task_id' => $task->id, 'user_id' => $request->user()->id])->update($data);
+        if ( !$userTask ) {
+           $model = new UserTask();
+           $model->user_id = $userId;
+           $model->task_id = $task->id;
+           $model->isCompleted = $data['isCompleted'];
+           $model->save();
+
+        } else {
+            $userTask->update( $data );
+        }
 
         return response()->json(null, Response::HTTP_OK);
     }

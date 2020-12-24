@@ -35,6 +35,14 @@ use Illuminate\Database\Eloquent\Model;
  *          @OA\Items(ref="#/components/schemas/User"),
  *      ),
  *  )
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property string difficult
+ * @property string $solution
+ * @property int $subject_id
+ * @property int $type_id
+ * @property string $image
  */
 class Task extends Model
 {

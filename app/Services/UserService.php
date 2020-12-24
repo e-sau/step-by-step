@@ -61,13 +61,16 @@ class UserService
                     return $value->pivot->updated_at;
                 });
 
+                $lastItem = $userTasksSorted->last();
+                $completeDate = is_object($lastItem) ? $lastItem->pivot->updated_at : null;
+
                 $data[] = [
                     'id' => $subject->id,
                     'slug' => $subject->slug,
                     'title' => $subject->title,
                     'grade' => '1', // Пока заглушка (в текущей логике относится к пользователю, а не к предмету
                     'score' => $middleScore,
-                    'completeDate' => $userTasksSorted->last()->pivot->updated_at
+                    'completeDate' => $completeDate
                 ];
             }
         }
