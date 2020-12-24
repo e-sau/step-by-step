@@ -66,6 +66,8 @@ class AuthController extends Controller
         $request['password'] = Hash::make($request['password']);
         $request['remember_token'] = Str::random(10);
 
+        /** @todo когда решим как генерим логин - поправить, либо дадим его всеже вводить на форме */
+        $request['login'] = Hash::make( "{$request['name']}-{$request['surname']}-{$request['birthday']}");
         $user = User::create($request->all());
         $token = $user->createToken(config('app.name'))->accessToken;
 
