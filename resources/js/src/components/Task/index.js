@@ -68,10 +68,7 @@ export function TaskView( props ) {
         <Step color="primary">Прочти задачу</Step>
         <Step>Запиши ответ</Step>
       </StepsGrid>
-
-      <div className="image">
-
-      </div>
+      <img className="image" src={ task.image } alt="image"/>
       <Controls className="controls">
         <TextField
           value={ answer }
@@ -84,12 +81,11 @@ export function TaskView( props ) {
           icon={ faCheck }
           onClick={ handleConfirmAnswer }
         />
+        <HelpMessage show={ Boolean(helpMessage) }>{ helpMessage }
+          <img src={ icereamImg } alt="icecream"/>
+        </HelpMessage>
       </Controls>
       { renderWrapper() }
-
-      <HelpMessage show={ Boolean( helpMessage ) }>{ helpMessage }
-        <img src={ icereamImg } alt="icecream"/>
-      </HelpMessage>
     </TaskContainer>
   );
 }
