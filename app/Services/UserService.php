@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Grade;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -73,6 +74,73 @@ class UserService
 
         return [
             'data' => $data
+        ];
+    }
+
+    public static function getUserSubjectTasks(User $user, Subject $subject): array
+    {
+        $tasks = $user->tasks()->where(['subject_id' => $subject->id])->get()->all();
+
+        $data = $tasks ? array_map(function ($task) use ($user) {
+            $userTask = $task->userTask()->where([
+                'task_id' => $task->id,
+                'user_id' => $user->id,
+            ])->first();
+
+            return [
+                'id' => $task->id,
+                'title' => $task->title,
+                'description' => $task->description,
+                'difficult' => $task->difficult,
+                'solution' => $task->solution,
+                'type' => $task->type->name,
+                'isCompleted' => $userTask ? !!$userTask->isCompleted : null,
+                'created_at' => $userTask ? $userTask->created_at : null,
+                'updated_at' => $userTask ? $userTask->updated_at : null,
+            ];
+        }, $tasks) : [];
+
+        return [
+            'data' => $data
+        ];
+    }
+
+    public static function getUserRatingByGrade(User $user): array
+    {
+        /* @var Grade|null $grade */
+        $grade = $user->grade->first();
+        if (!$grade) return ['data' => null];
+
+        $users = $grade->users->all();
+
+        $rating = [];
+        foreach ($users as $user) {
+            $userTasksCompleted = $user->userTask()
+                ->where([
+                    'user_id' => $user->id,
+                    ['isCompleted', '<>', null]
+                ])
+                ->get()
+                ->count();
+
+            $rating[] = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'completed' => $userTasksCompleted
+            ];
+        }
+
+        if ($rating) {
+            usort($rating, function($a, $b) {
+                return $b['completed'] <=> $a['completed'] ;
+            });
+        }
+
+        return [
+            'data' => [
+                'grade' => $grade->level.$grade->letter,
+                'rating' => $rating
+            ]
         ];
     }
 }
