@@ -72,12 +72,13 @@ export function* fetchSubjectWithTasks( action ) {
   const slug = action.payload.replace( "-", "_" );
 
   const { status, data: { data } } = yield call( makeRequest, getSubjectWithTasks( slug ) );
+
   if ( status === HTTP.OK ) {
     const { tasks, ...subjectProps } = data;
     yield put(
       fetchSubjectWithTasksSuccess( Subject.buildSubject( subjectProps ) )
     );
-    yield put( prepareTasks( tasks ) );
+    yield put( prepareTasks( slug, tasks ) );
   } else {
     yield put( fetchSubjectWithTasksError( "failed to fetch" ));
   }

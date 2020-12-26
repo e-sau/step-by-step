@@ -62,10 +62,9 @@ class User extends Authenticatable
     ];
 
     public static $registerRules = [
-        'login' => 'required|string|max:30|unique:users',
         'name' => 'required|string|max:255',
         'surname' => 'required|string|max:255',
-        'birthday' => 'required|date',
+        'birthday' => 'date',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:6|max:50|confirmed',
         'remember_token' => 'string|size:10|nullable'
@@ -128,5 +127,10 @@ class User extends Authenticatable
     public function photo()
     {
         return $this->hasOne(UserPhoto::class, 'id', 'photo_id');
+    }
+
+    public function userTask()
+    {
+        return$this->hasMany(UserTask::class, 'user_id', 'id');
     }
 }

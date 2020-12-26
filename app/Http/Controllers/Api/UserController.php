@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grade;
+use App\Models\Subject;
 use App\Models\User;
 use App\Services\UserService;
 use Exception;
@@ -287,8 +288,7 @@ class UserController extends Controller
     public function update(Request $request, User  $user)
     {
         $this->authorize('update', $user);
-
-        // stub
+        $user->update( $request->all() );
         return response()->json(null, Response::HTTP_OK);
     }
 
@@ -372,46 +372,9 @@ class UserController extends Controller
      * @param Request $request
      * @return array
      */
-    public function getUserRatingByGrade(Request $request)
+    public function getRatingByGrade(Request $request)
     {
-        $user = $request->user();
-
-        /* @var \App\Models\Grade|null $grade */
-        $grade = $user->grade->first();
-        if (!$grade) return ['data' => null];
-
-        $users = $grade->users->all();
-
-        $rating = [];
-        foreach ($users as $user) {
-            /* Add model UserTask later */
-            $userTasksCompleted = DB::table('user_tasks')
-                ->where([
-                    'user_id' => $user->id,
-                    'isCompleted' => 1
-                ])
-                ->get()
-                ->all();
-
-            $rating[] = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'completed' => count($userTasksCompleted)
-            ];
-        }
-
-        if ($rating) {
-            usort($rating, function($a, $b) {
-                return $b['completed'] <=> $a['completed'] ;
-            });
-        }
-
-        return [
-            'data' => [
-                'grade' => $grade->level.$grade->letter,
-                'rating' => $rating
-            ]
-        ];
+        return UserService::getUserRatingByGrade($request->user());
     }
 
     public function getAvailableTasks(Request $request): array
@@ -427,5 +390,10 @@ class UserController extends Controller
     public function getCompletedSubjects(Request $request): array
     {
         return UserService::getUserCompletedSubjects($request->user());
+    }
+
+    public function getSubjectTasks(Request $request, Subject $subject): array
+    {
+        return UserService::getUserSubjectTasks($request->user(), $subject);
     }
 }

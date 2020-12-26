@@ -6,6 +6,7 @@ import { objectClone, objectTransformKeys, snakeCaseToLowerCamelCase } from "../
  * @class Model
  **/
 export class Model {
+  static DATE_FORMAT = "YYYY-MM-DD HH:mm:ss";
   /**
    * ID записи
    * @type int

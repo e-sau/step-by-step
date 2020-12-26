@@ -1,44 +1,78 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
+import styled from "styled-components";
+import MomentUtils from "@date-io/moment";
 import { Typography } from "@material-ui/core";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 import { User } from "../models/User";
 import { Form } from "./ui/form";
 import { Button } from "./ui/Button";
-import styled from "styled-components";
+import { Model } from "../models/Model";
 
-export const ControlsContainer = styled("div")`
-    margin: 0px auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    grid-gap: 20px;
+const ControlsContainer = styled("div")`
+  margin: 0px auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  grid-gap: 20px;
+`;
+
+const GridContainer = styled("div")`
+  display: grid;
+  grid-template-rows: max-content;
 `;
 
 export function SignupFormWrapper( props ) {
   /** @type User **/
   const { user, onChange, onSubmit, errors } = props;
+  const [ date, setDate ] = useState( moment() );
 
   const fieldsList = [
-    { attribute: "login", required: true },
     { attribute: "name", required: true },
     { attribute: "surname", required: true },
-    { attribute: "birthday", required: true, type: "date", placeholder: ""},
     { attribute: "password", required: true, type: "password"  },
     { attribute: "rePassword", required: true, type: "password" },
     { attribute: "email", required: true, type: "email", placeholder: "example@mail.com" },
-    { attribute: "photo", required: true, value:"https://cdn1.iconfinder.com/data/icons/robots-avatars-set/354/Robot_avatar___robot_robo_help_customer_messenger-512.png"},
   ];
+
+  /**
+   * Установить дату рождения
+   * @param { Object } date
+   * @return { void }
+   **/
+  function setBirthDate( date ) {
+    if ( date ) {
+      user.birthday = date.format( Model.DATE_FORMAT );
+      setDate( date );
+    } else {
+      user.birthday = "";
+    }
+  }
 
   return (
     <Fragment>
       <Typography variant="h5" align="center">Регистрация</Typography>
-      <Form
-        model={ user }
-        onChange={ onChange }
-        fieldsList={ fieldsList }
-        errors={ errors }
-      />
+
+      <GridContainer>
+        <Form
+          model={ user }
+          onChange={ onChange }
+          fieldsList={ fieldsList }
+          errors={ errors }
+        />
+        <MuiPickersUtilsProvider locale="ru-Ru" utils={ MomentUtils }>
+          <KeyboardDatePicker
+            label={ user.getLabel("birthday") }
+            format="DD-MM-YYYY"
+            value={ date }
+            onChange={ setBirthDate }
+            cancelLabel={ "Отмена" }
+          />
+        </MuiPickersUtilsProvider>
+      </GridContainer>
+
       <ControlsContainer>
         <Button variant="contained" color="primary" onClick={ onSubmit }>Регистрация</Button>
       </ControlsContainer>

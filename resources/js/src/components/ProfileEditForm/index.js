@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import moment from "moment";
+import MomentUtils from "@date-io/moment";
 import PropTypes from "prop-types";
+import { Typography } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
@@ -9,13 +13,23 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/Button";
 import { Spacer } from "../ui/Spacer";
 import { GridContainer, Wrapper } from "./styled.sc";
-import { Typography } from "@material-ui/core";
+
 import { getFileValidator } from "../../common/validators";
+import { objectClone } from "../../common/helpers";
+import { Loader } from "../ui/Loader";
+import { Model } from "../../models/Model";
 
 export function ProfileEditForm( props ) {
-  const [ warning, setPhotoWarning ] = useState( "" );
   /** @type User **/
-  const { user, changeModelAttribute, updateProfile, photoSelect, errors } = props;
+  const { user, updateProfile, photoSelect, errors, userIsFetching } = props;
+
+  if ( userIsFetching ) {
+    return <Loader/>;
+  }
+
+  const [ userModel, setUserModel ] = useState( User.buildUser(user.getData()) );
+  const [ date, setDate ] = useState( moment() );
+  const [ warning, setPhotoWarning ] = useState( "" );
 
   const fieldsList = [
     { attribute: "name" },
@@ -23,6 +37,11 @@ export function ProfileEditForm( props ) {
     { attribute: "email", type: "email", placeholder: "example@mai.com" },
   ];
 
+  /**
+   * Обработчик выбора фотографии
+   * @param { Event } event
+   * @return { void }
+   **/
   function handleSelectPhoto( event ) {
     const file = event.target.files[ 0 ] || {};
     const validator = getFileValidator( User.PHOTO_TYPES, User.PHOTO_KB_SIZE );
@@ -35,9 +54,45 @@ export function ProfileEditForm( props ) {
     }
   }
 
+  /**
+   * Обновить состояние модели
+   * @return { void }
+   **/
+  function updateModelView() {
+    setUserModel(
+      objectClone( userModel, Object.entries( userModel.getData() ) )
+    );
+  }
+
+  /**
+   * Обработчик изменения данных пользователя
+   * @param { String } key
+   * @param { any } value
+   * @return { void }
+   **/
+  function handleChange( key, value ) {
+    userModel[ key ] = value;
+    updateModelView();
+  }
+
+  /**
+   * Обработчик сохранения данных
+   * @return { void }
+   **/
+  function handleSave() {
+    if ( userModel.validate( User.UPDATE_SCENARIO ) ) {
+      console.log({ date });
+      userModel.birthday = date.format( Model.DATE_FORMAT );
+      updateProfile( userModel );
+    } else {
+      updateModelView();
+    }
+  }
+
   return (
     <GridContainer>
       <div className="photo_container">
+
         <label className="content">
           <img src={ user.avatar } className="content_item" alt="photo" />
           <Wrapper className="content_wrapper">
@@ -61,22 +116,31 @@ export function ProfileEditForm( props ) {
       <div className="form_container">
         <Spacer size={ 48 }/>
         <Form
-          model={ user }
-          onChange={ changeModelAttribute }
+          model={ userModel }
+          onChange={ handleChange }
           fieldsList={ fieldsList }
           errors={ errors }
         />
+        <MuiPickersUtilsProvider locale="ru-Ru" utils={ MomentUtils }>
+          <KeyboardDatePicker
+            label={ userModel.getLabel("birthday") }
+            format="DD-MM-YYYY"
+            value={ date }
+            onChange={ setDate }
+            cancelLabel={ "Отмена" }
+          />
+        </MuiPickersUtilsProvider>
         <Spacer size={ 32 }/>
       </div>
 
-      <Button color="primary" onClick={ updateProfile }>Сохранить</Button>
+      <Button color="primary" onClick={ handleSave }>Сохранить</Button>
     </GridContainer>
   );
 }
 
 ProfileEditForm.propTypes = {
+  userIsFetching: PropTypes.bool.isRequired,
   user: PropTypes.instanceOf( User ).isRequired,
-  changeModelAttribute: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
   photoSelect: PropTypes.func.isRequired,
   errors: PropTypes.array

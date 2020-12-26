@@ -25,18 +25,20 @@ export function changeModelAttribute( key, value ) {
 
 /**
  * Действие отправки измененных данных на сохранение
+ * @param { User } user
  * @return { Object } }
  **/
-export function updateProfile() {
-  return { type: TYPE.UPDATE_PROFILE };
+export function updateProfile( user ) {
+  return { type: TYPE.UPDATE_PROFILE, payload: user };
 }
 
 /**
  * Действие отправки измененных данных на сохранение
+ * @param { User } user
  * @return { Object } }
  **/
-export function updateSuccess() {
-  return { type: TYPE.UPDATE_SUCCESS };
+export function updateSuccess( user) {
+  return { type: TYPE.UPDATE_SUCCESS, payload: user  };
 }
 
 /**

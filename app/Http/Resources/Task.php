@@ -5,6 +5,16 @@ namespace App\Http\Resources;
 use App\Models\TaskType;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property int id
+ * @property string $title
+ * @property string $description
+ * @property string $difficult,
+ * @property string $solution,
+ * @property string $created_at,
+ * @property string $updated_at,
+ * @property string $image
+ **/
 class Task extends JsonResource
 {
     /**
@@ -26,7 +36,8 @@ class Task extends JsonResource
             'subject' => $this->whenLoaded('subject'),
             'additions' => Addition::collection($this->whenLoaded('additions')),
             'users' => User::collection($this->whenLoaded('users')),
-            'type' => $this->whenLoaded('type')
+            'type' => $this->whenLoaded('type'),
+            'image' => $this->image,
         ];
     }
 }
