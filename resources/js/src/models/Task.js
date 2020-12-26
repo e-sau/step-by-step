@@ -81,10 +81,11 @@ export class Task extends Model {
    * @return { Review }
    **/
   static buildTask( data ) {
-    const { id, difficult, title, description, solution, image } = Model.transform( data );
+    const { id, difficult, title, description, solution, image, completed } = Model.transform( data );
     const task = new Task( difficult, title, description, solution );
     task.id = id;
     task.image = image;
+    task.completed = completed;
 
     return Model.load( task );
   }
