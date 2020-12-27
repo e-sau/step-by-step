@@ -16,6 +16,49 @@ use App\Http\Resources\Achievement as AchievementResource;
 class AchievementController extends Controller
 {
     /**
+     *  @OA\Get(
+     *      path="/achievements",
+     *      summary="Get achievements",
+     *      description="Return list of achievements with relations",
+     *      operationId="getAchievements",
+     *      tags={"achievements"},
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets achievement relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string"
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="data", type="array",
+     *                  @OA\Items(
+     *                      type="object",
+     *                      ref="#/components/schemas/Achievement",
+     *                  ),
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -31,6 +74,36 @@ class AchievementController extends Controller
         return AchievementResource::collection($achievements);
     }
 
+    /**
+     *  @OA\Post(
+     *      path="/achievements",
+     *      summary="Create achievement",
+     *      description="Create a new achievement",
+     *      operationId="createAchievement",
+     *      tags={"achievements"},
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              required={"title", "description", "code"},
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="description", type="string"),
+     *              @OA\Property(property="code", type="string"),
+     *              @OA\Property(property="image", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Created",
+     *      ),
+     *  )
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -51,6 +124,57 @@ class AchievementController extends Controller
     }
 
     /**
+     *  @OA\Get(
+     *      path="/achievements/{id}",
+     *      summary="Get achievement",
+     *      description="Return achievement with relations",
+     *      operationId="showAchievement",
+     *      tags={"achievements"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Achievement ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Parameter(
+     *          name="with",
+     *          in="query",
+     *          required=false,
+     *          description="Parameter allow gets achievement relations",
+     *          @OA\Schema(
+     *              type="array",
+     *              minItems=1,
+     *              @OA\Items(
+     *                  type="string",
+     *              ),
+     *          ),
+     *          style="form",
+     *          explode=false,
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="object",
+     *                  ref="#/components/schemas/Achievement",
+     *              ),
+     *          )
+     *      ),
+     *  )
+     */
+    /**
      * Display the specified resource.
      *
      * @param Request $request
@@ -67,6 +191,44 @@ class AchievementController extends Controller
         return $with ? new AchievementResource($achievement->load($with)) : new AchievementResource($achievement);
     }
 
+    /**
+     *  @OA\Put(
+     *      path="/achievements/{id}",
+     *      summary="Update achievement",
+     *      description="Update achievement",
+     *      operationId="updateAchievement",
+     *      tags={"achievements"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Achievement ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(property="title", type="string"),
+     *              @OA\Property(property="description", type="string"),
+     *              @OA\Property(property="code", type="string"),
+     *              @OA\Property(property="image", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Update the specified resource in storage.
      *
@@ -87,6 +249,35 @@ class AchievementController extends Controller
         return response()->json($achievement, Response::HTTP_OK);
     }
 
+    /**
+     *  @OA\Delete(
+     *      path="/achievements/{id}",
+     *      summary="Delete achievement",
+     *      description="Delete achievement",
+     *      operationId="deleteAchievement",
+     *      tags={"achievements"},
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          description="Achievement ID",
+     *          @OA\Schema(
+     *              type="integer",
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthorized",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string"),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Success",
+     *      ),
+     *  )
+     */
     /**
      * Remove the specified resource from storage.
      *
